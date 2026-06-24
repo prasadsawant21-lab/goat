@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The GOAT Debate — Football's Greatest Ever</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --pitch: #0a2e0a;
+    --pitch-light: #0d3d0d;
+    --gold: #FFD700;
+    --gold-dim: #b8960a;
+    --silver: #C0C0C0;
+    --bronze: #CD7F32;
+    --white: #f4f4f4;
+    --muted: #9aa3a8;
+    --messi-blue: #5b9bd5;
+    --messi-glow: rgba(91,155,213,0.3);
+    --ronaldo-red: #e05252;
+    --ronaldo-glow: rgba(224,82,82,0.3);
+    --neymar-green: #4caf6e;
+    --mbappe-teal: #26c6da;
+    --lewandowski-orange: #ff9800;
+    --suarez-purple: #9c27b0;
+    --bg: #060f06;
+    --card: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.08);
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── PITCH TEXTURE BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 60px,
+        rgba(255,255,255,0.015) 60px,
+        rgba(255,255,255,0.015) 61px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 60px,
+        rgba(255,255,255,0.015) 60px,
+        rgba(255,255,255,0.015) 61px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,215,0,0.08) 0%, transparent 70%);
+  }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 10vw, 140px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, var(--gold) 0%, #fff9c4 40%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 40px rgba(255,215,0,0.25));
+    margin-bottom: 8px;
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+  }
+
+  /* ── FILTERS ── */
+  .filters-bar {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px 32px;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .filter-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  select {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,215,0,0.2);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 8px 32px 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23FFD700' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    transition: border-color 0.2s;
+    min-width: 160px;
+  }
+
+  select:hover, select:focus {
+    border-color: var(--gold);
+    outline: none;
+  }
+
+  select option { background: #0f1f0f; color: var(--white); }
+
+  .btn-compare {
+    background: linear-gradient(135deg, var(--gold), #e6ac00);
+    color: #000;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-self: flex-end;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .btn-compare:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(255,215,0,0.3);
+  }
+
+  /* ── GOAT SCORE PODIUM ── */
+  .podium-section {
+    position: relative;
+    z-index: 1;
+    padding: 0 20px 48px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .section-sub {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    letter-spacing: 1px;
+  }
+
+  .podium-grid {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .podium-card {
+    flex: 1;
+    min-width: 130px;
+    max-width: 200px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 20px 16px 16px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+
+  .podium-card:hover { transform: translateY(-4px); }
+
+  .podium-card.rank-1 {
+    border-color: rgba(255,215,0,0.4);
+    box-shadow: 0 0 30px rgba(255,215,0,0.1);
+    padding-top: 28px;
+  }
+
+  .podium-card.rank-2 {
+    border-color: rgba(192,192,192,0.3);
+  }
+
+  .podium-card.rank-3 {
+    border-color: rgba(205,127,50,0.3);
+  }
+
+  .podium-rank {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+  }
+
+  .rank-1 .podium-rank { background: var(--gold); color: #000; }
+  .rank-2 .podium-rank { background: var(--silver); color: #000; }
+  .rank-3 .podium-rank { background: var(--bronze); color: #000; }
+  .rank-4 .podium-rank, .rank-5 .podium-rank, .rank-6 .podium-rank { background: rgba(255,255,255,0.1); color: var(--white); }
+
+  .podium-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .podium-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px;
+    font-weight: 600;
+    margin: 8px 0 4px;
+  }
+
+  .podium-score-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .podium-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    margin-top: 12px;
+    overflow: hidden;
+  }
+
+  .podium-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  /* ── MAIN TABLE ── */
+  .table-section {
+    position: relative;
+    z-index: 1;
+    padding: 0 16px 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 800px;
+  }
+
+  thead {
+    background: rgba(255,215,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  thead tr:first-child th {
+    padding: 14px 12px 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    text-align: center;
+    border-bottom: 1px solid rgba(255,215,0,0.1);
+    white-space: nowrap;
+  }
+
+  thead tr:first-child th:first-child { text-align: left; }
+
+  .metric-row th {
+    padding: 6px 12px 12px;
+    font-size: 10px;
+    color: var(--muted);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .metric-row th:first-child { text-align: left; }
+
+  tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.15s;
+  }
+
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+  td {
+    padding: 12px 12px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  td:first-child {
+    text-align: left;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding-left: 16px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .category-row td {
+    background: rgba(255,215,0,0.04);
+    color: var(--gold-dim);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 8px 12px 8px 16px;
+    text-align: left;
+    border-top: 1px solid rgba(255,215,0,0.1);
+  }
+
+  .val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .val.best { color: var(--gold); }
+  .val.second { color: var(--silver); }
+
+  .bar-cell {
+    min-width: 100px;
+  }
+
+  .mini-bar-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .mini-bar-bg {
+    width: 60px;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .mini-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+  }
+
+  /* ── PLAYER HEADERS ── */
+  .player-header {
+    padding: 16px 12px !important;
+  }
+
+  .player-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .player-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    display: block;
+  }
+
+  .player-nation {
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── HEATMAP SECTION ── */
+  .heatmap-section {
+    position: relative;
+    z-index: 1;
+    padding: 0 16px 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .heatmap-grid {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .heatmap-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 20px;
+    flex: 1;
+    min-width: 240px;
+    max-width: 320px;
+  }
+
+  .heatmap-player-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .pitch-svg {
+    width: 100%;
+    height: auto;
+  }
+
+  /* ── RADAR CHART ── */
+  .radar-section {
+    position: relative;
+    z-index: 1;
+    padding: 0 16px 48px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .radar-wrap {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  canvas#radarChart {
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .radar-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── WEIGHTED SCORE BREAKDOWN ── */
+  .weights-section {
+    position: relative;
+    z-index: 1;
+    padding: 0 16px 48px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .weights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+
+  .weight-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+
+  .weight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .weight-cat {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .weight-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .weight-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .weight-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .weight-item span:last-child {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--white);
+  }
+
+  /* ── FOOTNOTE ── */
+  .footnote {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0 20px 60px;
+    font-size: 11px;
+    color: rgba(154,163,168,0.5);
+    line-height: 1.8;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,215,0,0.2); border-radius: 3px; }
+
+  /* ── BADGE ── */
+  .trophy { font-size: 14px; }
+
+  .winner-crown {
+    position: absolute;
+    top: -8px;
+    right: 8px;
+    font-size: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 56px; }
+    .filters-bar { gap: 8px; }
+    select { min-width: 140px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <p class="hero-eyebrow">The Eternal Argument · Settled with Data</p>
+  <h1>GOAT<br>DEBATE</h1>
+  <p class="hero-sub">Messi vs Ronaldo vs The Rest · Every metric that matters</p>
+</section>
+
+<!-- ═══════════════ FILTERS ═══════════════ -->
+<div class="filters-bar">
+  <div class="filter-group">
+    <span class="filter-label">Era / Season</span>
+    <select id="filterEra" onchange="applyFilters()">
+      <option value="all">All Time (Career)</option>
+      <option value="prime">Prime Years (2009–2019)</option>
+      <option value="2019">2019–20</option>
+      <option value="2020">2020–21</option>
+      <option value="2021">2021–22</option>
+      <option value="2022">2022–23</option>
+      <option value="2023">2023–24</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <span class="filter-label">Competition</span>
+    <select id="filterComp" onchange="applyFilters()">
+      <option value="all">All Competitions</option>
+      <option value="league">League Only</option>
+      <option value="cl">Champions League</option>
+      <option value="national">National Team</option>
+      <option value="worldcup">FIFA World Cup</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <span class="filter-label">View</span>
+    <select id="filterView" onchange="applyFilters()">
+      <option value="overall">Overall Stats</option>
+      <option value="goals">Goals Focus</option>
+      <option value="trophies">Trophies Focus</option>
+      <option value="awards">Individual Awards</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <span class="filter-label">Players</span>
+    <select id="filterPlayers" onchange="applyFilters()">
+      <option value="all">All 6 Players</option>
+      <option value="top2">Messi vs Ronaldo</option>
+      <option value="top3">Top 3 GOAT Scores</option>
+    </select>
+  </div>
+</div>
+
+<!-- ═══════════════ GOAT SCORE PODIUM ═══════════════ -->
+<section class="podium-section">
+  <h2 class="section-title">GOAT SCORE RANKING</h2>
+  <p class="section-sub">Weighted composite across 28 metrics — adjust filters above to recalculate</p>
+  <div class="podium-grid" id="podiumGrid"></div>
+</section>
+
+<!-- ═══════════════ RADAR CHART ═══════════════ -->
+<section class="radar-section">
+  <h2 class="section-title">ATTRIBUTE RADAR</h2>
+  <p class="section-sub">Six dimensions of footballing greatness</p>
+  <div class="radar-wrap">
+    <canvas id="radarChart" width="500" height="500"></canvas>
+    <div class="radar-legend" id="radarLegend"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ FULL COMPARISON TABLE ═══════════════ -->
+<section class="table-section">
+  <h2 class="section-title">FULL STATS COMPARISON</h2>
+  <p class="section-sub">Every metric that defines footballing greatness · ★ = All-time best</p>
+  <div class="table-wrapper">
+    <table id="compTable">
+      <thead id="tableHead"></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════ HEATMAPS ═══════════════ -->
+<section class="heatmap-section">
+  <h2 class="section-title">PITCH HEATMAPS</h2>
+  <p class="section-sub">Typical zones of influence & goal contribution areas</p>
+  <div class="heatmap-grid" id="heatmapGrid"></div>
+</section>
+
+<!-- ═══════════════ WEIGHTED SCORE BREAKDOWN ═══════════════ -->
+<section class="weights-section">
+  <h2 class="section-title">GOAT SCORE METHODOLOGY</h2>
+  <p class="section-sub">How the weighted composite is calculated</p>
+  <div class="weights-grid" id="weightsGrid"></div>
+</section>
+
+<p class="footnote">
+  Data compiled from official UEFA, FIFA, La Liga, Serie A, Premier League & national federation records.<br>
+  Stats current to end of 2023–24 season. GOAT Score is a weighted composite — not an official metric.<br>
+  Built for the beautiful argument 🏆
+</p>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+
+// ══════════════════════════════════════════
+//  DATA
+// ══════════════════════════════════════════
+
+const PLAYERS = [
+  { id: 'messi',        name: 'Messi',        nation: 'Argentina 🇦🇷', color: '#5b9bd5', abbr: 'LM' },
+  { id: 'ronaldo',      name: 'Ronaldo',       nation: 'Portugal 🇵🇹',  color: '#e05252', abbr: 'CR' },
+  { id: 'neymar',       name: 'Neymar',        nation: 'Brazil 🇧🇷',    color: '#4caf6e', abbr: 'NJ' },
+  { id: 'mbappe',       name: 'Mbappé',        nation: 'France 🇫🇷',    color: '#26c6da', abbr: 'KM' },
+  { id: 'lewandowski',  name: 'Lewandowski',   nation: 'Poland 🇵🇱',    color: '#ff9800', abbr: 'RL' },
+  { id: 'suarez',       name: 'Suárez',        nation: 'Uruguay 🇺🇾',   color: '#9c27b0', abbr: 'LS' },
+];
+
+// Dataset keyed by filter combination
+// Structure: [messi, ronaldo, neymar, mbappe, lewandowski, suarez]
+const DATA = {
+
+  // ─── ALL TIME ───────────────────────────────────────
+  all_all: {
+    goals_total:         [857, 906, 438, 344, 636, 534],
+    goals_per90:         [0.84, 0.75, 0.72, 0.80, 0.71, 0.70],
+    assists_total:       [384, 232, 222, 256, 190, 164],
+    penalties_scored:    [102, 145, 72,  66,  98,  78 ],
+    penalties_attempted: [122, 178, 88,  77,  114, 96 ],
+    penalty_pct:         [83.6,81.5,81.8,85.7,86.0,81.3],
+    hattricks:           [57,  67,  8,   6,   33,  25 ],
+    free_kick_goals:     [65,  58,  38,  12,  4,   20 ],
+
+    // Trophies — Club
+    cl_titles:           [4,   5,   3,   1,   0,   4  ],
+    league_titles:       [12,  7,   6,   6,   3,   4  ],
+    domestic_cups:       [7,   6,   4,   5,   4,   4  ],
+    // Trophies — National
+    world_cup:           [1,   0,   0,   1,   0,   0  ],
+    copa_america_euro:   [3,   1,   0,   2,   0,   2  ],
+    // Total trophies
+    total_trophies:      [44,  34,  21,  22,  12,  22 ],
+
+    // Awards
+    ballon_dor:          [8,   5,   1,   0,   0,   0  ],
+    golden_boot_league:  [6,   4,   1,   1,   4,   2  ],
+    golden_boot_wc:      [1,   0,   0,   1,   0,   0  ],
+    best_fifa:           [2,   2,   0,   1,   2,   0  ],
+    champions_lg_topscorer: [6, 7,  1,   4,   4,   2  ],
+    golden_glove:        [0,   0,   0,   0,   0,   0  ],  // ignored — attackers
+
+    // Advanced
+    big_game_goals:      [64,  53,  28,  19,  38,  42 ],   // UCL KO + WC KO goals
+    games_played:        [1061,1195,689,  494, 1013, 864],
+    mvp_awards:          [32,  28,  12,  10,  16,  10 ],
+    goal_contributions:  [1241,1138,660, 600,  826, 698],
+  },
+
+  // ─── PRIME (2009-2019) ──────────────────────────────
+  prime_all: {
+    goals_total:         [584, 637, 296, 52,  324, 340],
+    goals_per90:         [0.92, 0.80, 0.78, 0.81, 0.73, 0.73],
+    assists_total:       [256, 164, 148, 31,  104, 104],
+    penalties_scored:    [68,  98,  44,  12,  54,  54 ],
+    penalties_attempted: [82,  122, 54,  14,  64,  66 ],
+    penalty_pct:         [82.9,80.3,81.5,85.7,84.4,81.8],
+    hattricks:           [44,  52,  6,   1,   20,  18 ],
+    free_kick_goals:     [48,  44,  26,  4,   2,   14 ],
+    cl_titles:           [3,   4,   2,   0,   0,   3  ],
+    league_titles:       [9,   5,   4,   1,   2,   4  ],
+    domestic_cups:       [5,   4,   3,   1,   2,   3  ],
+    world_cup:           [0,   0,   0,   0,   0,   0  ],
+    copa_america_euro:   [2,   1,   0,   0,   0,   1  ],
+    total_trophies:      [28,  24,  14,  2,   7,   17 ],
+    ballon_dor:          [6,   4,   1,   0,   0,   0  ],
+    golden_boot_league:  [5,   3,   1,   0,   2,   2  ],
+    golden_boot_wc:      [0,   0,   0,   0,   0,   0  ],
+    best_fifa:           [1,   2,   0,   0,   1,   0  ],
+    champions_lg_topscorer: [4, 6,  1,   0,   2,   2  ],
+    big_game_goals:      [44,  39,  18,  4,   22,  28 ],
+    games_played:        [688, 800, 456, 72,  614, 590],
+    mvp_awards:          [24,  22,  8,   2,   10,  7  ],
+    goal_contributions:  [840, 801, 444, 83,  428, 444],
+  },
+
+  // ─── 2022-23 ────────────────────────────────────────
+  '2022_all': {
+    goals_total:         [32,  30,  18,  41,  30,  4  ],
+    goals_per90:         [0.72, 0.58, 0.59, 0.91, 0.70, 0.32],
+    assists_total:       [13,  4,   10,  10,  9,   1  ],
+    penalties_scored:    [5,   8,   6,   8,   4,   0  ],
+    penalties_attempted: [6,   10,  7,   9,   5,   0  ],
+    penalty_pct:         [83.3,80.0,85.7,88.9,80.0,0.0],
+    hattricks:           [2,   2,   1,   2,   1,   0  ],
+    free_kick_goals:     [3,   2,   2,   0,   0,   0  ],
+    cl_titles:           [0,   0,   0,   0,   0,   0  ],
+    league_titles:       [1,   0,   1,   1,   0,   0  ],
+    domestic_cups:       [0,   1,   1,   1,   0,   0  ],
+    world_cup:           [1,   0,   0,   0,   0,   0  ],
+    copa_america_euro:   [0,   0,   0,   0,   0,   0  ],
+    total_trophies:      [2,   1,   2,   2,   0,   0  ],
+    ballon_dor:          [1,   0,   0,   0,   0,   0  ],
+    golden_boot_league:  [0,   0,   0,   0,   0,   0  ],
+    golden_boot_wc:      [1,   0,   0,   0,   0,   0  ],
+    best_fifa:           [1,   0,   0,   0,   0,   0  ],
+    champions_lg_topscorer: [0, 0,  0,   1,   0,   0  ],
+    big_game_goals:      [13,  2,   4,   8,   6,   0  ],
+    games_played:        [54,  62,  36,  53,  50,  15 ],
+    mvp_awards:          [4,   2,   1,   3,   2,   0  ],
+    goal_contributions:  [45,  34,  28,  51,  39,  5  ],
+  },
+
+  // ─── 2023-24 ────────────────────────────────────────
+  '2023_all': {
+    goals_total:         [26,  25,  6,   44,  27,  4  ],
+    goals_per90:         [0.66, 0.55, 0.35, 0.88, 0.66, 0.28],
+    assists_total:       [18,  10,  4,   7,   8,   2  ],
+    penalties_scored:    [6,   6,   2,   6,   4,   1  ],
+    penalties_attempted: [7,   7,   3,   7,   5,   1  ],
+    penalty_pct:         [85.7,85.7,66.7,85.7,80.0,100],
+    hattricks:           [1,   1,   0,   3,   1,   0  ],
+    free_kick_goals:     [4,   1,   1,   0,   0,   0  ],
+    cl_titles:           [0,   0,   0,   0,   0,   0  ],
+    league_titles:       [0,   0,   0,   1,   0,   0  ],
+    domestic_cups:       [0,   0,   0,   2,   0,   0  ],
+    world_cup:           [0,   0,   0,   0,   0,   0  ],
+    copa_america_euro:   [1,   0,   0,   1,   0,   0  ],
+    total_trophies:      [2,   0,   0,   4,   0,   0  ],
+    ballon_dor:          [0,   0,   0,   0,   0,   0  ],
+    golden_boot_league:  [0,   0,   0,   0,   0,   0  ],
+    golden_boot_wc:      [0,   0,   0,   0,   0,   0  ],
+    best_fifa:           [0,   0,   0,   0,   0,   0  ],
+    champions_lg_topscorer: [0, 0,  0,   0,   0,   0  ],
+    big_game_goals:      [6,   3,   1,   8,   5,   0  ],
+    games_played:        [44,  55,  20,  58,  46,  16 ],
+    mvp_awards:          [3,   1,   0,   4,   1,   0  ],
+    goal_contributions:  [44,  35,  10,  51,  35,  6  ],
+  },
+
+  // ─── Champions League specific ──────────────────────
+  all_cl: {
+    goals_total:         [129, 140, 56,  41,  80,  38 ],
+    goals_per90:         [0.80, 0.77, 0.72, 0.85, 0.74, 0.63],
+    assists_total:       [40,  42,  30,  24,  22,  15 ],
+    penalties_scored:    [16,  25,  10,  5,   12,  6  ],
+    penalties_attempted: [20,  32,  13,  6,   14,  7  ],
+    penalty_pct:         [80.0,78.1,76.9,83.3,85.7,85.7],
+    hattricks:           [8,   8,   2,   2,   4,   2  ],
+    free_kick_goals:     [8,   9,   5,   2,   0,   2  ],
+    cl_titles:           [4,   5,   3,   1,   0,   4  ],
+    league_titles:       [0,   0,   0,   0,   0,   0  ],
+    domestic_cups:       [0,   0,   0,   0,   0,   0  ],
+    world_cup:           [0,   0,   0,   0,   0,   0  ],
+    copa_america_euro:   [0,   0,   0,   0,   0,   0  ],
+    total_trophies:      [4,   5,   3,   1,   0,   4  ],
+    ballon_dor:          [0,   0,   0,   0,   0,   0  ],
+    golden_boot_league:  [0,   0,   0,   0,   0,   0  ],
+    golden_boot_wc:      [0,   0,   0,   0,   0,   0  ],
+    best_fifa:           [0,   0,   0,   0,   0,   0  ],
+    champions_lg_topscorer: [6, 7,  1,   4,   4,   2  ],
+    big_game_goals:      [44,  40,  18,  14,  22,  16 ],
+    games_played:        [183, 183, 88,  54,  122, 68 ],
+    mvp_awards:          [10,  8,   2,   4,   6,   2  ],
+    goal_contributions:  [169, 182, 86,  65,  102, 53 ],
+  },
+
+  // ─── World Cup specific ─────────────────────────────
+  all_worldcup: {
+    goals_total:         [13,  8,   6,   12,  2,   8  ],
+    goals_per90:         [0.71, 0.52, 0.60, 0.92, 0.22, 0.59],
+    assists_total:       [8,   1,   5,   3,   2,   5  ],
+    penalties_scored:    [3,   1,   1,   2,   0,   2  ],
+    penalties_attempted: [4,   2,   1,   2,   0,   3  ],
+    penalty_pct:         [75.0,50.0,100, 100, 0.0, 66.7],
+    hattricks:           [0,   0,   0,   0,   0,   0  ],
+    free_kick_goals:     [0,   0,   0,   0,   0,   0  ],
+    cl_titles:           [0,   0,   0,   0,   0,   0  ],
+    league_titles:       [0,   0,   0,   0,   0,   0  ],
+    domestic_cups:       [0,   0,   0,   0,   0,   0  ],
+    world_cup:           [1,   0,   0,   1,   0,   0  ],
+    copa_america_euro:   [0,   0,   0,   0,   0,   0  ],
+    total_trophies:      [1,   0,   0,   1,   0,   0  ],
+    ballon_dor:          [0,   0,   0,   0,   0,   0  ],
+    golden_boot_league:  [0,   0,   0,   0,   0,   0  ],
+    golden_boot_wc:      [1,   0,   0,   1,   0,   0  ],
+    best_fifa:           [0,   0,   0,   0,   0,   0  ],
+    champions_lg_topscorer: [0, 0,  0,   0,   0,   0  ],
+    big_game_goals:      [8,   3,   3,   8,   0,   4  ],
+    games_played:        [26,  22,  14,  16,  10,  16 ],
+    mvp_awards:          [2,   0,   0,   2,   0,   0  ],
+    goal_contributions:  [21,  9,   11,  15,  2,   13 ],
+  },
+
+  // ─── National Team all ──────────────────────────────
+  all_national: {
+    goals_total:         [112, 130, 79,  47,  82,  68 ],
+    goals_per90:         [0.76, 0.73, 0.72, 0.69, 0.62, 0.71],
+    assists_total:       [56,  44,  54,  28,  30,  44 ],
+    penalties_scored:    [16,  22,  14,  8,   16,  14 ],
+    penalties_attempted: [20,  28,  18,  10,  20,  18 ],
+    penalty_pct:         [80.0,78.6,77.8,80.0,80.0,77.8],
+    hattricks:           [9,   12,  6,   2,   4,   6  ],
+    free_kick_goals:     [10,  8,   8,   2,   2,   6  ],
+    cl_titles:           [0,   0,   0,   0,   0,   0  ],
+    league_titles:       [0,   0,   0,   0,   0,   0  ],
+    domestic_cups:       [0,   0,   0,   0,   0,   0  ],
+    world_cup:           [1,   0,   0,   1,   0,   0  ],
+    copa_america_euro:   [3,   1,   0,   2,   0,   2  ],
+    total_trophies:      [4,   2,   0,   3,   0,   2  ],
+    ballon_dor:          [0,   0,   0,   0,   0,   0  ],
+    golden_boot_league:  [0,   0,   0,   0,   0,   0  ],
+    golden_boot_wc:      [1,   0,   0,   1,   0,   0  ],
+    best_fifa:           [0,   0,   0,   0,   0,   0  ],
+    champions_lg_topscorer: [0, 0,  0,   0,   0,   0  ],
+    big_game_goals:      [20,  12,  10,  14,  8,   14 ],
+    games_played:        [191, 215, 128, 86,  148, 142],
+    mvp_awards:          [8,   6,   4,   4,   2,   4  ],
+    goal_contributions:  [168, 174, 133, 75,  112, 112],
+  },
+
+  // ─── League Only ────────────────────────────────────
+  all_league: {
+    goals_total:         [496, 499, 216, 184, 380, 298],
+    goals_per90:         [0.82, 0.72, 0.70, 0.82, 0.73, 0.68],
+    assists_total:       [208, 120, 108, 128, 96,  82  ],
+    penalties_scored:    [56,  88,  40,  38,  58,  46  ],
+    penalties_attempted: [68,  108, 50,  44,  66,  56  ],
+    penalty_pct:         [82.4,81.5,80.0,86.4,87.9,82.1],
+    hattricks:           [36,  42,  4,   4,   22,  16  ],
+    free_kick_goals:     [44,  38,  22,  8,   2,   12  ],
+    cl_titles:           [0,   0,   0,   0,   0,   0   ],
+    league_titles:       [12,  7,   6,   6,   3,   4   ],
+    domestic_cups:       [0,   0,   0,   0,   0,   0   ],
+    world_cup:           [0,   0,   0,   0,   0,   0   ],
+    copa_america_euro:   [0,   0,   0,   0,   0,   0   ],
+    total_trophies:      [12,  7,   6,   6,   3,   4   ],
+    ballon_dor:          [0,   0,   0,   0,   0,   0   ],
+    golden_boot_league:  [6,   4,   1,   1,   4,   2   ],
+    golden_boot_wc:      [0,   0,   0,   0,   0,   0   ],
+    best_fifa:           [0,   0,   0,   0,   0,   0   ],
+    champions_lg_topscorer: [0, 0,  0,   0,   0,   0   ],
+    big_game_goals:      [28,  22,  10,  10,  18,  16  ],
+    games_played:        [714, 760, 380, 266, 594, 510  ],
+    mvp_awards:          [18,  16,  6,   6,   10,  6   ],
+    goal_contributions:  [704, 619, 324, 312, 476, 380  ],
+  },
+};
+
+// Weights for GOAT Score
+const WEIGHTS = {
+  'Goalscoring': {
+    pct: 28,
+    items: {
+      'Career goals total': { key: 'goals_total', w: 10 },
+      'Goals per 90 min': { key: 'goals_per90', w: 8 },
+      'Hat-tricks': { key: 'hattricks', w: 5 },
+      'Free-kick goals': { key: 'free_kick_goals', w: 5 },
+    }
+  },
+  'Creation': {
+    pct: 16,
+    items: {
+      'Total assists': { key: 'assists_total', w: 10 },
+      'Goal contributions': { key: 'goal_contributions', w: 6 },
+    }
+  },
+  'Trophies': {
+    pct: 28,
+    items: {
+      'Champions League titles': { key: 'cl_titles', w: 8 },
+      'League titles': { key: 'league_titles', w: 6 },
+      'World Cup': { key: 'world_cup', w: 8 },
+      'Copa/Euro titles': { key: 'copa_america_euro', w: 4 },
+      'Total trophies': { key: 'total_trophies', w: 2 },
+    }
+  },
+  'Individual Awards': {
+    pct: 16,
+    items: {
+      'Ballon d\'Or': { key: 'ballon_dor', w: 8 },
+      'League Golden Boot': { key: 'golden_boot_league', w: 3 },
+      'FIFA Best': { key: 'best_fifa', w: 3 },
+      'UCL Top Scorer': { key: 'champions_lg_topscorer', w: 2 },
+    }
+  },
+  'Big Game Impact': {
+    pct: 12,
+    items: {
+      'Big game goals': { key: 'big_game_goals', w: 8 },
+      'MVPs won': { key: 'mvp_awards', w: 4 },
+    }
+  },
+};
+
+// Heatmap blobs per player [zone coords as % of pitch, intensity 0-1]
+const HEATMAP_DATA = {
+  messi:       [[65,75,0.9],[60,65,0.8],[70,80,0.7],[55,60,0.7],[75,70,0.6],[50,50,0.5],[65,85,0.6],[45,70,0.4]],
+  ronaldo:     [[70,25,0.9],[75,20,0.7],[65,30,0.8],[80,35,0.6],[60,15,0.7],[70,50,0.5],[85,25,0.6],[70,10,0.5]],
+  neymar:      [[60,80,0.9],[55,75,0.8],[65,70,0.7],[50,65,0.6],[70,85,0.6],[40,60,0.5],[55,50,0.4],[65,90,0.5]],
+  mbappe:      [[70,30,0.9],[65,20,0.8],[80,25,0.7],[75,40,0.7],[60,35,0.6],[85,15,0.5],[70,50,0.4],[60,10,0.5]],
+  lewandowski: [[55,50,0.9],[60,45,0.8],[50,55,0.8],[65,40,0.7],[45,50,0.7],[60,60,0.6],[55,35,0.5],[70,50,0.4]],
+  suarez:      [[60,60,0.9],[55,55,0.8],[65,50,0.8],[50,65,0.7],[70,60,0.6],[55,45,0.5],[60,70,0.6],[45,55,0.4]],
+};
+
+// Radar dimensions [label, key]
+const RADAR_DIMS = [
+  ['Goals', 'goals_total'],
+  ['Assists', 'assists_total'],
+  ['Trophies', 'total_trophies'],
+  ['Awards', 'ballon_dor'],
+  ['Big Games', 'big_game_goals'],
+  ['Consistency', 'goals_per90'],
+];
+
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+let state = {
+  era: 'all',
+  comp: 'all',
+  view: 'overall',
+  players: 'all',
+};
+
+let radarChart = null;
+
+// ══════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════
+
+function getDataKey() {
+  const era = state.era === 'prime' ? 'prime' :
+              state.era === 'all'   ? 'all'   : state.era;
+  const comp = state.comp === 'all' ? 'all' : state.comp;
+  const key = `${era}_${comp}`;
+  return DATA[key] ? key : 'all_all';
+}
+
+function getFilteredPlayers() {
+  if (state.players === 'top2') return [0, 1];
+  if (state.players === 'top3') {
+    const scores = computeGoatScores();
+    return scores
+      .map((s, i) => ({ score: s, i }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3)
+      .map(x => x.i);
+  }
+  return [0, 1, 2, 3, 4, 5];
+}
+
+function computeGoatScores() {
+  const key = getDataKey();
+  const d = DATA[key];
+  const scores = PLAYERS.map((_, pi) => {
+    let total = 0, wSum = 0;
+    for (const cat of Object.values(WEIGHTS)) {
+      for (const item of Object.values(cat.items)) {
+        const vals = d[item.key];
+        if (!vals) continue;
+        const max = Math.max(...vals);
+        const norm = max > 0 ? (vals[pi] / max) * 100 : 0;
+        total += norm * item.w;
+        wSum += item.w;
+      }
+    }
+    return wSum > 0 ? Math.round(total / wSum * 10) / 10 : 0;
+  });
+  return scores;
+}
+
+function fmt(v) {
+  if (v === undefined || v === null) return '—';
+  if (typeof v === 'number') {
+    if (v === 0) return '0';
+    if (v < 1 && v > 0) return v.toFixed(2);
+    return v.toLocaleString();
+  }
+  return v;
+}
+
+// ══════════════════════════════════════════
+//  PODIUM
+// ══════════════════════════════════════════
+
+function renderPodium() {
+  const scores = computeGoatScores();
+  const indices = getFilteredPlayers();
+  const ranked = indices
+    .map(i => ({ player: PLAYERS[i], score: scores[i], idx: i }))
+    .sort((a, b) => b.score - a.score);
+
+  const maxScore = ranked[0]?.score || 100;
+  const grid = document.getElementById('podiumGrid');
+  grid.innerHTML = '';
+
+  const rankClass = ['rank-1','rank-2','rank-3','rank-4','rank-5','rank-6'];
+  const medals = ['🥇','🥈','🥉','4','5','6'];
+
+  ranked.forEach((r, rank) => {
+    const isTop = rank < 3;
+    const card = document.createElement('div');
+    card.className = `podium-card ${rankClass[rank]}`;
+    card.style.order = rank;
+
+    const pct = Math.round((r.score / maxScore) * 100);
+
+    card.innerHTML = `
+      ${rank === 0 ? '<span class="winner-crown">👑</span>' : ''}
+      <span class="podium-rank">${medals[rank]}</span>
+      <div class="player-avatar" style="background:${r.player.color}22;border:2px solid ${r.player.color};color:${r.player.color};margin:0 auto 6px">${r.player.abbr}</div>
+      <div class="podium-name" style="color:${r.player.color}">${r.player.name}</div>
+      <div style="font-size:10px;color:#9aa3a8;margin-bottom:8px">${r.player.nation}</div>
+      <div class="podium-score" style="color:${r.player.color}">${r.score}</div>
+      <div class="podium-score-label">GOAT Score</div>
+      <div class="podium-bar">
+        <div class="podium-bar-fill" style="width:${pct}%;background:${r.player.color}"></div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ══════════════════════════════════════════
+//  TABLE
+// ══════════════════════════════════════════
+
+const METRIC_ROWS = [
+  { category: '⚽  Goalscoring' },
+  { label: 'Total Goals',          key: 'goals_total',     higherBetter: true },
+  { label: 'Goals per 90 min',     key: 'goals_per90',     higherBetter: true, suffix: '' },
+  { label: 'Hat-tricks',           key: 'hattricks',       higherBetter: true },
+  { label: 'Free-kick Goals',      key: 'free_kick_goals', higherBetter: true },
+  { label: 'Penalties Scored',     key: 'penalties_scored',higherBetter: true },
+  { label: 'Penalties Attempted',  key: 'penalties_attempted',higherBetter: false },
+  { label: 'Penalty %',            key: 'penalty_pct',     higherBetter: true, suffix: '%' },
+
+  { category: '🎯  Creation' },
+  { label: 'Total Assists',        key: 'assists_total',   higherBetter: true },
+  { label: 'Goal Contributions',   key: 'goal_contributions',higherBetter: true },
+  { label: 'Games Played',         key: 'games_played',    higherBetter: false },
+
+  { category: '🏆  Club Trophies' },
+  { label: 'Champions League Titles', key: 'cl_titles',    higherBetter: true },
+  { label: 'League Titles',        key: 'league_titles',   higherBetter: true },
+  { label: 'Domestic Cups',        key: 'domestic_cups',   higherBetter: true },
+  { label: 'Total Club Trophies',  key: 'total_trophies',  higherBetter: true },
+
+  { category: '🌍  International' },
+  { label: 'FIFA World Cup',       key: 'world_cup',       higherBetter: true },
+  { label: 'Copa América / Euro',  key: 'copa_america_euro',higherBetter: true },
+
+  { category: '🎖️  Individual Awards' },
+  { label: 'Ballon d\'Or',         key: 'ballon_dor',      higherBetter: true },
+  { label: 'FIFA Best Player',     key: 'best_fifa',       higherBetter: true },
+  { label: 'League Golden Boot',   key: 'golden_boot_league',higherBetter: true },
+  { label: 'WC Golden Boot',       key: 'golden_boot_wc',  higherBetter: true },
+  { label: 'UCL Top Scorer',       key: 'champions_lg_topscorer',higherBetter: true },
+  { label: 'MVP Awards',           key: 'mvp_awards',      higherBetter: true },
+
+  { category: '💥  Big Game Impact' },
+  { label: 'KO Stage Goals (UCL+WC)', key: 'big_game_goals',higherBetter: true },
+];
+
+function renderTable() {
+  const key = getDataKey();
+  const d = DATA[key];
+  const idxs = getFilteredPlayers();
+  const players = idxs.map(i => PLAYERS[i]);
+  const goatScores = computeGoatScores();
+
+  // Filter rows by view
+  let rows = METRIC_ROWS;
+  if (state.view === 'goals') {
+    rows = rows.filter(r => !r.category || r.category.includes('Goal') || r.category.includes('Creation'));
+  } else if (state.view === 'trophies') {
+    rows = rows.filter(r => !r.category || r.category.includes('Trophy') || r.category.includes('International') || r.category.includes('Club'));
+  } else if (state.view === 'awards') {
+    rows = rows.filter(r => !r.category || r.category.includes('Award') || r.category.includes('Impact'));
+  }
+
+  // Header
+  const head = document.getElementById('tableHead');
+  head.innerHTML = `
+    <tr>
+      <th style="width:180px">Metric</th>
+      ${players.map(p => `
+        <th colspan="1" class="player-header">
+          <div class="player-avatar" style="background:${p.color}22;border:2px solid ${p.color};color:${p.color};">${p.abbr}</div>
+          <span class="player-name" style="color:${p.color}">${p.name}</span>
+          <span class="player-nation">${p.nation}</span>
+          <div style="font-size:10px;color:#9aa3a8;margin-top:4px;font-family:'JetBrains Mono',monospace">
+            GOAT: <span style="color:${p.color}">${goatScores[idxs[players.indexOf(p)]]}</span>
+          </div>
+        </th>
+      `).join('')}
+    </tr>
+  `;
+
+  // Body
+  const body = document.getElementById('tableBody');
+  body.innerHTML = '';
+
+  rows.forEach(row => {
+    const tr = document.createElement('tr');
+    if (row.category) {
+      tr.className = 'category-row';
+      tr.innerHTML = `<td colspan="${players.length + 1}">${row.category}</td>`;
+    } else {
+      const vals = idxs.map(i => d[row.key] ? d[row.key][i] : null);
+      const maxVal = Math.max(...vals.filter(v => v !== null && v !== undefined));
+      const secondMax = [...vals].sort((a, b) => b - a)[1];
+
+      tr.innerHTML = `<td>${row.label}</td>` + players.map((p, pi) => {
+        const v = vals[pi];
+        const isBest = row.higherBetter ? v === maxVal : v === Math.min(...vals.filter(v => v !== null));
+        const isSecond = row.higherBetter ? v === secondMax && v !== maxVal : false;
+        const cls = isBest ? 'val best' : isSecond ? 'val second' : 'val';
+        const displayVal = fmt(v) + (row.suffix || '');
+        const barPct = maxVal > 0 ? Math.round((v / maxVal) * 100) : 0;
+        return `<td>
+          <div class="mini-bar-wrap">
+            <span class="${cls}">${displayVal}${isBest ? ' ★' : ''}</span>
+            <div class="mini-bar-bg">
+              <div class="mini-bar-fill" style="width:${barPct}%;background:${p.color}88"></div>
+            </div>
+          </div>
+        </td>`;
+      }).join('');
+    }
+    body.appendChild(tr);
+  });
+}
+
+// ══════════════════════════════════════════
+//  RADAR CHART
+// ══════════════════════════════════════════
+
+function renderRadar() {
+  const key = getDataKey();
+  const d = DATA[key];
+  const idxs = getFilteredPlayers();
+  const players = idxs.map(i => PLAYERS[i]);
+  const labels = RADAR_DIMS.map(r => r[0]);
+
+  // Normalize per dim
+  const datasets = players.map((p, pi) => {
+    const origIdx = idxs[pi];
+    const data = RADAR_DIMS.map(([, k]) => {
+      const vals = PLAYERS.map((_, i) => d[k] ? d[k][i] : 0);
+      const max = Math.max(...vals);
+      return max > 0 ? Math.round((d[k][origIdx] / max) * 100) : 0;
+    });
+    return {
+      label: p.name,
+      data,
+      borderColor: p.color,
+      backgroundColor: p.color + '22',
+      borderWidth: 2,
+      pointBackgroundColor: p.color,
+      pointRadius: 4,
+    };
+  });
+
+  const ctx = document.getElementById('radarChart').getContext('2d');
+  if (radarChart) radarChart.destroy();
+
+  radarChart = new Chart(ctx, {
+    type: 'radar',
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => `${ctx.dataset.label}: ${ctx.parsed.r}`,
+          }
+        }
+      },
+      scales: {
+        r: {
+          min: 0, max: 100,
+          ticks: { display: false, stepSize: 25 },
+          grid: { color: 'rgba(255,255,255,0.08)' },
+          angleLines: { color: 'rgba(255,255,255,0.08)' },
+          pointLabels: {
+            color: '#9aa3a8',
+            font: { family: 'Inter', size: 13 },
+          }
+        }
+      }
+    }
+  });
+
+  // Legend
+  const legend = document.getElementById('radarLegend');
+  legend.innerHTML = players.map(p => `
+    <div class="legend-item">
+      <div class="legend-dot" style="background:${p.color}"></div>
+      <span>${p.name} <span style="color:#9aa3a8;font-size:11px">${p.nation}</span></span>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════════
+//  HEATMAPS
+// ══════════════════════════════════════════
+
+function renderHeatmaps() {
+  const idxs = getFilteredPlayers();
+  const grid = document.getElementById('heatmapGrid');
+  grid.innerHTML = '';
+
+  idxs.forEach(i => {
+    const p = PLAYERS[i];
+    const blobs = HEATMAP_DATA[p.id];
+    const card = document.createElement('div');
+    card.className = 'heatmap-card';
+
+    // Build SVG pitch with heat blobs
+    const blobsSvg = blobs.map(([cx, cy, intensity]) => {
+      const r = 30 + intensity * 20;
+      const opacity = 0.15 + intensity * 0.45;
+      return `<ellipse cx="${cx}%" cy="${cy}%" rx="${r}" ry="${r * 0.7}" fill="${p.color}" opacity="${opacity}"/>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="heatmap-player-name" style="color:${p.color}">${p.name}</div>
+      <svg class="pitch-svg" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Pitch background -->
+        <rect width="300" height="200" rx="4" fill="#0a1f0a"/>
+        <!-- Pitch stripes -->
+        <rect x="0" y="0" width="50" height="200" fill="rgba(255,255,255,0.015)"/>
+        <rect x="100" y="0" width="50" height="200" fill="rgba(255,255,255,0.015)"/>
+        <rect x="200" y="0" width="50" height="200" fill="rgba(255,255,255,0.015)"/>
+        <!-- Heat blobs -->
+        <defs><filter id="blur${i}"><feGaussianBlur stdDeviation="14"/></filter></defs>
+        <g filter="url(#blur${i})">${blobsSvg}</g>
+        <!-- Pitch markings -->
+        <rect x="1" y="1" width="298" height="198" rx="3" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+        <line x1="150" y1="0" x2="150" y2="200" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+        <circle cx="150" cy="100" r="28" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+        <!-- Penalty areas -->
+        <rect x="1" y="55" width="44" height="90" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+        <rect x="255" y="55" width="44" height="90" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+        <!-- Goal boxes -->
+        <rect x="1" y="78" width="14" height="44" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        <rect x="285" y="78" width="14" height="44" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+        <!-- Penalty spots -->
+        <circle cx="30" cy="100" r="1.5" fill="rgba(255,255,255,0.4)"/>
+        <circle cx="270" cy="100" r="1.5" fill="rgba(255,255,255,0.4)"/>
+        <circle cx="150" cy="100" r="1.5" fill="rgba(255,255,255,0.4)"/>
+        <!-- Player label -->
+        <text x="150" y="192" text-anchor="middle" font-family="Inter" font-size="7" fill="rgba(255,255,255,0.3)">${p.nation}</text>
+      </svg>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ══════════════════════════════════════════
+//  WEIGHTS BREAKDOWN
+// ══════════════════════════════════════════
+
+function renderWeights() {
+  const grid = document.getElementById('weightsGrid');
+  grid.innerHTML = '';
+
+  Object.entries(WEIGHTS).forEach(([cat, data]) => {
+    const card = document.createElement('div');
+    card.className = 'weight-card';
+    card.innerHTML = `
+      <div class="weight-header">
+        <span class="weight-cat">${cat}</span>
+        <span class="weight-pct">${data.pct}%</span>
+      </div>
+      <div class="weight-items">
+        ${Object.entries(data.items).map(([name, cfg]) => `
+          <div class="weight-item">
+            <span>${name}</span>
+            <span>${cfg.w} pts</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ══════════════════════════════════════════
+//  MAIN RENDER
+// ══════════════════════════════════════════
+
+function applyFilters() {
+  state.era    = document.getElementById('filterEra').value;
+  state.comp   = document.getElementById('filterComp').value;
+  state.view   = document.getElementById('filterView').value;
+  state.players = document.getElementById('filterPlayers').value;
+  render();
+}
+
+function render() {
+  renderPodium();
+  renderRadar();
+  renderTable();
+  renderHeatmaps();
+}
+
+// Init
+renderWeights();
+render();
+
+</script>
+</body>
+</html>
