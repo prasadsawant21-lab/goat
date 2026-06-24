@@ -1200,11 +1200,15 @@
 
   <!-- League tabs -->
   <div class="league-tabs" id="leagueTabs">
-    <button class="league-tab active" onclick="switchLeague('epl')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</button>
+    <button class="league-tab active" onclick="switchLeague('wc26')">🏆 FIFA World Cup 2026 🔴 LIVE</button>
+    <button class="league-tab" onclick="switchLeague('epl')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</button>
     <button class="league-tab" onclick="switchLeague('laliga')">🇪🇸 La Liga</button>
     <button class="league-tab" onclick="switchLeague('mls')">🇺🇸 MLS</button>
     <button class="league-tab" onclick="switchLeague('cl')">⭐ Champions League</button>
   </div>
+
+  <!-- WC26 Standings Board -->
+  <div id="wc26StandingsWrap" style="display:none;margin-bottom:28px"></div>
 
   <!-- Match cards grid -->
   <div class="match-cards-grid" id="matchCardsGrid"></div>
@@ -2577,6 +2581,290 @@ const MATCH_DATA = {
     ]
   },
 
+  wc26: {
+    league: 'FIFA World Cup 2026 🇺🇸🇨🇦🇲🇽',
+    season: 'Group Stage — Matchday 3',
+    matches: [
+      // ── TODAY'S UPCOMING ──
+      {
+        id: 'sca_bra', home: 'Scotland', away: 'Brazil',
+        homeAbbr: 'SCO', awayAbbr: 'BRA',
+        status: 'scheduled', time: 'Thu Jun 25 · 02:00 GST',
+        score: { home: 0, away: 0 },
+        prob: { home: 9.2, draw: 16.6, away: 74.2 },
+        keyPlayers: {
+          home: [
+            { name: 'McTominay', role: 'CM', goals: 4, assists: 2, form: '📈 In form' },
+            { name: 'Adams', role: 'CF', goals: 3, assists: 1, form: '✅ Consistent' },
+            { name: 'Robertson', role: 'LB', goals: 1, assists: 4, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Vinicius Jr', role: 'LW', goals: 3, assists: 2, form: '🔥 On fire' },
+            { name: 'Rodrygo', role: 'RW', goals: 2, assists: 1, form: '📈 In form' },
+            { name: 'Paquetá', role: 'CAM', goals: 1, assists: 3, form: '✅ Consistent' },
+            { name: 'Endrick', role: 'CF', goals: 2, assists: 0, form: '📈 In form' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['McTominay Box-to-box engine — 4 goals in qualifying', 'Low-block 5-4-1 hard to break down', 'Set-piece threat — Adams physical aerial'],
+            W: ['Quality gap vs Brazil enormous — outclassed in possession', 'Robertson pace questioned vs Vinicius Jr', 'Must not concede early or game over psychologically'],
+            O: ['Brazil 4th in Group C — pressure to qualify', 'Vinicius injury scare vs Haiti — may be managed', 'Scotland counter on transition could snatch a goal'],
+            T: ['Vinicius on song — best player in tournament so far', 'Brazil 74% win probability — market doesn\'t lie', 'Brazil need win to guarantee top 2 — will be ruthless'],
+          },
+          away: {
+            S: ['Vinicius Jr in career-best WC form — unplayable wide', 'Endrick — 18-year-old prodigy clinical in box', 'Brazil possession game breaks any low block eventually'],
+            W: ['Inconsistent — drew with Morocco which cost them Group C leadership', 'Rodrigo Bentancur out — midfield transition issues', 'Brazil historically underperform at World Cups since 2002'],
+            O: ['Scotland must attack — opens space for Vinicius counter', 'Adams vs Bremer — aerial duel Brazil will lose', 'Brazil xG per game is 2.4 — goals inevitable'],
+            T: ['Scotland counter-attack on Danilo/Militão pace', 'Wet surface may suit direct Scottish style', 'McTominay late goal from deep — his trademark'],
+          }
+        },
+        prediction: {
+          score: '0 – 3', confidence: 78,
+          firstGoalMin: 19, btts: 'No', totalGoals: '3 – 4',
+          scorer: 'Vinicius Jr (brace)', method: 'Brazil control from minute one. Vinicius exploits Robertson on left side. Scotland park the bus but Brazil quality too high. Vinicius double + Endrick finishes it.',
+          homeWin: 9, draw: 17, awayWin: 74,
+        }
+      },
+      {
+        id: 'mar_hti', home: 'Morocco', away: 'Haiti',
+        homeAbbr: 'MAR', awayAbbr: 'HTI',
+        status: 'scheduled', time: 'Thu Jun 25 · 02:00 GST',
+        score: { home: 0, away: 0 },
+        prob: { home: 81.9, draw: 12.4, away: 5.7 },
+        keyPlayers: {
+          home: [
+            { name: 'En-Nesyri', role: 'CF', goals: 3, assists: 0, form: '🔥 On fire' },
+            { name: 'Ziyech', role: 'CAM', goals: 1, assists: 3, form: '📈 In form' },
+            { name: 'Hakimi', role: 'RB', goals: 0, assists: 2, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Duckens Nazon', role: 'CF', goals: 2, assists: 0, form: '✅ Consistent' },
+            { name: 'Hervé Bazile', role: 'MF', goals: 1, assists: 1, form: '✅ Consistent' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['En-Nesyri physical presence — 3 headers already this tournament', 'Hakimi overlaps — impossible to pin down wide', 'Morocco draw with Brazil shows top-tier quality'],
+            W: ['Ziyech inconsistency in big moments', 'Morocco leaked late goals vs Brazil — defensive concentration', 'Must win to guarantee qualification'],
+            O: ['Haiti lost both games — depleted and tired', 'Morocco expected goals this game: 3.2', 'Emotional game — Moroccan fans in majority in stadium'],
+            T: ['Haiti defending in 11-man bus — can frustrate for 60 mins', 'Nazon pace on the counter — Morocco high line risk', 'Morocco complacency is biggest threat'],
+          },
+          away: {
+            S: ['Nazon WC debut goals show quality above this level', 'Nothing to lose — free to attack', 'Haiti historically resilient vs African giants'],
+            W: ['Eliminated already — motivation question', 'Quality deficit in every position', 'Conceded 7 goals in first 2 games'],
+            O: ['Morocco overconfidence opens space', 'Counter from deep on Hakimi\'s side when he pushes up', 'Late goal possible — Morocco will take the foot off gas'],
+            T: ['En-Nesyri cannot be stopped aerially', 'Hakimi + Ziyech combination creates 4-5 big chances per game', 'Morocco press high and win ball in Haiti half relentlessly'],
+          }
+        },
+        prediction: {
+          score: '4 – 0', confidence: 84,
+          firstGoalMin: 11, btts: 'No', totalGoals: '4 – 5',
+          scorer: 'En-Nesyri (brace + penalty)', method: 'Morocco ruthless. En-Nesyri aerial dominance. Ziyech dictates the tempo. Haiti compact early but outclassed. Morocco qualify top or second in Group C.',
+          homeWin: 82, draw: 12, awayWin: 6,
+        }
+      },
+      {
+        id: 'sui_can', home: 'Switzerland', away: 'Canada',
+        homeAbbr: 'SUI', awayAbbr: 'CAN',
+        status: 'scheduled', time: 'Wed Jun 24 · 23:00 GST',
+        score: { home: 0, away: 0 },
+        prob: { home: 40.2, draw: 30.8, away: 29.0 },
+        keyPlayers: {
+          home: [
+            { name: 'Xherdan Shaqiri', role: 'CAM', goals: 2, assists: 1, form: '📈 In form' },
+            { name: 'Granit Xhaka', role: 'CM', goals: 1, assists: 2, form: '✅ Consistent' },
+            { name: 'Embolo', role: 'CF', goals: 2, assists: 0, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Jonathan David', role: 'CF', goals: 3, assists: 0, form: '🔥 On fire' },
+            { name: 'Alphonso Davies', role: 'LB', goals: 1, assists: 2, form: '📈 In form' },
+            { name: 'Hoilett', role: 'RW', goals: 0, assists: 2, form: '✅ Consistent' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['Switzerland incredibly organised — conceded only 1 this tournament', 'Xhaka experience at biggest stage invaluable', 'Both teams equal on 4 pts — winner likely advances as Group B winner'],
+            W: ['Shaqiri 31 — pace a question at this level', 'Embolo inconsistent in WC — big stage nerves', 'Must win to be safe — pressure situation'],
+            O: ['Canada attack down the right — Xhaka can cut supply', 'Set piece from Xhaka/Shaqiri — Switzerland excellent at dead balls', 'Jonathan David doesn\'t track back — Switzerland can exploit wide areas'],
+            T: ['Jonathan David in red-hot form — 3 goals and clinical', 'Davies surging runs from LB unstoppable in open play', 'Canada crowd massive at this WC — co-host nation'],
+          },
+          away: {
+            S: ['Jonathan David best Canadian player ever — 3 goals already', 'Co-host nation — crowd energy adds 0.3 goals per game statistically', 'Davies the best LB in world football'],
+            W: ['Both teams on 4 pts — Canada have inferior goal difference', 'Canada midfield overrun by Xhaka in deep areas', 'Defensive transition weak when Davies pushes forward'],
+            O: ['Switzerland high line exploitable for David runs in behind', 'Canada physical edge — Swiss fatigue in second half', 'Set piece — Milan Borjan confident for Canada'],
+            T: ['Switzerland draw masters — 0-0 equally useful for them depending on other result', 'Xhaka shuts down David supply chain', 'Embolo aerial threat Switzerland use from corners'],
+          }
+        },
+        prediction: {
+          score: '1 – 2', confidence: 52,
+          firstGoalMin: 27, btts: 'Yes', totalGoals: '2.5 – 3',
+          scorer: 'Jonathan David (brace)', method: 'Tight, tactical game. Switzerland opens the scoring, David equalises and then wins it in 78\'. Canada edge it and top Group B. One of the most open matchups of the day.',
+          homeWin: 40, draw: 31, awayWin: 29,
+        }
+      },
+      // ── RECENT RESULTS ──
+      {
+        id: 'arg_aut', home: 'Argentina', away: 'Austria',
+        homeAbbr: 'ARG', awayAbbr: 'AUT',
+        status: 'final', time: 'Mon Jun 22 · FT',
+        score: { home: 2, away: 0 },
+        prob: { home: 74.0, draw: 14.0, away: 12.0 },
+        keyPlayers: {
+          home: [
+            { name: 'Messi', role: 'CAM/FW', goals: 1, assists: 2, form: '🔥 On fire — played 80 min' },
+            { name: 'Lautaro Martínez', role: 'CF', goals: 2, assists: 0, form: '🔥 On fire' },
+            { name: 'Mac Allister', role: 'CM', goals: 0, assists: 1, form: '✅ Consistent' },
+            { name: 'De Paul', role: 'CM', goals: 0, assists: 1, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Alaba', role: 'CB', goals: 0, assists: 0, form: '✅ Consistent' },
+            { name: 'Sabitzer', role: 'CM', goals: 0, assists: 0, form: '📈 In form' },
+            { name: 'Gregoritsch', role: 'CF', goals: 0, assists: 0, form: '✅ Consistent' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['Messi at 38 — still the best passer in the WC by distance', '54% possession, 12 shots vs Austria', 'Goals in 38\' and 90\' — Argentina relentless for 90 mins'],
+            W: ['Messi managing minutes — substituted in 80\'', 'Defensive line high — 2 offsides conceded by Austria close to goal', '2 yellow cards — De Paul + Martinez suspended risk'],
+            O: ['Argentina top Group J — will get easier Round of 32 opponent', 'Messi World Cup final is the mission — team protecting him', 'Lautaro in form — 2 goals in 2 games'],
+            T: ['Knockout rounds — one bad game ends the dream', 'Messi fitness management — will he be fresh for R32?', 'Austria proved more dangerous than scoreline suggests'],
+          },
+          away: {
+            S: ['Alaba leadership calms defensive unit', 'Sabitzer long shots tested Martinez', '3 qualified from Group J — Austria in 2nd'],
+            W: ['Lost 2-0 — conceded twice including 90\' goal', 'Shots on target: only 1 all game', 'Messi too clever — could not man-mark him'],
+            O: ['Still qualified as 2nd in group', 'R32 is the reset opportunity'],
+            T: ['Will face tougher test in R32 — Brazil or Morocco likely', 'Chukwuemeka limited impact as sub'],
+          }
+        },
+        prediction: {
+          score: '2 – 0', confidence: 99,
+          firstGoalMin: 38, btts: 'No', totalGoals: '2',
+          scorer: 'Lautaro Martínez (2 goals)', method: 'FINAL: Argentina 2-0 Austria. Messi orchestrated from deep, Lautaro clinical. First goal 38\', second 90\'. Messi subbed 80th minute — managed carefully.',
+          homeWin: 74, draw: 14, awayWin: 12,
+        }
+      },
+      {
+        id: 'por_uzb', home: 'Portugal', away: 'Uzbekistan',
+        homeAbbr: 'POR', awayAbbr: 'UZB',
+        status: 'final', time: 'Tue Jun 23 · FT',
+        score: { home: 5, away: 0 },
+        prob: { home: 91.0, draw: 5.0, away: 4.0 },
+        keyPlayers: {
+          home: [
+            { name: 'Cristiano Ronaldo', role: 'CF', goals: 2, assists: 1, form: '🔥 On fire — scored 6\' & 17\'' },
+            { name: 'Bruno Fernandes', role: 'CAM', goals: 1, assists: 2, form: '🔥 On fire' },
+            { name: 'João Félix', role: 'LW', goals: 1, assists: 0, form: '📈 In form' },
+            { name: 'Neto, Pedro', role: 'RW', goals: 0, assists: 2, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Shomurodov', role: 'CF', goals: 0, assists: 0, form: '✅ Consistent' },
+            { name: 'Fayzullaev', role: 'MF', goals: 0, assists: 0, form: '✅ Consistent' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['Ronaldo opens scoring in 6th minute — veteran hunger undimmed', '66% possession, 9 shots on target — complete performance', 'Portugal 5-0 win means they top Group K with 4 points'],
+            W: ['Colombia lead group with 6 pts — Portugal already trailing', 'Yellow card: Vitinha — midfield control risk in R32', 'Ronaldo 90 mins a worry — age factor'],
+            O: ['Group K Runner-up slot secured — draw was enough but 5-0 sends message', 'Ronaldo 130+ WC goals — chasing legend status', 'Portugal most creative team in Group K'],
+            T: ['Colombia await if Portugal fall to third — dangerous bracket', 'Bruno Fernandes fitness — muscle tightness noted post-game', 'Uzbekistan actually had 2 shots on target — goalkeeping luck held'],
+          },
+          away: {
+            S: ['Shomurodov effort — never stopped running', 'Khusanov defensive header — prevented 6th goal'],
+            W: ['Lost 5-0 — eliminated', '66% possession conceded — no ability to hold the ball', 'Quality deficit obvious at this level'],
+            O: ['Group stage debut for Uzbekistan — great experience'],
+            T: ['Portugal quality was overwhelming — nothing they could do'],
+          }
+        },
+        prediction: {
+          score: '5 – 0', confidence: 99,
+          firstGoalMin: 6, btts: 'No', totalGoals: '5',
+          scorer: 'Ronaldo (brace, 6\' & 17\') · Bruno Fernandes · João Félix · Pedro Neto (assist)',
+          method: 'FINAL: Portugal 5-0 Uzbekistan. Ronaldo on fire — two goals in first 17 minutes. Portugal 66% possession, 9 shots on target. Dominant group stage win.',
+          homeWin: 91, draw: 5, awayWin: 4,
+        }
+      },
+      {
+        id: 'fra_irq', home: 'France', away: 'Iraq',
+        homeAbbr: 'FRA', awayAbbr: 'IRQ',
+        status: 'final', time: 'Mon Jun 22 · FT',
+        score: { home: 3, away: 0 },
+        prob: { home: 94.0, draw: 4.0, away: 2.0 },
+        keyPlayers: {
+          home: [
+            { name: 'Mbappé', role: 'CF', goals: 3, assists: 1, form: '🔥 On fire — Golden Boot race leader' },
+            { name: 'Griezmann', role: 'CAM', goals: 1, assists: 2, form: '📈 In form' },
+            { name: 'Tchouaméni', role: 'DM', goals: 0, assists: 1, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Allawi', role: 'MF', goals: 0, assists: 0, form: '✅ Consistent' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['Mbappé 3 goals in 2 games — Golden Boot leader', 'France top Group I with 6 points — maximum haul', 'Most dangerous front 3 in the tournament'],
+            W: ['Norway also on 6 points — who tops group matters for bracket', 'Maignan untested so far — keeping clean sheets easy vs weak opposition', 'Rabiot absence — midfield engine missing'],
+            O: ['Mbappé vs Norway in final group game — marquee fixture', 'France R32 draw favourable if they top group', 'Dembélé coming in from bench — fresh and electric'],
+            T: ['Norway on same points — loss vs Norway = 2nd place bracket', 'Haaland waiting in the wings if France face Norway bracket', 'France historically underperform at crunch moments'],
+          },
+          away: {
+            S: ['Iraq World Cup debut — historic moment'],
+            W: ['France quality impossible — lost 3-0', 'Eliminated — no points from 2 games', 'Quality gap too large to bridge'],
+            O: ['Learn from world-class opposition'],
+            T: ['Mbappé pace — their RB never recovered', 'France press relentless — Iraq couldn\'t hold the ball'],
+          }
+        },
+        prediction: {
+          score: '3 – 0', confidence: 99,
+          firstGoalMin: 14, btts: 'No', totalGoals: '3',
+          scorer: 'Mbappé (goal, 2 assists) · Griezmann',
+          method: 'FINAL: France 3-0 Iraq. Mbappé continues Golden Boot charge. France perfect in Group I — 6 points, 6 goals, 0 conceded.',
+          homeWin: 94, draw: 4, awayWin: 2,
+        }
+      },
+      {
+        id: 'eng_gha', home: 'England', away: 'Ghana',
+        homeAbbr: 'ENG', awayAbbr: 'GHA',
+        status: 'final', time: 'Tue Jun 23 · FT',
+        score: { home: 0, away: 0 },
+        prob: { home: 52.0, draw: 24.0, away: 24.0 },
+        keyPlayers: {
+          home: [
+            { name: 'Kane', role: 'CF', goals: 0, assists: 1, form: '📈 In form' },
+            { name: 'Bellingham', role: 'CM', goals: 1, assists: 0, form: '📈 In form' },
+            { name: 'Saka', role: 'RW', goals: 0, assists: 1, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Kudus', role: 'CAM', goals: 1, assists: 1, form: '🔥 On fire' },
+            { name: 'Partey', role: 'DM', goals: 0, assists: 0, form: '✅ Consistent' },
+            { name: 'Jordan Ayew', role: 'CF', goals: 0, assists: 0, form: '✅ Consistent' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['England and Ghana level on 4 pts — must-win for Group L leadership', 'Bellingham the difference maker from deep', 'Kane penalty threat always present'],
+            W: ['0-0 draw — England still struggling to convert dominance to goals', 'Southgate caution remains the system', 'No goals from open play yet'],
+            O: ['Group L winner faces weaker bracket opponent', 'Saka vs Ghana LB — physical mismatch', 'England set piece from Trippier corners'],
+            T: ['Kudus — Manchester City class — destroyed them last season', 'Ghana incredibly organised despite inferior ranking', 'Draw benefits Ghana marginally on goal difference'],
+          },
+          away: {
+            S: ['Ghana held England to 0-0 — one of upsets of MD2', 'Kudus world class — Premier League proven', 'Partey defensive discipline shut Kane out completely'],
+            W: ['Ghana 4 pts — same as England but inferior goal difference', 'Jordan Ayew poor decision-making in final third', 'Ghana conceded late goals historically'],
+            O: ['England 0-0 shows they can be held — do it again', 'Kudus pace vs Walker — potentially decisive', 'Ghana goal in this game = likely qualification'],
+            T: ['Bellingham late run from deep impossible to track', 'England crowd noise enormous — co-host atmosphere', 'Kane will get chances — one will go in'],
+          }
+        },
+        prediction: {
+          score: '0 – 0', confidence: 99,
+          firstGoalMin: '—', btts: 'No', totalGoals: '0',
+          scorer: 'Neither — 0-0 draw',
+          method: 'FINAL: England 0-0 Ghana. Shocking result — England fail to score again. Ghana heroic. Both teams advance from Group L. England top on goal difference (barely). Southgate under fire.',
+          homeWin: 52, draw: 24, awayWin: 24,
+        }
+      },
+    ]
+  },
+
   cl: {
     league: 'Champions League 2025-26',
     season: 'Qualifying Round 1',
@@ -2606,15 +2894,74 @@ const MATCH_DATA = {
 //  MATCH HUB RENDER
 // ══════════════════════════════════════════
 
-let activeLeague = 'epl';
+let activeLeague = 'wc26';
 let activeMatchId = null;
 let activeAnalysisTab = 'prematch';
+
+// ── WC26 STANDINGS DATA (from live API) ──
+const WC26_STANDINGS = [
+  { group: 'A', teams: [{ abbr:'MEX',name:'Mexico',w:2,d:0,l:0,pts:6 },{ abbr:'KOR',name:'Korea Rep.',w:1,d:0,l:1,pts:3 },{ abbr:'CZE',name:'Czechia',w:0,d:1,l:1,pts:1 },{ abbr:'RSA',name:'South Africa',w:0,d:1,l:1,pts:1 }] },
+  { group: 'B', teams: [{ abbr:'CAN',name:'Canada',w:1,d:1,l:0,pts:4 },{ abbr:'SUI',name:'Switzerland',w:1,d:1,l:0,pts:4 },{ abbr:'BIH',name:'Bosnia & Herz.',w:0,d:1,l:1,pts:1 },{ abbr:'QAT',name:'Qatar',w:0,d:1,l:1,pts:1 }] },
+  { group: 'C', teams: [{ abbr:'BRA',name:'Brazil',w:1,d:1,l:0,pts:4 },{ abbr:'MAR',name:'Morocco',w:1,d:1,l:0,pts:4 },{ abbr:'SCO',name:'Scotland',w:1,d:0,l:1,pts:3 },{ abbr:'HTI',name:'Haiti',w:0,d:0,l:2,pts:0 }] },
+  { group: 'D', teams: [{ abbr:'USA',name:'USA',w:2,d:0,l:0,pts:6 },{ abbr:'AUS',name:'Australia',w:1,d:0,l:1,pts:3 },{ abbr:'PAR',name:'Paraguay',w:1,d:0,l:1,pts:3 },{ abbr:'TUR',name:'Türkiye',w:0,d:0,l:2,pts:0 }] },
+  { group: 'E', teams: [{ abbr:'GER',name:'Germany',w:2,d:0,l:0,pts:6 },{ abbr:'CIV',name:'Ivory Coast',w:1,d:0,l:1,pts:3 },{ abbr:'ECU',name:'Ecuador',w:0,d:1,l:1,pts:1 },{ abbr:'CUW',name:'Curaçao',w:0,d:1,l:1,pts:1 }] },
+  { group: 'F', teams: [{ abbr:'NED',name:'Netherlands',w:1,d:1,l:0,pts:4 },{ abbr:'JPN',name:'Japan',w:1,d:1,l:0,pts:4 },{ abbr:'SWE',name:'Sweden',w:1,d:0,l:1,pts:3 },{ abbr:'TUN',name:'Tunisia',w:0,d:0,l:2,pts:0 }] },
+  { group: 'G', teams: [{ abbr:'EGY',name:'Egypt',w:1,d:1,l:0,pts:4 },{ abbr:'IRN',name:'Iran',w:0,d:2,l:0,pts:2 },{ abbr:'BEL',name:'Belgium',w:0,d:2,l:0,pts:2 },{ abbr:'NZL',name:'New Zealand',w:0,d:1,l:1,pts:1 }] },
+  { group: 'H', teams: [{ abbr:'ESP',name:'Spain',w:1,d:1,l:0,pts:4 },{ abbr:'URU',name:'Uruguay',w:0,d:2,l:0,pts:2 },{ abbr:'CPV',name:'Cape Verde',w:0,d:2,l:0,pts:2 },{ abbr:'KSA',name:'Saudi Arabia',w:0,d:1,l:1,pts:1 }] },
+  { group: 'I', teams: [{ abbr:'FRA',name:'France',w:2,d:0,l:0,pts:6 },{ abbr:'NOR',name:'Norway',w:2,d:0,l:0,pts:6 },{ abbr:'SEN',name:'Senegal',w:0,d:0,l:2,pts:0 },{ abbr:'IRQ',name:'Iraq',w:0,d:0,l:2,pts:0 }] },
+  { group: 'J', teams: [{ abbr:'ARG',name:'Argentina',w:2,d:0,l:0,pts:6 },{ abbr:'AUT',name:'Austria',w:1,d:0,l:1,pts:3 },{ abbr:'DZA',name:'Algeria',w:1,d:0,l:1,pts:3 },{ abbr:'JOR',name:'Jordan',w:0,d:0,l:2,pts:0 }] },
+  { group: 'K', teams: [{ abbr:'COL',name:'Colombia',w:2,d:0,l:0,pts:6 },{ abbr:'POR',name:'Portugal',w:1,d:1,l:0,pts:4 },{ abbr:'COD',name:'Congo DR',w:0,d:1,l:1,pts:1 },{ abbr:'UZB',name:'Uzbekistan',w:0,d:0,l:2,pts:0 }] },
+  { group: 'L', teams: [{ abbr:'ENG',name:'England',w:1,d:1,l:0,pts:4 },{ abbr:'GHA',name:'Ghana',w:1,d:1,l:0,pts:4 },{ abbr:'CRO',name:'Croatia',w:1,d:0,l:1,pts:3 },{ abbr:'PAN',name:'Panama',w:0,d:0,l:2,pts:0 }] },
+];
+
+function renderWC26Standings() {
+  const wrap = document.getElementById('wc26StandingsWrap');
+  if (!wrap) return;
+  wrap.innerHTML = `
+    <div style="margin-bottom:12px">
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--gold);text-align:center;margin-bottom:6px">🏆 LIVE GROUP STANDINGS · MATCHDAY 3</h3>
+      <p style="text-align:center;font-size:11px;color:var(--muted);margin-bottom:16px;letter-spacing:1px">48 teams · 12 groups · USA 🇺🇸 Canada 🇨🇦 Mexico 🇲🇽 — Top 2 advance</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px">
+      ${WC26_STANDINGS.map(g => `
+        <div style="background:var(--card);border:1px solid var(--card-border);border-radius:10px;overflow:hidden">
+          <div style="background:rgba(255,215,0,0.07);padding:8px 12px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--gold);border-bottom:1px solid rgba(255,215,0,0.1)">
+            GROUP ${g.group}
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:11px">
+            <tr style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px">
+              <td style="padding:4px 12px">TEAM</td>
+              <td style="padding:4px 6px;text-align:center">W</td>
+              <td style="padding:4px 6px;text-align:center">D</td>
+              <td style="padding:4px 6px;text-align:center">L</td>
+              <td style="padding:4px 6px;text-align:center;color:var(--gold)">PTS</td>
+            </tr>
+            ${g.teams.map((t, i) => `
+              <tr style="border-top:1px solid rgba(255,255,255,0.04);${i < 2 ? 'background:rgba(76,175,80,0.04)' : ''}">
+                <td style="padding:6px 12px;font-weight:${i < 2 ? 600 : 400};color:${i < 2 ? 'var(--white)' : 'var(--muted)'}">
+                  ${i < 2 ? '✅ ' : ''}${t.name}
+                </td>
+                <td style="padding:6px;text-align:center;font-family:'JetBrains Mono',monospace;color:var(--muted)">${t.w}</td>
+                <td style="padding:6px;text-align:center;font-family:'JetBrains Mono',monospace;color:var(--muted)">${t.d}</td>
+                <td style="padding:6px;text-align:center;font-family:'JetBrains Mono',monospace;color:var(--muted)">${t.l}</td>
+                <td style="padding:6px;text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700;color:${i < 2 ? 'var(--gold)' : 'var(--muted)'}">${t.pts}</td>
+              </tr>
+            `).join('')}
+          </table>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
 
 function switchLeague(league) {
   activeLeague = league;
   document.querySelectorAll('.league-tab').forEach(t => t.classList.remove('active'));
   event.target.classList.add('active');
   closeMatchDetail();
+  // Show/hide WC26 standings
+  const sw = document.getElementById('wc26StandingsWrap');
+  if (sw) sw.style.display = league === 'wc26' ? 'block' : 'none';
   renderMatchCards();
 }
 
@@ -2945,7 +3292,9 @@ function renderPredictionPanel(m) {
   `;
 }
 
-// Init match hub
+// Init match hub — default to World Cup 2026
+renderWC26Standings();
+document.getElementById('wc26StandingsWrap').style.display = 'block';
 renderMatchCards();
 
 // Init GOAT section
