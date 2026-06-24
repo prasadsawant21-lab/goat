@@ -1440,6 +1440,335 @@
   .accuracy-label { font-size: 10px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
   .accuracy-verdict { font-size: 12px; color: var(--white); margin-top: 4px; }
 
+  /* ══════════════════════════════════════════
+     LIVE SCORE ARENA
+  ══════════════════════════════════════════ */
+
+  .live-arena-section {
+    position: relative; z-index: 1;
+    padding: 0 16px 56px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Ticker */
+  .score-ticker-wrap {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,0,0,0.06); border: 1px solid rgba(255,80,80,0.2);
+    border-radius: 8px; padding: 10px 16px; margin-bottom: 20px; overflow: hidden;
+  }
+  .ticker-label {
+    font-family: 'JetBrains Mono',monospace; font-size: 10px;
+    letter-spacing: 2px; color: #ff5555; white-space: nowrap; flex-shrink: 0;
+  }
+  .score-ticker {
+    display: flex; gap: 24px; overflow-x: auto; scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .score-ticker::-webkit-scrollbar { display: none; }
+  .ticker-item {
+    display: flex; align-items: center; gap: 8px; white-space: nowrap;
+    font-family: 'JetBrains Mono',monospace; font-size: 12px; flex-shrink: 0;
+  }
+  .ticker-score {
+    font-family: 'Bebas Neue',sans-serif; font-size: 18px;
+    letter-spacing: 2px; color: var(--gold);
+  }
+  .ticker-status {
+    font-size: 9px; padding: 2px 6px; border-radius: 8px;
+    letter-spacing: 1px; font-weight: 600;
+  }
+  .ticker-status.live { background: rgba(76,175,80,0.2); color: #4caf50; }
+  .ticker-status.ft { background: rgba(255,255,255,0.06); color: var(--muted); }
+  .ticker-status.soon { background: rgba(255,215,0,0.12); color: var(--gold); }
+
+  /* Match grid */
+  .arena-match-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin-bottom: 0;
+  }
+
+  .arena-match-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: var(--radius); padding: 0;
+    cursor: pointer; transition: all 0.2s; overflow: hidden;
+    position: relative;
+  }
+  .arena-match-card:hover { transform: translateY(-3px); border-color: rgba(255,215,0,0.3); }
+  .arena-match-card.is-live { border-color: rgba(76,175,80,0.5); box-shadow: 0 0 20px rgba(76,175,80,0.1); }
+
+  .arena-card-top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 14px 8px; border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .arena-card-league { font-size: 9px; letter-spacing: 2px; color: var(--muted); font-family: 'JetBrains Mono',monospace; text-transform: uppercase; }
+
+  .live-pulse {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 9px; color: #4caf50; font-family: 'JetBrains Mono',monospace; letter-spacing: 1px;
+  }
+  .pulse-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #4caf50;
+    animation: pulse-blink 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse-blink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .arena-card-body {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 14px 10px; gap: 8px;
+  }
+  .arena-team-block { flex: 1; }
+  .arena-team-abbr {
+    font-family: 'Bebas Neue',sans-serif; font-size: 26px;
+    letter-spacing: 1px; display: block; line-height: 1;
+  }
+  .arena-team-full { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .arena-score-center { text-align: center; flex-shrink: 0; }
+  .arena-score {
+    font-family: 'Bebas Neue',sans-serif; font-size: 38px;
+    letter-spacing: 4px; color: var(--white); line-height: 1;
+  }
+  .arena-score.live-col { color: #4caf50; }
+  .arena-vs { font-size: 11px; color: var(--muted); letter-spacing: 2px; }
+  .arena-minute {
+    font-family: 'JetBrains Mono',monospace; font-size: 10px;
+    color: #4caf50; margin-top: 2px;
+  }
+  .arena-card-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 14px 10px;
+  }
+  .arena-card-time { font-size: 10px; color: var(--muted); font-family: 'JetBrains Mono',monospace; }
+  .arena-card-cta { font-size: 9px; color: var(--gold-dim); letter-spacing: 1px; font-family: 'JetBrains Mono',monospace; }
+
+  /* Prob strip at bottom of card */
+  .arena-prob-strip { display: flex; height: 3px; }
+  .arena-prob-h { background: #5b9bd5; }
+  .arena-prob-d { background: var(--muted); }
+  .arena-prob-a { background: #e05252; }
+
+  /* ── ARENA PANEL ── */
+  .arena-panel { padding-top: 4px; }
+
+  .arena-scorebar {
+    background: linear-gradient(135deg, rgba(255,215,0,0.07), rgba(0,0,0,0));
+    border: 1px solid rgba(255,215,0,0.2); border-radius: var(--radius);
+    padding: 20px 24px; margin-bottom: 16px; text-align: center;
+  }
+
+  .arena-layout {
+    display: grid;
+    grid-template-columns: 1fr 220px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .arena-layout { grid-template-columns: 1fr 1fr; }
+    .arena-middle { order: -1; grid-column: 1 / -1; }
+  }
+  @media (max-width: 600px) {
+    .arena-layout { grid-template-columns: 1fr; }
+    .arena-middle { grid-column: 1; }
+  }
+
+  .arena-block {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: var(--radius); padding: 14px; overflow: hidden;
+  }
+  .arena-block-title {
+    font-family: 'JetBrains Mono',monospace; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim);
+    margin-bottom: 12px;
+  }
+
+  /* Live feed */
+  .live-feed {
+    display: flex; flex-direction: column; gap: 6px;
+    max-height: 280px; overflow-y: auto;
+  }
+  .feed-item {
+    display: flex; gap: 8px; align-items: flex-start;
+    padding: 7px 10px; border-radius: 8px;
+    background: rgba(255,255,255,0.025); font-size: 12px;
+    border-left: 2px solid transparent; animation: feedIn 0.3s ease;
+  }
+  @keyframes feedIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .feed-item.goal { border-left-color: #4caf50; background: rgba(76,175,80,0.07); }
+  .feed-item.yellow { border-left-color: #FFD700; }
+  .feed-item.red { border-left-color: #e05252; }
+  .feed-item.sub { border-left-color: #26c6da; }
+  .feed-item.info { border-left-color: rgba(255,255,255,0.2); }
+  .feed-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .feed-min {
+    font-family: 'Bebas Neue',sans-serif; font-size: 15px;
+    color: var(--gold); flex-shrink: 0; min-width: 30px; line-height: 1.2;
+  }
+  .feed-text { color: var(--muted); line-height: 1.5; }
+  .feed-text strong { color: var(--white); }
+
+  /* AI Chat */
+  .ai-live-dot {
+    font-family: 'JetBrains Mono',monospace; font-size: 9px;
+    color: #4caf50; letter-spacing: 1px; animation: pulse-blink 1.5s infinite;
+  }
+  .ai-chat-box {
+    display: flex; flex-direction: column; gap: 8px;
+    max-height: 240px; overflow-y: auto;
+    margin-bottom: 10px; padding-right: 2px;
+  }
+  .ai-chat-box::-webkit-scrollbar { width: 3px; }
+  .ai-chat-box::-webkit-scrollbar-thumb { background: rgba(255,215,0,0.2); border-radius: 2px; }
+
+  .chat-msg {
+    display: flex; gap: 8px; align-items: flex-start;
+    animation: feedIn 0.25s ease;
+  }
+  .chat-msg.user { flex-direction: row-reverse; }
+  .chat-avatar {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; background: rgba(255,215,0,0.12); color: var(--gold);
+    font-family: 'Bebas Neue',sans-serif;
+  }
+  .chat-msg.user .chat-avatar { background: rgba(91,155,213,0.15); color: #5b9bd5; }
+  .chat-bubble {
+    max-width: 85%; padding: 8px 12px; border-radius: 12px;
+    font-size: 12px; line-height: 1.6; color: var(--white);
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  }
+  .chat-msg.user .chat-bubble {
+    background: rgba(91,155,213,0.12); border-color: rgba(91,155,213,0.2);
+    text-align: right;
+  }
+  .chat-thinking {
+    display: flex; gap: 4px; align-items: center; padding: 10px 12px;
+    background: rgba(255,255,255,0.04); border-radius: 12px; width: fit-content;
+  }
+  .thinking-dot {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--gold);
+    animation: thinking 1.2s ease-in-out infinite;
+  }
+  .thinking-dot:nth-child(2) { animation-delay: 0.2s; }
+  .thinking-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes thinking {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  .ai-input-row {
+    display: flex; gap: 6px; align-items: center; margin-bottom: 8px;
+  }
+  .ai-input {
+    flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white); font-family: 'Inter',sans-serif; font-size: 12px;
+    padding: 9px 12px; border-radius: 8px; outline: none; transition: border-color 0.2s;
+  }
+  .ai-input:focus { border-color: rgba(255,215,0,0.4); }
+  .ai-input::placeholder { color: rgba(154,163,168,0.5); }
+  .ai-send-btn {
+    background: var(--gold); color: #000; border: none; width: 34px; height: 34px;
+    border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; flex-shrink: 0;
+  }
+  .ai-send-btn:hover { background: #ffe135; transform: translateY(-1px); }
+  .ai-send-btn:disabled { background: rgba(255,215,0,0.3); cursor: not-allowed; transform: none; }
+
+  .ai-quick-btns {
+    display: flex; gap: 4px; flex-wrap: wrap;
+  }
+  .quick-btn {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    color: var(--muted); font-size: 10px; padding: 4px 10px;
+    border-radius: 12px; cursor: pointer; font-family: 'Inter',sans-serif;
+    transition: all 0.15s; white-space: nowrap;
+  }
+  .quick-btn:hover { border-color: rgba(255,215,0,0.3); color: var(--gold); }
+
+  /* Tactical pitch */
+  .arena-team-toggle {
+    display: flex; gap: 4px; margin-bottom: 10px;
+  }
+  .team-tog {
+    flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    color: var(--muted); font-size: 10px; padding: 5px 4px; border-radius: 6px;
+    cursor: pointer; font-family: 'Inter',sans-serif; transition: all 0.2s;
+  }
+  .team-tog.active { background: rgba(255,215,0,0.1); border-color: rgba(255,215,0,0.3); color: var(--gold); }
+  .arena-pitch-svg { width: 100%; height: auto; display: block; }
+
+  /* Key player cards */
+  .key-player-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .key-player-row:last-child { border-bottom: none; }
+  .kp-avatar {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue',sans-serif; font-size: 12px;
+  }
+  .kp-name { font-size: 13px; font-weight: 600; color: var(--white); line-height: 1.2; }
+  .kp-role { font-size: 10px; color: var(--muted); font-family: 'JetBrains Mono',monospace; letter-spacing: 1px; }
+  .kp-stats { margin-left: auto; text-align: right; }
+  .kp-form { font-size: 11px; }
+
+  /* Stats section */
+  .arena-stat-row {
+    margin-bottom: 10px;
+  }
+  .arena-stat-label {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--muted); margin-bottom: 3px;
+  }
+  .arena-stat-label span:first-child { color: #5b9bd5; }
+  .arena-stat-label span:last-child { color: #e05252; }
+  .arena-stat-label span:nth-child(2) { color: var(--muted); font-size: 10px; }
+  .arena-stat-track {
+    display: flex; height: 5px; border-radius: 3px; overflow: hidden; gap: 2px;
+  }
+  .arena-stat-home { background: #5b9bd5; border-radius: 2px 0 0 2px; }
+  .arena-stat-away { background: #e05252; border-radius: 0 2px 2px 0; }
+
+  /* xG race */
+  .xg-bar-wrap { position: relative; margin-bottom: 12px; }
+  .xg-label { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-bottom: 4px; }
+  .xg-track {
+    display: flex; height: 18px; border-radius: 4px; overflow: hidden;
+    background: rgba(255,255,255,0.05);
+  }
+  .xg-home { background: linear-gradient(90deg, #5b9bd5aa, #5b9bd5); border-radius: 4px 0 0 4px; display: flex; align-items: center; justify-content: flex-start; padding: 0 6px; }
+  .xg-away { background: linear-gradient(90deg, #e05252, #e05252aa); border-radius: 0 4px 4px 0; display: flex; align-items: center; justify-content: flex-end; padding: 0 6px; margin-left: auto; }
+  .xg-val { font-family: 'Bebas Neue',sans-serif; font-size: 13px; color: #fff; }
+
+  /* Strategy */
+  .strategy-item {
+    display: flex; gap: 8px; align-items: flex-start; padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 11px; color: var(--muted);
+    line-height: 1.5;
+  }
+  .strategy-item:last-child { border-bottom: none; }
+  .strategy-icon { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+
+  @media (max-width: 480px) {
+    .arena-match-grid { grid-template-columns: 1fr; }
+    .score-ticker-wrap { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .arena-scorebar { padding: 14px 12px; }
+    .arena-block { padding: 10px; }
+    .arena-team-toggle { flex-wrap: wrap; }
+    .ai-quick-btns { gap: 3px; }
+    .quick-btn { font-size: 9px; padding: 3px 8px; }
+  }
+
 </style>
 </head>
 <body>
@@ -1555,6 +1884,95 @@
   <div class="match-detail-panel" id="matchDetailPanel" style="display:none">
     <button class="back-btn" onclick="closeMatchDetail()">← Back to fixtures</button>
     <div id="matchDetailContent"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ LIVE SCORE ARENA ═══════════════ -->
+<section class="live-arena-section" id="liveArena">
+  <h2 class="section-title">🔴 LIVE SCORE ARENA</h2>
+  <p class="section-sub">FIFA World Cup 2026 · Real scores · AI Commentator · Tap any match to go deep</p>
+
+  <!-- Scoreboard ticker -->
+  <div class="score-ticker-wrap">
+    <div class="ticker-label">🔴 LIVE / TODAY</div>
+    <div class="score-ticker" id="scoreTicker"></div>
+  </div>
+
+  <!-- Match selector grid -->
+  <div class="arena-match-grid" id="arenaMatchGrid"></div>
+
+  <!-- Match deep-dive panel -->
+  <div class="arena-panel" id="arenaPanel" style="display:none">
+    <button class="back-btn" onclick="closeArenaPanel()">← All matches</button>
+
+    <!-- Top bar: score + pulse -->
+    <div class="arena-scorebar" id="arenaScorebar"></div>
+
+    <!-- 4-column layout -->
+    <div class="arena-layout">
+
+      <!-- LEFT: Live feed + commentary input -->
+      <div class="arena-left">
+        <div class="arena-block">
+          <div class="arena-block-title">📡 LIVE FEED</div>
+          <div class="live-feed" id="arenaFeed"></div>
+        </div>
+
+        <!-- AI Commentator chat -->
+        <div class="arena-block" style="margin-top:12px">
+          <div class="arena-block-title" style="display:flex;justify-content:space-between;align-items:center">
+            <span>🎙️ AI COMMENTATOR</span>
+            <span class="ai-live-dot">● LIVE</span>
+          </div>
+          <div class="ai-chat-box" id="aiChatBox"></div>
+          <div class="ai-input-row">
+            <input type="text" id="aiInput" class="ai-input"
+              placeholder="Ask about this match… e.g. 'Why is Messi key?'"
+              onkeydown="if(event.key==='Enter')sendAiMessage()"/>
+            <button class="ai-send-btn" onclick="sendAiMessage()">↑</button>
+          </div>
+          <div class="ai-quick-btns" id="aiQuickBtns"></div>
+        </div>
+      </div>
+
+      <!-- MIDDLE: Tactical pitch heatmap + formation -->
+      <div class="arena-middle">
+        <div class="arena-block">
+          <div class="arena-block-title">🗺️ TACTICAL MAP</div>
+          <div class="arena-team-toggle">
+            <button class="team-tog active" id="togHome" onclick="switchTacticalTeam('home')">Home</button>
+            <button class="team-tog" id="togAway" onclick="switchTacticalTeam('away')">Away</button>
+            <button class="team-tog" id="togBoth" onclick="switchTacticalTeam('both')">Pressure Zones</button>
+          </div>
+          <svg id="arenaPitch" viewBox="0 0 280 420" class="arena-pitch-svg"></svg>
+        </div>
+
+        <!-- Key player cards -->
+        <div class="arena-block" style="margin-top:12px">
+          <div class="arena-block-title">⭐ KEY PLAYERS</div>
+          <div id="arenaKeyPlayers"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Stats + xG + strategy -->
+      <div class="arena-right">
+        <div class="arena-block">
+          <div class="arena-block-title">📊 LIVE STATS</div>
+          <div id="arenaStats"></div>
+        </div>
+
+        <div class="arena-block" style="margin-top:12px">
+          <div class="arena-block-title">⚡ xG RACE</div>
+          <div id="arenaXG"></div>
+        </div>
+
+        <div class="arena-block" style="margin-top:12px">
+          <div class="arena-block-title">🧠 STRATEGY NOTES</div>
+          <div id="arenaStrategy"></div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -3861,7 +4279,684 @@ function renderPredictionPanel(m) {
   `;
 }
 
-// Init match hub — default to World Cup 2026
+// ══════════════════════════════════════════
+//  LIVE SCORE ARENA — FIFA WORLD CUP 2026
+// ══════════════════════════════════════════
+
+const LIVE_MATCHES = [
+  // ── UPCOMING TODAY ──
+  {
+    id:'sco_bra', home:'Scotland', away:'Brazil', hAbbr:'SCO', aAbbr:'BRA',
+    status:'scheduled', minute:null, time:'Thu Jun 25 · 02:00 GST',
+    score:{h:0,a:0}, prob:{h:9.2,d:16.6,a:74.2},
+    league:'FIFA World Cup 2026 · Group C',
+    xg:{h:0.0,a:0.0},
+    poss:{h:38,a:62},
+    shots:{h:0,a:0}, onT:{h:0,a:0}, corners:{h:0,a:0}, fouls:{h:0,a:0},
+    homePlayers:[
+      {name:'McTominay',role:'CM',init:'ST',col:'#4488cc',form:'⚽ 4 WC goals',rating:7.2},
+      {name:'Adams',role:'CF',init:'CA',col:'#3366aa',form:'💪 Physical',rating:6.8},
+      {name:'Robertson',role:'LB',init:'AR',col:'#2255aa',form:'🎯 Set pieces',rating:7.0},
+    ],
+    awayPlayers:[
+      {name:'Vinicius Jr',role:'LW',init:'VJ',col:'#f4c542',form:'🔥 3 goals this WC',rating:9.1},
+      {name:'Endrick',role:'CF',init:'EN',col:'#22cc66',form:'⭐ 18yr prodigy',rating:8.4},
+      {name:'Rodrygo',role:'RW',init:'RO',col:'#33bb55',form:'📈 In form',rating:7.8},
+    ],
+    feed:[
+      {min:'PRE',type:'info',icon:'📋',text:'<strong>Scotland vs Brazil</strong> — Kick-off at 02:00 GST'},
+      {min:'PRE',type:'info',icon:'🏟️',text:'Venue: SoFi Stadium, Los Angeles · Capacity: 70,000'},
+      {min:'PRE',type:'info',icon:'⚽',text:'<strong>Brazil</strong> need a win to guarantee top-2 in Group C'},
+      {min:'PRE',type:'info',icon:'🔥',text:'<strong>Vinicius Jr</strong> has been the best player in the tournament so far'},
+    ],
+    homeTactics:'5-4-1 low block. Park the bus. Counter on McTominay runs from deep. Set piece threat from corners. Robertson whipped balls.',
+    awayTactics:'4-3-3 high press. Vinicius wide left exploits Robertson. Endrick in the box. Brazil build from GK Ederson — possession game.',
+    homeHeat:[[0.08,0.18,0.22,0.18,0.08],[0.10,0.22,0.30,0.22,0.10],[0.12,0.25,0.35,0.25,0.12],[0.10,0.20,0.30,0.15,0.08],[0.06,0.12,0.20,0.10,0.05],[0.04,0.08,0.14,0.06,0.03]],
+    awayHeat:[[0.05,0.10,0.14,0.10,0.05],[0.08,0.18,0.25,0.18,0.08],[0.12,0.28,0.45,0.28,0.12],[0.20,0.50,0.70,0.40,0.18],[0.45,0.85,0.90,0.55,0.22],[0.25,0.55,0.80,0.40,0.15]],
+    strategy:[
+      {icon:'🛡️',text:'Scotland will sit deep in a 5-4-1. Their only path is to absorb Brazil for 70+ mins and hit on the counter.'},
+      {icon:'⚡',text:'Vinicius exploits Robertson 1v1 on the left. Brazil will overload that channel from minute one.'},
+      {icon:'🎯',text:'Scotland set pieces via Robertson and McTominay are their only realistic goal route.'},
+      {icon:'🔄',text:'Brazil will rotate — Neymar impact sub in 60th minute if Brazil need a goal.'},
+    ],
+    quickQs:['Why is Vinicius so dangerous?','Can Scotland get a result?','What is Brazil\'s weakness?','Predict the scoreline','Who is the key matchup?'],
+    aiContext:'Scotland vs Brazil, FIFA World Cup 2026 Group C. Scotland 5-4-1 low block defensive setup, Brazil 4-3-3 high press with Vinicius Jr in lethal form (3 goals). Brazil 74.2% win probability. McTominay Scotland\'s main goal threat. Kick-off 02:00 GST Jun 25.',
+  },
+  {
+    id:'mar_hti', home:'Morocco', away:'Haiti', hAbbr:'MAR', aAbbr:'HTI',
+    status:'scheduled', minute:null, time:'Thu Jun 25 · 02:00 GST',
+    score:{h:0,a:0}, prob:{h:81.9,d:12.4,a:5.7},
+    league:'FIFA World Cup 2026 · Group C',
+    xg:{h:0.0,a:0.0},
+    poss:{h:65,a:35}, shots:{h:0,a:0}, onT:{h:0,a:0}, corners:{h:0,a:0}, fouls:{h:0,a:0},
+    homePlayers:[
+      {name:'En-Nesyri',role:'CF',init:'EN',col:'#cc2222',form:'🔥 3 WC goals',rating:8.6},
+      {name:'Ziyech',role:'CAM',init:'ZI',col:'#dd3333',form:'🎯 3 assists',rating:8.0},
+      {name:'Hakimi',role:'RB',init:'HA',col:'#bb2222',form:'⚡ Overlapping runs',rating:8.2},
+    ],
+    awayPlayers:[
+      {name:'Nazon',role:'CF',init:'NA',col:'#2244cc',form:'💪 2 goals so far',rating:6.5},
+      {name:'Bazile',role:'MF',init:'BA',col:'#1133aa',form:'🔄 Work rate',rating:6.2},
+    ],
+    feed:[
+      {min:'PRE',type:'info',icon:'📋',text:'<strong>Morocco vs Haiti</strong> — Must win for Morocco to secure Group C'},
+      {min:'PRE',type:'info',icon:'🏟️',text:'Venue: Camping World Stadium, Orlando'},
+      {min:'PRE',type:'info',icon:'⚽',text:'<strong>En-Nesyri</strong> already has 3 headers this tournament — elite in the air'},
+      {min:'PRE',type:'info',icon:'📊',text:'Haiti are eliminated — Morocco need 3 points to be safe'},
+    ],
+    homeTactics:'4-3-3 dominant possession. En-Nesyri aerial presence in the box. Hakimi overlapping right. Ziyech as the creator from CAM. Morocco will press high and win ball early.',
+    awayTactics:'5-4-1 defensive block. Haiti have nothing to lose. Nazon will target long balls and try to catch Morocco on the counter.',
+    homeHeat:[[0.05,0.10,0.15,0.10,0.05],[0.08,0.18,0.28,0.18,0.08],[0.15,0.35,0.55,0.35,0.15],[0.25,0.55,0.75,0.55,0.25],[0.35,0.70,0.90,0.65,0.30],[0.18,0.45,0.80,0.50,0.20]],
+    awayHeat:[[0.10,0.15,0.20,0.15,0.10],[0.12,0.18,0.22,0.18,0.12],[0.08,0.14,0.18,0.14,0.08],[0.05,0.10,0.14,0.10,0.05],[0.03,0.06,0.08,0.06,0.03],[0.02,0.04,0.05,0.04,0.02]],
+    strategy:[
+      {icon:'🎯',text:'En-Nesyri will win every aerial battle vs Haiti\'s defenders. Morocco\'s set pieces are their fastest route to goal.'},
+      {icon:'⚡',text:'Hakimi will bomb forward 10-15 times. Haiti cannot track him — expect Morocco goals from right-side crosses.'},
+      {icon:'🛡️',text:'Haiti will defend in two banks of four and try to survive for 70 mins before counter-attacking.'},
+      {icon:'📈',text:'Ziyech form is peaking — 3 assists this WC. He will unlock the Haiti block with through balls.'},
+    ],
+    quickQs:['How many goals will Morocco score?','Is Ziyech the best player today?','Haiti\'s only hope?','Morocco formation explained','Will En-Nesyri score a hattrick?'],
+    aiContext:'Morocco vs Haiti, FIFA World Cup 2026 Group C. Morocco 81.9% win probability. En-Nesyri 3 goals, Ziyech 3 assists. Haiti eliminated, Morocco need win to secure top-2. Predicted 4-0 Morocco. Kick-off 02:00 GST Jun 25.',
+  },
+  {
+    id:'sui_can', home:'Switzerland', away:'Canada', hAbbr:'SUI', aAbbr:'CAN',
+    status:'scheduled', minute:null, time:'Wed Jun 24 · 23:00 GST',
+    score:{h:0,a:0}, prob:{h:40.2,d:30.8,a:29.0},
+    league:'FIFA World Cup 2026 · Group B',
+    xg:{h:0.0,a:0.0},
+    poss:{h:52,a:48}, shots:{h:0,a:0}, onT:{h:0,a:0}, corners:{h:0,a:0}, fouls:{h:0,a:0},
+    homePlayers:[
+      {name:'Xhaka',role:'CM',init:'XH',col:'#cc2222',form:'⭐ Leader',rating:7.8},
+      {name:'Embolo',role:'CF',init:'EM',col:'#dd3333',form:'🔥 2 WC goals',rating:7.5},
+      {name:'Shaqiri',role:'CAM',init:'SH',col:'#bb2222',form:'📈 Experience',rating:7.2},
+    ],
+    awayPlayers:[
+      {name:'Jonathan David',role:'CF',init:'JD',col:'#cc0000',form:'🔥 Golden Boot: 3 goals',rating:9.0},
+      {name:'Davies',role:'LB',init:'AD',col:'#bb0000',form:'⚡ Best LB in world',rating:8.8},
+      {name:'Hoilett',role:'RW',init:'HO',col:'#990000',form:'📈 2 assists',rating:7.4},
+    ],
+    feed:[
+      {min:'PRE',type:'info',icon:'📋',text:'<strong>Switzerland vs Canada</strong> — Winner likely tops Group B'},
+      {min:'PRE',type:'info',icon:'🏆',text:'Both teams on 4 points — massive game for Group B leadership'},
+      {min:'PRE',type:'info',icon:'⭐',text:'<strong>Jonathan David</strong> leads Golden Boot race with 3 goals'},
+      {min:'PRE',type:'info',icon:'🏟️',text:'Venue: Mercedes-Benz Stadium, Atlanta · Co-host crowd advantage Canada'},
+    ],
+    homeTactics:'4-2-3-1 defensive block. Xhaka screens the back four. Embolo target man. Shaqiri free role off the striker. Switzerland are compact and organised.',
+    awayTactics:'4-3-3 with Davies bombing forward. Jonathan David in behind the Swiss high line. Hoilett right side. Canada will press and use co-host crowd energy.',
+    homeHeat:[[0.05,0.10,0.18,0.10,0.05],[0.08,0.18,0.30,0.18,0.08],[0.12,0.28,0.45,0.28,0.12],[0.15,0.35,0.55,0.35,0.15],[0.18,0.42,0.70,0.38,0.16],[0.10,0.28,0.55,0.25,0.10]],
+    awayHeat:[[0.04,0.08,0.12,0.08,0.04],[0.08,0.15,0.22,0.15,0.08],[0.12,0.25,0.38,0.25,0.12],[0.20,0.45,0.65,0.40,0.18],[0.30,0.60,0.85,0.55,0.25],[0.18,0.40,0.70,0.38,0.16]],
+    strategy:[
+      {icon:'🎯',text:'Jonathan David will run the Swiss high line all game. His pace vs Akanji/Schar is the decisive matchup.'},
+      {icon:'⚡',text:'Davies surging from LB creates 2v1s on Canada\'s left. Switzerland\'s right back will be exposed.'},
+      {icon:'🛡️',text:'Xhaka\'s job is simple: stop the ball reaching David early. If David gets isolated he\'s lethal.'},
+      {icon:'🏆',text:'Canada co-host advantage is real — crowd noise and pressure will be enormous at Mercedes-Benz.'},
+    ],
+    quickQs:['Jonathan David vs Swiss defence','Will Davies score?','Who wins Group B?','Switzerland tactical setup','Canada formation and style'],
+    aiContext:'Switzerland vs Canada, FIFA World Cup 2026 Group B. Both teams on 4 points — winner likely tops Group B. Jonathan David (Canada) leads Golden Boot with 3 goals. Alphonso Davies best LB in world. Predicted 1-2 Canada. Kick-off 23:00 GST Jun 24.',
+  },
+  // ── COMPLETED ──
+  {
+    id:'arg_aut_live', home:'Argentina', away:'Austria', hAbbr:'ARG', aAbbr:'AUT',
+    status:'final', minute:90, time:'Mon Jun 22 · FT',
+    score:{h:2,a:0}, prob:{h:74.0,d:14.0,a:12.0},
+    league:'FIFA World Cup 2026 · Group J',
+    xg:{h:1.8,a:0.4},
+    poss:{h:54,a:46}, shots:{h:12,a:6}, onT:{h:3,a:1}, corners:{h:1,a:3}, fouls:{h:13,a:12},
+    homePlayers:[
+      {name:'Messi',role:'CAM',init:'LM',col:'#5b9bd5',form:'🐐 1G 2A · 80 min',rating:9.4},
+      {name:'Lautaro',role:'CF',init:'LA',col:'#4488cc',form:'⚽⚽ Brace',rating:9.1},
+      {name:'Mac Allister',role:'CM',init:'MA',col:'#3377bb',form:'✅ Controlled',rating:8.0},
+    ],
+    awayPlayers:[
+      {name:'Sabitzer',role:'CM',init:'SA',col:'#cc2222',form:'📈 Best Austrian',rating:6.8},
+      {name:'Alaba',role:'CB',init:'AL',col:'#bb2222',form:'🛡️ Defensive leader',rating:6.5},
+      {name:'Gregoritsch',role:'CF',init:'GR',col:'#aa2222',form:'💪 Physical',rating:6.2},
+    ],
+    feed:[
+      {min:'FT',type:'info',icon:'🏁',text:'<strong>FULL TIME: Argentina 2 – 0 Austria</strong>'},
+      {min:'90',type:'goal',icon:'⚽',text:'<strong>GOAL! Lautaro Martínez</strong> seals it in stoppage time · ARG 2-0'},
+      {min:'80',type:'sub',icon:'🔄',text:'<strong>Messi off</strong> — replaced by Alvarez · Managed carefully (80\')'},
+      {min:'76',type:'yellow',icon:'🟨',text:'Yellow card — Argentina · Tactical foul midfield'},
+      {min:'68',type:'sub',icon:'🔄',text:'Triple substitution Austria — chasing the game'},
+      {min:'38',type:'goal',icon:'⚽',text:'<strong>GOAL! Lautaro Martínez</strong> opens the scoring · ARG 1-0 · Messi assist'},
+      {min:'1',type:'info',icon:'🎙️',text:'<strong>KICK OFF!</strong> Argentina vs Austria — Group J showdown'},
+    ],
+    homeTactics:'4-3-3 possession dominance. Messi free role behind Lautaro. De Paul and Mac Allister midfield press. Di María and Dybala wide. Argentina dominated 54% possession.',
+    awayTactics:'4-4-2 compact mid-block. Austria tried to press high but Argentina played through them. Sabitzer best player for Austria — 3 long-range attempts.',
+    homeHeat:[[0.04,0.08,0.12,0.08,0.04],[0.08,0.18,0.28,0.18,0.08],[0.14,0.32,0.50,0.28,0.12],[0.22,0.52,0.72,0.45,0.18],[0.30,0.65,0.90,0.58,0.22],[0.18,0.48,0.80,0.44,0.16]],
+    awayHeat:[[0.08,0.15,0.20,0.15,0.08],[0.10,0.18,0.25,0.18,0.10],[0.08,0.15,0.22,0.15,0.08],[0.06,0.12,0.16,0.12,0.06],[0.04,0.08,0.10,0.08,0.04],[0.02,0.04,0.05,0.04,0.02]],
+    strategy:[
+      {icon:'🐐',text:'Messi received 38 touches in 80 mins — always in pockets of space. Austria could not man-mark him.'},
+      {icon:'⚽',text:'Lautaro\'s movement created the 1st goal from a Messi through ball. Classic combination.'},
+      {icon:'🛡️',text:'Argentina never looked in danger. Martinez (GK) barely tested — only 1 Austrian shot on target.'},
+      {icon:'🔄',text:'Messi subbed at 80\' — fitness management for the knockouts. Smart by Scaloni.'},
+    ],
+    quickQs:['How was Messi today?','Why did Scaloni sub Messi early?','Lautaro\'s role in this team','Argentina\'s chances of winning WC','Austria\'s path from here'],
+    aiContext:'Argentina 2-0 Austria, FIFA World Cup 2026 Group J, FULL TIME. Lautaro brace (38\', 90\'). Messi played 80 minutes with 1 goal, 2 assists. 54% possession Argentina, 12 shots vs 6. Argentina top Group J with 6 points. Messi managed carefully for knockouts.',
+  },
+  {
+    id:'por_uzb_live', home:'Portugal', away:'Uzbekistan', hAbbr:'POR', aAbbr:'UZB',
+    status:'final', minute:90, time:'Tue Jun 23 · FT',
+    score:{h:5,a:0}, prob:{h:91.0,d:5.0,a:4.0},
+    league:'FIFA World Cup 2026 · Group K',
+    xg:{h:4.2,a:0.3},
+    poss:{h:66,a:34}, shots:{h:16,a:7}, onT:{h:9,a:2}, corners:{h:3,a:2}, fouls:{h:14,a:15},
+    homePlayers:[
+      {name:'Ronaldo',role:'CF',init:'CR',col:'#e05252',form:'🐐 Brace · 6\' & 17\'',rating:9.6},
+      {name:'Bruno Fernandes',role:'CAM',init:'BF',col:'#cc3333',form:'⭐ 1G 2A',rating:9.3},
+      {name:'João Félix',role:'LW',init:'JF',col:'#bb2222',form:'⚽ 1 goal',rating:8.5},
+    ],
+    awayPlayers:[
+      {name:'Shomurodov',role:'CF',init:'SH',col:'#4488cc',form:'💪 Never gave up',rating:6.0},
+      {name:'Fayzullaev',role:'MF',init:'FA',col:'#3377aa',form:'📈 Active',rating:5.8},
+    ],
+    feed:[
+      {min:'FT',type:'info',icon:'🏁',text:'<strong>FULL TIME: Portugal 5 – 0 Uzbekistan</strong> — Complete destruction'},
+      {min:'87',type:'goal',icon:'⚽',text:'<strong>GOAL! Portugal</strong> make it 5 — fifth different scorer'},
+      {min:'76',type:'sub',icon:'🔄',text:'<strong>Ronaldo off</strong> — standing ovation · Job done (76\')'},
+      {min:'60',type:'goal',icon:'⚽',text:'<strong>GOAL! João Félix</strong> 4-0 — Portugal in total control'},
+      {min:'46',type:'sub',icon:'🔄',text:'Double substitution both sides — Portugal rotate'},
+      {min:'39',type:'goal',icon:'⚽',text:'<strong>GOAL! Bruno Fernandes</strong> 3-0 · First half complete domination'},
+      {min:'17',type:'goal',icon:'⚽',text:'<strong>GOAL! RONALDO!</strong> Brace — 2-0 · Runs onto Cancelo cross'},
+      {min:'6',type:'goal',icon:'⚽',text:'<strong>GOAL! RONALDO!</strong> Opens the scoring — 1-0 · Header from Neto cross'},
+      {min:'1',type:'info',icon:'🎙️',text:'<strong>KICK OFF!</strong> Portugal vs Uzbekistan · Group K'},
+    ],
+    homeTactics:'4-3-3 dominant. Ronaldo central. Cancelo + Mendes as wide overloads. Vitinha + Neves + Bruno midfield triangle. 66% possession. 9 of 16 shots on target — clinical.',
+    awayTactics:'4-5-1 deep block. Uzbekistan tried to stay compact but Portugal quality was overwhelming. Shomurodov isolated up front.',
+    homeHeat:[[0.04,0.08,0.12,0.08,0.04],[0.08,0.18,0.28,0.20,0.08],[0.14,0.32,0.52,0.32,0.14],[0.20,0.48,0.72,0.48,0.20],[0.28,0.58,0.88,0.62,0.26],[0.16,0.44,0.82,0.46,0.18]],
+    awayHeat:[[0.10,0.18,0.25,0.18,0.10],[0.08,0.15,0.20,0.15,0.08],[0.05,0.10,0.14,0.10,0.05],[0.03,0.06,0.08,0.06,0.03],[0.02,0.04,0.05,0.04,0.02],[0.01,0.02,0.03,0.02,0.01]],
+    strategy:[
+      {icon:'🐐',text:'Ronaldo at 41 years old — 2 goals in 17 minutes. The hunger is still there. Unstoppable in the air from crosses.'},
+      {icon:'⭐',text:'Bruno Fernandes was the architect — 2 assists before scoring himself. Portugal\'s best player on the day.'},
+      {icon:'📊',text:'9 shots on target out of 16 total = 56% conversion efficiency. Elite finishing across the squad.'},
+      {icon:'🏆',text:'Portugal Group K runners-up on 4 pts. Colombia lead (6 pts). Portugal will meet a Group L team in R32.'},
+    ],
+    quickQs:['Ronaldo at 41 — still world class?','Bruno vs Ronaldo who was better?','Portugal\'s WC chances','What was Ronaldo\'s first goal?','Portugal vs Colombia in R32?'],
+    aiContext:'Portugal 5-0 Uzbekistan, FIFA World Cup 2026 Group K, FULL TIME. Ronaldo scored in 6th and 17th minute (header + run onto cross). Bruno Fernandes 1G 2A. 66% possession, 9 shots on target. Portugal Group K 2nd with 4 pts. Ronaldo subbed 76th minute.',
+  },
+];
+
+// ── Active state ──
+let arenaActiveMatch = null;
+let arenaTeamView = 'both';
+let aiChatHistory = [];
+let aiMatchContext = '';
+
+// ── Render ticker ──
+function renderTicker() {
+  const el = document.getElementById('scoreTicker');
+  if (!el) return;
+  el.innerHTML = LIVE_MATCHES.map(m => `
+    <div class="ticker-item" onclick="openArena('${m.id}')">
+      <span>${m.hAbbr}</span>
+      <span class="ticker-score">${m.score.h}–${m.score.a}</span>
+      <span>${m.aAbbr}</span>
+      <span class="ticker-status ${m.status === 'final' ? 'ft' : m.status === 'live' ? 'live' : 'soon'}">
+        ${m.status === 'final' ? 'FT' : m.status === 'live' ? m.minute+'\'' : 'SOON'}
+      </span>
+    </div>
+  `).join('<span style="color:rgba(255,255,255,0.15);font-size:18px">·</span>');
+}
+
+// ── Render match grid ──
+function renderArenaGrid() {
+  const el = document.getElementById('arenaMatchGrid');
+  if (!el) return;
+  el.innerHTML = LIVE_MATCHES.map(m => {
+    const isLive = m.status === 'live';
+    const isFinal = m.status === 'final';
+    return `
+      <div class="arena-match-card ${isLive ? 'is-live' : ''}" onclick="openArena('${m.id}')">
+        <div class="arena-card-top">
+          <span class="arena-card-league">${m.league}</span>
+          ${isLive ? '<span class="live-pulse"><span class="pulse-dot"></span>LIVE</span>' :
+            isFinal ? '<span style="font-size:9px;color:var(--muted);font-family:\'JetBrains Mono\',monospace">FT</span>' :
+            '<span style="font-size:9px;color:var(--gold);font-family:\'JetBrains Mono\',monospace">UPCOMING</span>'}
+        </div>
+        <div class="arena-card-body">
+          <div class="arena-team-block">
+            <span class="arena-team-abbr">${m.hAbbr}</span>
+            <span class="arena-team-full">${m.home}</span>
+          </div>
+          <div class="arena-score-center">
+            ${m.status === 'scheduled'
+              ? '<span class="arena-vs">VS</span>'
+              : `<span class="arena-score ${isLive ? 'live-col' : ''}">${m.score.h}–${m.score.a}</span>`
+            }
+            ${isLive ? `<div class="arena-minute">${m.minute}'</div>` : ''}
+          </div>
+          <div class="arena-team-block" style="text-align:right">
+            <span class="arena-team-abbr">${m.aAbbr}</span>
+            <span class="arena-team-full">${m.away}</span>
+          </div>
+        </div>
+        <div class="arena-card-bottom">
+          <span class="arena-card-time">${m.time}</span>
+          <span class="arena-card-cta">DEEP DIVE →</span>
+        </div>
+        <div class="arena-prob-strip">
+          <div class="arena-prob-h" style="flex:${m.prob.h}"></div>
+          <div class="arena-prob-d" style="flex:${m.prob.d}"></div>
+          <div class="arena-prob-a" style="flex:${m.prob.a}"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ── Open arena panel ──
+function openArena(matchId) {
+  arenaActiveMatch = LIVE_MATCHES.find(m => m.id === matchId);
+  if (!arenaActiveMatch) return;
+  aiChatHistory = [];
+  aiMatchContext = arenaActiveMatch.aiContext;
+  arenaTeamView = 'both';
+
+  document.getElementById('arenaMatchGrid').style.display = 'none';
+  document.getElementById('arenaPanel').style.display = 'block';
+  document.getElementById('arenaPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  renderArenaScorebar();
+  renderArenaFeed();
+  renderArenaPitch();
+  renderArenaKeyPlayers();
+  renderArenaStats();
+  renderArenaXG();
+  renderArenaStrategy();
+  renderArenaQuickBtns();
+  initAiChat();
+}
+
+function closeArenaPanel() {
+  document.getElementById('arenaPanel').style.display = 'none';
+  document.getElementById('arenaMatchGrid').style.display = 'grid';
+  arenaActiveMatch = null;
+}
+
+// ── Scorebar ──
+function renderArenaScorebar() {
+  const m = arenaActiveMatch;
+  const el = document.getElementById('arenaScorebar');
+  const isLive = m.status === 'live';
+  const isFinal = m.status === 'final';
+  el.innerHTML = `
+    <div style="font-size:10px;letter-spacing:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:8px">
+      ${m.league} · ${isFinal ? '⏱ FULL TIME' : isLive ? `🔴 LIVE · ${m.minute}'` : '⏰ UPCOMING'}
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap">
+      <div style="text-align:right">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px">${m.home}</div>
+        <div style="font-size:10px;color:var(--muted)">Home</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:${m.status==='scheduled'?'22px':'56px'};letter-spacing:8px;color:${isLive?'#4caf50':'var(--gold)'}">
+        ${m.status==='scheduled'?'VS':`${m.score.h} – ${m.score.a}`}
+      </div>
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px">${m.away}</div>
+        <div style="font-size:10px;color:var(--muted)">Away</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:24px;margin-top:10px;font-size:11px;font-family:'JetBrains Mono',monospace">
+      <span style="color:#5b9bd5">${m.home} <strong>${m.prob.h}%</strong></span>
+      <span style="color:var(--muted)">Draw <strong>${m.prob.d}%</strong></span>
+      <span style="color:#e05252"><strong>${m.prob.a}%</strong> ${m.away}</span>
+    </div>
+    <div style="display:flex;height:4px;margin-top:8px;border-radius:2px;overflow:hidden;max-width:400px;margin-left:auto;margin-right:auto">
+      <div style="flex:${m.prob.h};background:#5b9bd5"></div>
+      <div style="flex:${m.prob.d};background:rgba(154,163,168,0.5);margin:0 2px"></div>
+      <div style="flex:${m.prob.a};background:#e05252"></div>
+    </div>
+  `;
+}
+
+// ── Live feed ──
+function renderArenaFeed() {
+  const m = arenaActiveMatch;
+  const el = document.getElementById('arenaFeed');
+  el.innerHTML = m.feed.map(f => `
+    <div class="feed-item ${f.type}">
+      <span class="feed-icon">${f.icon}</span>
+      <span class="feed-min">${f.min}</span>
+      <span class="feed-text">${f.text}</span>
+    </div>
+  `).join('');
+  el.scrollTop = 0;
+}
+
+// ── Tactical Pitch SVG ──
+function renderArenaPitch() {
+  const m = arenaActiveMatch;
+  const svg = document.getElementById('arenaPitch');
+  const W = 280, H = 420, PAD = 14;
+  const PW = W - PAD*2, PH = H - PAD*2 - 24; // 24 for bottom label
+  const COLS = 5, ROWS = 6;
+  const CW = PW/COLS, RH = PH/ROWS;
+
+  const heatData = arenaTeamView === 'away' ? m.awayHeat :
+                   arenaTeamView === 'home' ? m.homeHeat :
+                   m.homeHeat.map((row,ri) => row.map((v,ci) => Math.max(v, m.awayHeat[ri][ci]*0.7)));
+
+  const hCol = arenaTeamView === 'away' ? '#e05252' : '#5b9bd5';
+
+  // Zones
+  let zones = '';
+  let maxV = 0;
+  heatData.forEach(row => row.forEach(v => { if(v>maxV) maxV=v; }));
+
+  for (let r=0; r<ROWS; r++) {
+    for (let c=0; c<COLS; c++) {
+      const v = heatData[r][c];
+      const norm = maxV>0 ? v/maxV : 0;
+      const rx = PAD + c*CW, ry = PAD + r*RH;
+      // colour: dark green → yellow
+      const stops = [[0,[8,25,8]],[0.3,[25,80,15]],[0.6,[120,160,10]],[0.85,[210,195,0]],[1,[255,235,20]]];
+      let lo=stops[0],hi=stops[stops.length-1];
+      for(let i=0;i<stops.length-1;i++){if(norm>=stops[i][0]&&norm<=stops[i+1][0]){lo=stops[i];hi=stops[i+1];break;}}
+      const t=lo[0]===hi[0]?0:(norm-lo[0])/(hi[0]-lo[0]);
+      const rgb = lo[1].map((lv,i)=>Math.round(lv+(hi[1][i]-lv)*t));
+      const fill = `rgb(${rgb.join(',')})`;
+      const opacity = 0.12 + norm*0.82;
+      const pct = norm>0.08 ? Math.round(norm*100)+'%' : '';
+      const tCol = norm>0.55 ? '#000' : norm>0.22 ? '#1a1a00' : 'rgba(255,255,255,0.2)';
+      zones += `<rect x="${rx}" y="${ry}" width="${CW}" height="${RH}" fill="${fill}" opacity="${opacity}"/>`;
+      if(pct) zones += `<text x="${rx+CW/2}" y="${ry+RH/2+4}" text-anchor="middle" font-family="Inter" font-weight="600" font-size="9" fill="${tCol}">${pct}</text>`;
+    }
+  }
+
+  // Grid lines
+  let gridLines = '';
+  for(let c=1;c<COLS;c++) { const x=PAD+c*CW; gridLines+=`<line x1="${x}" y1="${PAD}" x2="${x}" y2="${PAD+PH}" stroke="rgba(0,0,0,0.2)" stroke-width="0.6"/>`; }
+  for(let r=1;r<ROWS;r++) { const y=PAD+r*RH; gridLines+=`<line x1="${PAD}" y1="${y}" x2="${PAD+PW}" y2="${y}" stroke="rgba(0,0,0,0.2)" stroke-width="0.6"/>`; }
+
+  // Player dots — position on pitch
+  const playerPositions = {
+    'GK': {c:2,r:5.5}, 'CB':{c:2,r:4.7}, 'LB':{c:0.5,r:4.7}, 'RB':{c:3.5,r:4.7},
+    'CM':{c:2,r:3.5}, 'DM':{c:2,r:4.0}, 'CAM':{c:2,r:2.5},
+    'LW':{c:0.4,r:1.8}, 'RW':{c:3.6,r:1.8}, 'CF':{c:2,r:1.2}, 'ST':{c:2,r:1.0},
+    'MF':{c:2,r:3.2},
+  };
+
+  const players = arenaTeamView === 'away' ? m.awayPlayers :
+                  arenaTeamView === 'home' ? m.homePlayers :
+                  [...m.homePlayers, ...m.awayPlayers.map(p=>({...p, isAway:true}))];
+
+  let dots = '';
+  players.forEach((p,i) => {
+    const pos = playerPositions[p.role] || {c:2,r:2};
+    const offset = (i%3-1)*0.6;
+    const px = PAD + (pos.c + offset)*CW + CW/2;
+    const py = PAD + pos.r*RH;
+    const col = p.isAway ? '#e05252' : p.col;
+    dots += `
+      <circle cx="${px}" cy="${py}" r="12" fill="${col}" opacity="0.85"/>
+      <circle cx="${px}" cy="${py}" r="12" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+      <text x="${px}" y="${py+4}" text-anchor="middle" font-family="Inter" font-weight="700" font-size="8" fill="#fff">${p.init}</text>
+    `;
+  });
+
+  // Pitch markings
+  const pitch = `
+    <rect x="${PAD}" y="${PAD}" width="${PW}" height="${PH}" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" rx="2"/>
+    <line x1="${PAD}" y1="${PAD+PH/2}" x2="${PAD+PW}" y2="${PAD+PH/2}" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
+    <circle cx="${PAD+PW/2}" cy="${PAD+PH/2}" r="${CW*0.85}" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+    <circle cx="${PAD+PW/2}" cy="${PAD+PH/2}" r="2" fill="rgba(255,255,255,0.5)"/>
+    <rect x="${PAD+CW}" y="${PAD}" width="${CW*3}" height="${RH*1.4}" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
+    <rect x="${PAD+CW}" y="${PAD+PH-RH*1.4}" width="${CW*3}" height="${RH*1.4}" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+    <rect x="${PAD+CW*1.6}" y="${PAD}" width="${CW*1.8}" height="${RH*0.5}" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.7"/>
+    <rect x="${PAD+CW*1.6}" y="${PAD+PH-RH*0.5}" width="${CW*1.8}" height="${RH*0.5}" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.7"/>
+    <rect x="${PAD+CW*1.9}" y="${PAD+PH}" width="${CW*1.2}" height="6" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.4)" stroke-width="0.7"/>
+    <rect x="${PAD+CW*1.9}" y="${PAD-6}" width="${CW*1.2}" height="6" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="0.7"/>
+    <circle cx="${PAD+PW/2}" cy="${PAD+PH-RH}" r="2" fill="rgba(255,255,255,0.5)"/>
+    <circle cx="${PAD+PW/2}" cy="${PAD+RH}" r="2" fill="rgba(255,255,255,0.4)"/>
+    <path d="M${PAD+CW*1.3} ${PAD+PH-RH*1.4} A${CW*0.8} ${CW*0.8} 0 0 1 ${PAD+CW*3.7} ${PAD+PH-RH*1.4}" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.7"/>
+    <text x="${PAD+PW/2}" y="${H-4}" text-anchor="middle" font-family="Inter" font-size="8" fill="rgba(255,255,255,0.35)" letter-spacing="2">▲ ATTACKING</text>
+  `;
+
+  svg.innerHTML = `
+    <defs>
+      <linearGradient id="pitchBg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#061206"/>
+        <stop offset="100%" stop-color="#0a1f0a"/>
+      </linearGradient>
+    </defs>
+    <rect width="${W}" height="${H}" fill="url(#pitchBg)" rx="6"/>
+    ${Array.from({length:ROWS},(_,r)=>r%2===0?`<rect x="${PAD}" y="${PAD+r*RH}" width="${PW}" height="${RH}" fill="rgba(255,255,255,0.015)"/>`:'')}
+    ${zones}${gridLines}${pitch}${dots}
+  `;
+}
+
+// ── Key players ──
+function renderArenaKeyPlayers() {
+  const m = arenaActiveMatch;
+  const el = document.getElementById('arenaKeyPlayers');
+  const all = [
+    ...m.homePlayers.map(p=>({...p,team:'home'})),
+    ...m.awayPlayers.map(p=>({...p,team:'away'}))
+  ];
+  el.innerHTML = all.map(p => `
+    <div class="key-player-row">
+      <div class="kp-avatar" style="background:${p.col}22;border:1.5px solid ${p.col};color:${p.col}">${p.init}</div>
+      <div>
+        <div class="kp-name">${p.name}</div>
+        <div class="kp-role">${p.role} · ${p.team==='home'?m.hAbbr:m.aAbbr}</div>
+      </div>
+      <div class="kp-stats">
+        <div class="kp-form">${p.form}</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold)">${p.rating}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── Live stats ──
+function renderArenaStats() {
+  const m = arenaActiveMatch;
+  const el = document.getElementById('arenaStats');
+  const stats = [
+    ['Possession', m.poss.h, m.poss.a, 100, '%'],
+    ['Shots', m.shots.h, m.shots.a, Math.max(m.shots.h,m.shots.a,1), ''],
+    ['On Target', m.onT.h, m.onT.a, Math.max(m.onT.h,m.onT.a,1), ''],
+    ['Corners', m.corners.h, m.corners.a, Math.max(m.corners.h,m.corners.a,1), ''],
+    ['Fouls', m.fouls.h, m.fouls.a, Math.max(m.fouls.h,m.fouls.a,1), ''],
+  ];
+  el.innerHTML = `
+    <div style="display:flex;justify-content:space-between;font-size:9px;font-family:'JetBrains Mono',monospace;margin-bottom:8px">
+      <span style="color:#5b9bd5">${m.home}</span>
+      <span style="color:#e05252">${m.away}</span>
+    </div>
+    ${stats.map(([lbl,hv,av,max,unit]) => `
+      <div class="arena-stat-row">
+        <div class="arena-stat-label">
+          <span>${hv}${unit}</span>
+          <span>${lbl}</span>
+          <span>${av}${unit}</span>
+        </div>
+        <div class="arena-stat-track">
+          <div class="arena-stat-home" style="flex:${hv}"></div>
+          <div style="flex:${Math.max(max-hv-av,0)};background:rgba(255,255,255,0.04)"></div>
+          <div class="arena-stat-away" style="flex:${av}"></div>
+        </div>
+      </div>
+    `).join('')}
+  `;
+}
+
+// ── xG Race ──
+function renderArenaXG() {
+  const m = arenaActiveMatch;
+  const el = document.getElementById('arenaXG');
+  const maxXG = Math.max(m.xg.h, m.xg.a, 0.5);
+  const hPct = Math.round((m.xg.h / maxXG) * 60);
+  const aPct = Math.round((m.xg.a / maxXG) * 60);
+  el.innerHTML = `
+    <div style="margin-bottom:8px">
+      <div class="xg-label"><span style="color:#5b9bd5">${m.home} xG</span><span style="color:#e05252">${m.away} xG</span></div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <div style="flex:1;display:flex;height:20px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden">
+          <div class="xg-home" style="width:${hPct}%"><span class="xg-val">${m.xg.h}</span></div>
+        </div>
+        <div style="flex:1;display:flex;height:20px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;flex-direction:row-reverse">
+          <div class="xg-away" style="width:${aPct}%"><span class="xg-val">${m.xg.a}</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--muted);line-height:1.6">
+      ${m.xg.h > m.xg.a
+        ? `<strong style="color:var(--white)">${m.home}</strong> generating more quality chances. xG difference: <strong style="color:#4caf50">+${(m.xg.h-m.xg.a).toFixed(1)}</strong>`
+        : m.xg.a > m.xg.h
+        ? `<strong style="color:var(--white)">${m.away}</strong> have better chance quality. xG edge: <strong style="color:#e05252">+${(m.xg.a-m.xg.h).toFixed(1)}</strong>`
+        : `Both teams creating similar quality chances — very tight game on expected goals.`
+      }
+    </div>
+  `;
+}
+
+// ── Strategy ──
+function renderArenaStrategy() {
+  const m = arenaActiveMatch;
+  const el = document.getElementById('arenaStrategy');
+  el.innerHTML = m.strategy.map(s => `
+    <div class="strategy-item">
+      <span class="strategy-icon">${s.icon}</span>
+      <span>${s.text}</span>
+    </div>
+  `).join('');
+}
+
+// ── Switch tactical team view ──
+function switchTacticalTeam(view) {
+  arenaTeamView = view;
+  ['togHome','togAway','togBoth'].forEach(id => document.getElementById(id).classList.remove('active'));
+  document.getElementById(view==='home'?'togHome':view==='away'?'togAway':'togBoth').classList.add('active');
+  renderArenaPitch();
+}
+
+// ── Quick buttons ──
+function renderArenaQuickBtns() {
+  const m = arenaActiveMatch;
+  const el = document.getElementById('aiQuickBtns');
+  el.innerHTML = m.quickQs.map(q => `
+    <button class="quick-btn" onclick="sendQuickQ('${q.replace(/'/g,"\\'")}')">${q}</button>
+  `).join('');
+}
+
+// ══════════════════════════════════════════
+//  AI COMMENTATOR — Claude API
+// ══════════════════════════════════════════
+
+function initAiChat() {
+  const box = document.getElementById('aiChatBox');
+  box.innerHTML = '';
+  aiChatHistory = [];
+  // Opening commentary from AI
+  const opener = getOpeningCommentary(arenaActiveMatch);
+  addAiMessage(opener, 'ai');
+}
+
+function getOpeningCommentary(m) {
+  const status = m.status === 'final' ? 'just finished' : m.status === 'live' ? 'live right now' : 'coming up shortly';
+  const scoreInfo = m.status !== 'scheduled' ? ` Final score: **${m.home} ${m.score.h}–${m.score.a} ${m.away}**.` : '';
+  const flavor = [
+    `Alright, let's talk football! ${m.home} vs ${m.away} — ${status}.${scoreInfo} What do you want to dig into?`,
+    `Welcome to the live breakdown! This ${m.home} vs ${m.away} matchup is ${status}.${scoreInfo} Ask me anything — tactics, players, what went wrong, what went right.`,
+    `I'm your AI commentator for ${m.home} vs ${m.away}!${scoreInfo} What's on your mind? Tactics? Key players? I've got all the data.`,
+  ];
+  return flavor[Math.floor(Math.random() * flavor.length)];
+}
+
+function addAiMessage(text, role) {
+  const box = document.getElementById('aiChatBox');
+  const div = document.createElement('div');
+  div.className = `chat-msg ${role}`;
+  div.innerHTML = `
+    <div class="chat-avatar">${role === 'ai' ? '🎙' : 'U'}</div>
+    <div class="chat-bubble">${text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</div>
+  `;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function addThinkingIndicator() {
+  const box = document.getElementById('aiChatBox');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ai';
+  div.id = 'thinkingMsg';
+  div.innerHTML = `
+    <div class="chat-avatar">🎙</div>
+    <div class="chat-thinking">
+      <div class="thinking-dot"></div>
+      <div class="thinking-dot"></div>
+      <div class="thinking-dot"></div>
+    </div>
+  `;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function removeThinkingIndicator() {
+  const el = document.getElementById('thinkingMsg');
+  if (el) el.remove();
+}
+
+async function sendAiMessage() {
+  const input = document.getElementById('aiInput');
+  const btn = document.querySelector('.ai-send-btn');
+  const text = input.value.trim();
+  if (!text || !arenaActiveMatch) return;
+
+  input.value = '';
+  btn.disabled = true;
+
+  addAiMessage(text, 'user');
+  aiChatHistory.push({ role: 'user', content: text });
+
+  addThinkingIndicator();
+
+  const systemPrompt = `You are an expert football AI commentator and analyst with deep tactical knowledge. You are analysing a specific match and providing live commentary, tactical analysis, and insights.
+
+CURRENT MATCH CONTEXT:
+${aiMatchContext}
+
+Your personality: Passionate, knowledgeable, conversational. You use football terminology naturally. You back opinions with data from the match context. You're direct and opinionated — not wishy-washy. Max 3 sentences per response unless explaining tactics. Use emojis occasionally. Never say "I don't have real-time data" — use the context provided.`;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: aiChatHistory,
+      })
+    });
+
+    const data = await resp.json();
+    removeThinkingIndicator();
+
+    if (data.content && data.content[0]) {
+      const reply = data.content[0].text;
+      aiChatHistory.push({ role: 'assistant', content: reply });
+      addAiMessage(reply, 'ai');
+    } else {
+      addAiMessage('Sorry, couldn\'t get a response. Try again!', 'ai');
+    }
+  } catch (err) {
+    removeThinkingIndicator();
+    addAiMessage('Network error — make sure you\'re on a connection that allows API calls.', 'ai');
+  }
+
+  btn.disabled = false;
+  input.focus();
+}
+
+function sendQuickQ(question) {
+  document.getElementById('aiInput').value = question;
+  sendAiMessage();
+}
+
+// ── Init Arena ──
+renderTicker();
+renderArenaGrid();
 renderWC26Standings();
 document.getElementById('wc26StandingsWrap').style.display = 'block';
 renderMatchCards();
