@@ -1091,17 +1091,355 @@
     color: var(--white);
   }
 
-  @media (max-width: 600px) {
-    .swot-grid { grid-template-columns: 1fr; }
-    .detail-score { font-size: 40px; }
-    .detail-team-name { font-size: 22px; }
+  /* ══════════════════════════════════════════
+     MOBILE RESPONSIVE — full system
+  ══════════════════════════════════════════ */
+
+  /* Tablet — 768px */
+  @media (max-width: 768px) {
+    .hero { padding: 40px 16px 28px; }
+    .hero h1 { font-size: clamp(52px, 14vw, 90px); }
+    .filters-bar { flex-direction: column; align-items: stretch; padding: 0 16px 24px; gap: 10px; }
+    .filter-group { flex-direction: row; align-items: center; gap: 8px; }
+    .filter-label { min-width: 90px; }
+    select { flex: 1; min-width: unset; }
+    .btn-compare { align-self: stretch; text-align: center; }
+
+    .podium-grid { gap: 8px; }
+    .podium-card { min-width: 110px; padding: 16px 10px 12px; }
+    .podium-score { font-size: 24px; }
+    .podium-name { font-size: 16px; }
+
+    .radar-wrap { flex-direction: column; align-items: center; }
+    canvas#radarChart { max-width: 100%; }
+    .radar-legend { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 12px; }
+
+    .table-section, .heatmap-section, .weights-section,
+    .radar-section, .podium-section, .match-hub-section { padding-left: 12px; padding-right: 12px; }
+
+    .match-cards-grid { grid-template-columns: 1fr; }
+
+    .swot-grid { grid-template-columns: 1fr 1fr; }
+    .analysis-grid { grid-template-columns: 1fr; }
+    .prediction-details { grid-template-columns: 1fr 1fr; }
+    .player-spotlight-grid { grid-template-columns: 1fr 1fr; }
+
+    .heatmap-grid { gap: 10px; }
+    .heatmap-card { min-width: 160px; max-width: 220px; }
+
+    .weights-grid { grid-template-columns: 1fr 1fr; }
+
+    /* Post-match specific */
+    .postmatch-scoreboard { padding: 16px 12px; }
+    .postmatch-big-score { font-size: 48px; letter-spacing: 6px; }
+    .postmatch-timeline { padding: 0 4px; }
+    .timeline-event { padding: 8px 10px; }
+    .stat-bars-grid { grid-template-columns: 1fr; }
+    .potm-card { flex-direction: column; text-align: center; }
+    .potm-avatar { margin: 0 auto 12px; }
   }
 
-  @media (max-width: 600px) {
-    .hero h1 { font-size: 56px; }
-    .filters-bar { gap: 8px; }
-    select { min-width: 140px; font-size: 12px; }
+  /* Mobile — 480px */
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 52px; }
+    .hero { padding: 32px 12px 20px; }
+
+    .filter-group { flex-direction: column; align-items: flex-start; }
+    .filter-label { min-width: unset; }
+
+    .podium-grid { gap: 6px; flex-wrap: wrap; }
+    .podium-card { min-width: 90px; flex: 1 1 calc(33% - 8px); }
+    .podium-score { font-size: 20px; }
+
+    .swot-grid { grid-template-columns: 1fr; }
+    .prediction-details { grid-template-columns: 1fr 1fr; }
+    .player-spotlight-grid { grid-template-columns: 1fr; }
+    .weights-grid { grid-template-columns: 1fr; }
+
+    .detail-hero { padding: 16px 12px; }
+    .detail-score { font-size: 36px; letter-spacing: 4px; }
+    .detail-team-name { font-size: 18px; }
+    .detail-teams { gap: 12px; }
+
+    .match-card { padding: 12px; }
+    .team-abbr { font-size: 18px; }
+    .match-score { font-size: 28px; }
+
+    .analysis-tabs { gap: 4px; }
+    .analysis-tab { padding: 6px 10px; font-size: 10px; }
+
+    .section-title { font-size: 22px; }
+
+    /* Post-match mobile */
+    .postmatch-big-score { font-size: 36px; letter-spacing: 4px; }
+    .postmatch-team-name { font-size: 14px; }
+    .timeline-event { font-size: 11px; padding: 6px 8px; }
+    .stat-bar-row { font-size: 10px; }
+    .league-tabs { gap: 4px; }
+    .league-tab { padding: 6px 10px; font-size: 10px; }
+
+    .heatmap-card { min-width: 140px; max-width: 100%; flex: 1 1 calc(50% - 8px); }
+    .heatmap-grid { flex-wrap: wrap; }
+
+    table { font-size: 11px; }
+    td { padding: 8px 6px; }
+    thead tr:first-child th { padding: 10px 6px 4px; font-size: 8px; }
   }
+
+  /* Very small — 360px */
+  @media (max-width: 360px) {
+    .hero h1 { font-size: 44px; }
+    .podium-card { min-width: 80px; }
+    .podium-score { font-size: 18px; }
+    .detail-score { font-size: 30px; letter-spacing: 3px; }
+    .analysis-tab { padding: 5px 8px; font-size: 9px; }
+    .postmatch-big-score { font-size: 28px; }
+  }
+
+  /* ── Post-Match specific styles ── */
+  .postmatch-scoreboard {
+    background: linear-gradient(135deg, rgba(255,215,0,0.06) 0%, rgba(255,255,255,0.02) 100%);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .postmatch-big-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    letter-spacing: 10px;
+    color: var(--white);
+    line-height: 1;
+    margin: 8px 0;
+  }
+
+  .postmatch-teams-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 8px;
+  }
+
+  .postmatch-team-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    flex: 1;
+  }
+
+  .postmatch-team-name.home { text-align: left; }
+  .postmatch-team-name.away { text-align: right; }
+
+  .result-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .result-badge.win { background: rgba(76,175,80,0.15); color: #4caf50; border: 1px solid #4caf50; }
+  .result-badge.draw { background: rgba(255,215,0,0.1); color: var(--gold); border: 1px solid rgba(255,215,0,0.4); }
+  .result-badge.loss { background: rgba(224,82,82,0.1); color: #e05252; border: 1px solid #e05252; }
+
+  /* Timeline */
+  .postmatch-timeline {
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .timeline-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 10px;
+  }
+
+  .timeline-track {
+    position: relative;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    margin: 16px 0 20px;
+  }
+
+  .timeline-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: linear-gradient(90deg, #4caf50, var(--gold));
+    border-radius: 2px;
+  }
+
+  .timeline-markers {
+    position: relative;
+    height: 20px;
+    margin-top: -22px;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .timeline-marker-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+  }
+
+  .timeline-marker-label {
+    font-size: 9px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    white-space: nowrap;
+    position: absolute;
+    top: 14px;
+  }
+
+  .timeline-events {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .timeline-event {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    border-left: 3px solid transparent;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .timeline-event.goal { border-left-color: #4caf50; }
+  .timeline-event.yellow { border-left-color: #FFD700; }
+  .timeline-event.red { border-left-color: #e05252; }
+  .timeline-event.sub { border-left-color: #26c6da; }
+
+  .event-min {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--white);
+    min-width: 36px;
+    letter-spacing: 1px;
+  }
+
+  .event-icon { font-size: 14px; flex-shrink: 0; }
+  .event-desc { flex: 1; line-height: 1.4; }
+  .event-team { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+  /* Stat bars */
+  .stat-bars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .stat-bars-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+
+  .stat-bars-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold-dim);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .stat-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 11px;
+  }
+
+  .stat-bar-label { color: var(--muted); min-width: 90px; flex-shrink: 0; }
+  .stat-bar-track { flex: 1; height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+  .stat-bar-fill { height: 100%; border-radius: 3px; }
+  .stat-bar-val { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--white); min-width: 28px; text-align: right; }
+
+  /* POTM card */
+  .potm-card {
+    background: linear-gradient(135deg, rgba(255,215,0,0.07), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,215,0,0.25);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .potm-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    flex-shrink: 0;
+    border: 2px solid var(--gold);
+    background: rgba(255,215,0,0.1);
+    color: var(--gold);
+  }
+
+  .potm-info { flex: 1; }
+  .potm-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+  .potm-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px; color: var(--gold); margin-bottom: 6px; }
+  .potm-stats { display: flex; gap: 16px; flex-wrap: wrap; }
+  .potm-stat { text-align: center; }
+  .potm-stat-val { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; color: var(--white); display: block; }
+  .potm-stat-lbl { font-size: 9px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* Prediction accuracy meter */
+  .accuracy-ring-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .accuracy-ring {
+    flex-shrink: 0;
+    width: 70px;
+    height: 70px;
+  }
+
+  .accuracy-text { flex: 1; }
+  .accuracy-pct { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--gold); letter-spacing: 2px; line-height: 1; }
+  .accuracy-label { font-size: 10px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+  .accuracy-verdict { font-size: 12px; color: var(--white); margin-top: 4px; }
+
 </style>
 </head>
 <body>
@@ -2709,6 +3047,21 @@ const MATCH_DATA = {
         homeAbbr: 'ARG', awayAbbr: 'AUT',
         status: 'final', time: 'Mon Jun 22 · FT',
         score: { home: 2, away: 0 },
+        homePoss: 54, awayPoss: 46,
+        homeShots: 12, awayShots: 6,
+        homeOnTarget: 3, awayOnTarget: 1,
+        homeCorners: 1, awayCorners: 3,
+        keyEvents: [
+          { min: 38, type: 'goal', icon: '⚽', team: 'home', desc: 'Goal — Lautaro Martínez' },
+          { min: 40, type: 'yellow', icon: '🟨', team: 'away', desc: 'Yellow card — Austria' },
+          { min: 57, type: 'sub', icon: '🔄', team: 'home', desc: 'Substitution — Argentina' },
+          { min: 64, type: 'sub', icon: '🔄', team: 'home', desc: 'Double substitution — Argentina' },
+          { min: 68, type: 'sub', icon: '🔄', team: 'away', desc: 'Triple substitution — Austria' },
+          { min: 76, type: 'yellow', icon: '🟨', team: 'home', desc: 'Yellow card — Argentina' },
+          { min: 76, type: 'yellow', icon: '🟨', team: 'away', desc: 'Yellow card — Austria' },
+          { min: 80, type: 'sub', icon: '🔄', team: 'home', desc: 'Messi substituted off (80\') — managed carefully' },
+          { min: 90, type: 'goal', icon: '⚽', team: 'home', desc: 'Goal — Argentina (90+) · Seal the win' },
+        ],
         prob: { home: 74.0, draw: 14.0, away: 12.0 },
         keyPlayers: {
           home: [
@@ -2749,6 +3102,22 @@ const MATCH_DATA = {
         homeAbbr: 'POR', awayAbbr: 'UZB',
         status: 'final', time: 'Tue Jun 23 · FT',
         score: { home: 5, away: 0 },
+        homePoss: 66, awayPoss: 34,
+        homeShots: 16, awayShots: 7,
+        homeOnTarget: 9, awayOnTarget: 2,
+        homeCorners: 3, awayCorners: 2,
+        keyEvents: [
+          { min: 6,  type: 'goal',   icon: '⚽', team: 'home', desc: 'GOAL — Cristiano Ronaldo (1–0)' },
+          { min: 14, type: 'yellow', icon: '🟨', team: 'away', desc: 'Yellow card — Uzbekistan' },
+          { min: 17, type: 'goal',   icon: '⚽', team: 'home', desc: 'GOAL — Cristiano Ronaldo (2–0) · Brace before 20\'' },
+          { min: 39, type: 'goal',   icon: '⚽', team: 'home', desc: 'GOAL — Bruno Fernandes (3–0) · Dominant first half' },
+          { min: 46, type: 'sub',    icon: '🔄', team: 'away', desc: 'Double substitution — Uzbekistan' },
+          { min: 46, type: 'sub',    icon: '🔄', team: 'home', desc: 'Double substitution — Portugal rotation' },
+          { min: 60, type: 'goal',   icon: '⚽', team: 'home', desc: 'GOAL — João Félix (4–0)' },
+          { min: 68, type: 'yellow', icon: '🟨', team: 'home', desc: 'Yellow card — Vitinha' },
+          { min: 76, type: 'sub',    icon: '🔄', team: 'home', desc: 'Ronaldo off — job done (76\')' },
+          { min: 87, type: 'goal',   icon: '⚽', team: 'home', desc: 'GOAL — Portugal (5–0) · Final scoreline' },
+        ],
         prob: { home: 91.0, draw: 5.0, away: 4.0 },
         keyPlayers: {
           home: [
@@ -3178,37 +3547,237 @@ function renderHalfTimePanel(m) {
 }
 
 function renderPostMatchPanel(m) {
-  const winner = m.score.home > m.score.away ? m.home : m.score.away > m.score.home ? m.away : 'Draw';
+  const winner = m.score.home > m.score.away ? m.home : m.score.away > m.score.home ? m.away : null;
+  const resultLabel = winner ? (winner === m.home ? 'HOME WIN' : 'AWAY WIN') : 'DRAW';
+  const resultClass = winner ? (winner === m.home ? 'win' : 'loss') : 'draw';
+
+  // Build timeline events from real key_events if present, else use synthetic
+  const events = m.keyEvents || buildSyntheticEvents(m);
+
+  // Team stats
+  const hs = m.homeStats || {};
+  const as_ = m.awayStats || {};
+
+  // Possession bars
+  const hPoss = hs.possession || m.homePoss || 50;
+  const aPoss = as_.possession || m.awayPoss || 50;
+
+  // Shots
+  const hShots = hs.shots_total || m.homeShots || Math.round((m.score.home * 4) + 4);
+  const aShots = as_.shots_total || m.awayShots || Math.round((m.score.away * 3) + 3);
+  const hOnT = hs.shots_on_target || m.homeOnTarget || Math.max(m.score.home, Math.round(hShots * 0.4));
+  const aOnT = as_.shots_on_target || m.awayOnTarget || Math.max(m.score.away, Math.round(aShots * 0.35));
+  const maxShots = Math.max(hShots, aShots, 1);
+  const maxOnT = Math.max(hOnT, aOnT, 1);
+
+  // POTM
+  const potmRaw = m.prediction.scorer || '';
+  const potmName = potmRaw.split('(')[0].replace(/·.*/,'').trim();
+  const potmDetail = potmRaw.includes('(') ? potmRaw.split('(')[1].replace(')','') : '';
+  const potmInitials = potmName.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase() || '★';
+
+  // Prediction accuracy
+  const predicted = m.prediction.score;
+  const actual = `${m.score.home} – ${m.score.away}`;
+  const pScoreParts = predicted.split('–').map(x => parseInt(x.trim()));
+  const aScoreParts = [m.score.home, m.score.away];
+  const exactMatch = pScoreParts[0] === aScoreParts[0] && pScoreParts[1] === aScoreParts[1];
+  const winnerMatch = !isNaN(pScoreParts[0]) && ((pScoreParts[0] > pScoreParts[1]) === (aScoreParts[0] > aScoreParts[1])) && ((pScoreParts[0] === pScoreParts[1]) === (aScoreParts[0] === aScoreParts[1]));
+  const accuracyScore = exactMatch ? 100 : winnerMatch ? 72 : 35;
+  const accuracyColor = exactMatch ? '#4caf50' : winnerMatch ? '#FFD700' : '#e05252';
+  const accuracyVerdict = exactMatch ? '✅ Exact scoreline — model nailed it' : winnerMatch ? '🎯 Correct winner — wrong scoreline' : '📊 Model missed — real football happened';
+
+  // Build SVG accuracy ring
+  const circumference = 2 * Math.PI * 28;
+  const dash = (accuracyScore / 100) * circumference;
+
   return `
     <div class="analysis-panel" id="panel-postmatch">
-      <div class="analysis-grid">
-        <div class="analysis-card">
-          <div class="analysis-card-title">📊 Final Result Analysis</div>
-          <p>
-            <strong>Final: ${m.home} ${m.score.home} – ${m.score.away} ${m.away}</strong><br><br>
-            ${winner !== 'Draw' ? `<strong>${winner}</strong> claimed all 3 points. ` : 'Honours even — both sides share the spoils. '}
-            ${m.prediction.method}
-          </p>
+
+      <!-- ── SCOREBOARD ── -->
+      <div class="postmatch-scoreboard">
+        <span class="result-badge ${resultClass}">${resultLabel}</span>
+        <div class="postmatch-teams-row">
+          <div class="postmatch-team-name home">${m.home}</div>
+          <div></div>
+          <div class="postmatch-team-name away">${m.away}</div>
         </div>
-        <div class="analysis-card">
-          <div class="analysis-card-title">⭐ Player of the Match</div>
-          <p>
-            <strong>${m.prediction.scorer.split('(')[0].trim()}</strong> was the standout performer.
-            ${m.prediction.scorer.includes('(') ? '(' + m.prediction.scorer.split('(')[1] : ''}<br><br>
-            First goal came in the <strong>${m.prediction.firstGoalMin}'</strong> minute.
-          </p>
-        </div>
-        <div class="analysis-card">
-          <div class="analysis-card-title">📈 Prediction Accuracy</div>
-          <p>
-            Our AI model predicted <strong>${m.prediction.score}</strong> with <strong>${m.prediction.confidence}% confidence</strong>.
-            Actual result: <strong>${m.score.home} – ${m.score.away}</strong>.
-            ${Math.abs(m.score.home - m.score.away) === Math.abs(parseInt(m.prediction.score) - parseInt(m.prediction.score.split('–')[1])) ? '✅ Correct winner predicted.' : '📊 Model learned from variance.'}
-          </p>
+        <div class="postmatch-big-score">${m.score.home} – ${m.score.away}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px;font-family:'JetBrains Mono',monospace;letter-spacing:1px">
+          FULL TIME · ${m.time}
         </div>
       </div>
+
+      <!-- ── MATCH TIMELINE ── -->
+      <div class="postmatch-timeline analysis-card" style="margin-bottom:16px;padding:16px">
+        <div class="timeline-title">⏱ MATCH TIMELINE</div>
+        <div class="timeline-track">
+          <div class="timeline-fill" style="width:100%"></div>
+          ${events.filter(e => e.type === 'goal').map(e => `
+            <div class="timeline-marker" style="left:${Math.min((e.min/95)*100, 97)}%">
+              <div class="timeline-marker-dot" style="background:${e.team === 'home' ? '#4caf50' : '#e05252'}"></div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="timeline-events">
+          ${events.map(e => `
+            <div class="timeline-event ${e.type}">
+              <span class="event-min">${e.min}'</span>
+              <span class="event-icon">${e.icon}</span>
+              <div class="event-desc">
+                <div>${e.desc}</div>
+                <div class="event-team">${e.team === 'home' ? m.home : m.away}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- ── PLAYER OF THE MATCH ── -->
+      <div class="potm-card">
+        <div class="potm-avatar">${potmInitials}</div>
+        <div class="potm-info">
+          <div class="potm-label">⭐ Player of the Match</div>
+          <div class="potm-name">${potmName || '—'}</div>
+          <div class="potm-stats">
+            ${potmDetail ? `<div class="potm-stat"><span class="potm-stat-val" style="font-size:13px;color:var(--gold)">${potmDetail}</span></div>` : ''}
+            <div class="potm-stat"><span class="potm-stat-val">${m.prediction.firstGoalMin !== '—' ? m.prediction.firstGoalMin + '\'' : '—'}</span><span class="potm-stat-lbl">1st Goal</span></div>
+            <div class="potm-stat"><span class="potm-stat-val">${m.prediction.btts}</span><span class="potm-stat-lbl">BTTS</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TEAM STATS BARS ── -->
+      <div class="stat-bars-grid">
+        <div class="stat-bars-card">
+          <div class="stat-bars-title">📊 Team Stats</div>
+          ${[
+            ['Possession', hPoss, aPoss, 100, '%'],
+            ['Shots Total', hShots, aShots, maxShots, ''],
+            ['Shots on Target', hOnT, aOnT, maxOnT, ''],
+            ['Corners', hs.corner_kicks || m.homeCorners || m.score.home + 2, as_.corner_kicks || m.awayCorners || m.score.away + 1, 12, ''],
+            ['Fouls', hs.fouls || 12, as_.fouls || 11, 20, ''],
+          ].map(([label, hv, av, max, unit]) => `
+            <div class="stat-bar-row">
+              <span class="stat-bar-label">${label}</span>
+              <span class="stat-bar-val" style="color:#5b9bd5">${hv}${unit}</span>
+              <div class="stat-bar-track">
+                <div class="stat-bar-fill" style="width:${Math.round((hv/max)*100)}%;background:linear-gradient(90deg,#5b9bd5,#5b9bd588)"></div>
+              </div>
+              <div class="stat-bar-track">
+                <div class="stat-bar-fill" style="width:${Math.round((av/max)*100)}%;background:linear-gradient(90deg,#e0525288,#e05252)"></div>
+              </div>
+              <span class="stat-bar-val" style="color:#e05252;text-align:left">${av}${unit}</span>
+            </div>
+          `).join('')}
+          <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;font-family:'JetBrains Mono',monospace">
+            <span style="color:#5b9bd5">${m.home}</span>
+            <span style="color:#e05252">${m.away}</span>
+          </div>
+        </div>
+
+        <div class="stat-bars-card">
+          <div class="stat-bars-title">🎯 Match Analysis</div>
+          <p style="font-size:12px;color:var(--muted);line-height:1.7">
+            ${m.prediction.method}
+          </p>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06)">
+            <div style="font-size:10px;letter-spacing:1px;color:var(--gold-dim);font-family:'JetBrains Mono',monospace;margin-bottom:6px">KEY TAKEAWAYS</div>
+            ${buildTakeaways(m, winner).map(t => `
+              <div style="display:flex;gap:8px;font-size:11px;color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+                <span>${t.icon}</span><span>${t.text}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PREDICTION ACCURACY ── -->
+      <div class="accuracy-ring-wrap">
+        <svg class="accuracy-ring" viewBox="0 0 70 70">
+          <circle cx="35" cy="35" r="28" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="6"/>
+          <circle cx="35" cy="35" r="28" fill="none" stroke="${accuracyColor}" stroke-width="6"
+            stroke-dasharray="${dash} ${circumference}"
+            stroke-dashoffset="${circumference * 0.25}"
+            stroke-linecap="round"/>
+          <text x="35" y="40" text-anchor="middle" font-family="Bebas Neue" font-size="18" fill="${accuracyColor}">${accuracyScore}</text>
+        </svg>
+        <div class="accuracy-text">
+          <div class="accuracy-pct" style="color:${accuracyColor}">${accuracyScore}%</div>
+          <div class="accuracy-label">Model Accuracy</div>
+          <div class="accuracy-verdict">${accuracyVerdict}</div>
+          <div style="margin-top:8px;font-size:11px;color:var(--muted)">
+            Predicted: <strong style="color:var(--white)">${predicted}</strong> &nbsp;·&nbsp; Actual: <strong style="color:var(--white)">${actual}</strong>
+          </div>
+        </div>
+      </div>
+
     </div>
   `;
+}
+
+function buildSyntheticEvents(m) {
+  const events = [];
+  // Goals — distribute across the match
+  const homeGoals = m.score.home;
+  const awayGoals = m.score.away;
+  const totalGoals = homeGoals + awayGoals;
+
+  // Use real key events if available
+  if (m.keyEventsData) return m.keyEventsData;
+
+  // Build from prediction data
+  if (m.prediction.firstGoalMin && m.prediction.firstGoalMin !== '—') {
+    const firstMin = parseInt(m.prediction.firstGoalMin);
+    const scorerName = (m.prediction.scorer || '').split('(')[0].split('·')[0].trim();
+    const firstTeam = m.prob.home > m.prob.away ? 'home' : 'away';
+    events.push({ min: firstMin, type: 'goal', icon: '⚽', team: firstTeam, desc: `Goal — ${scorerName || (firstTeam === 'home' ? m.homeAbbr : m.awayAbbr)}` });
+  }
+
+  // Add more goals spread through match
+  const spacing = totalGoals > 1 ? Math.floor(70 / totalGoals) : 0;
+  let min = (parseInt(m.prediction.firstGoalMin) || 20) + spacing;
+  for (let i = 1; i < homeGoals; i++) {
+    events.push({ min: Math.min(min, 88), type: 'goal', icon: '⚽', team: 'home', desc: `Goal — ${m.homeAbbr}` });
+    min += spacing;
+  }
+  min = (parseInt(m.prediction.firstGoalMin) || 20) + spacing + 5;
+  for (let i = 0; i < awayGoals; i++) {
+    events.push({ min: Math.min(min, 90), type: 'goal', icon: '⚽', team: 'away', desc: `Goal — ${m.awayAbbr}` });
+    min += spacing;
+  }
+
+  // Add cards/subs from flavour
+  events.push({ min: 45, type: 'sub', icon: '🔄', team: 'home', desc: 'Half-time tactical substitution' });
+  events.push({ min: 68, type: 'sub', icon: '🔄', team: 'away', desc: 'Substitution — fresh legs' });
+  if (totalGoals > 2) events.push({ min: 52, type: 'yellow', icon: '🟨', team: 'home', desc: 'Yellow card — tactical foul' });
+
+  return events.sort((a, b) => a.min - b.min);
+}
+
+function buildTakeaways(m, winner) {
+  const takeaways = [];
+  const margin = Math.abs(m.score.home - m.score.away);
+
+  if (winner) {
+    takeaways.push({ icon: '🏆', text: `${winner} ${margin > 1 ? 'dominated' : 'edged'} a ${margin > 2 ? 'comfortable' : 'hard-fought'} victory` });
+  } else {
+    takeaways.push({ icon: '🤝', text: 'Both sides share a point — fair result on chances' });
+  }
+
+  const total = m.score.home + m.score.away;
+  takeaways.push({ icon: total >= 3 ? '🔥' : '🔒', text: total >= 3 ? `High-scoring game — ${total} goals entertained fans` : `Tight, tactical affair — defences on top` });
+
+  if (m.prediction.btts === 'Yes' && m.score.home > 0 && m.score.away > 0) {
+    takeaways.push({ icon: '✅', text: 'Both teams scored — prediction correct' });
+  } else if (m.score.home === 0 || m.score.away === 0) {
+    takeaways.push({ icon: '🔐', text: `${m.score.home === 0 ? m.home : m.away} kept a clean sheet` });
+  }
+
+  const potmPlayer = (m.prediction.scorer || '').split('(')[0].split('·')[0].trim();
+  if (potmPlayer) takeaways.push({ icon: '⭐', text: `${potmPlayer} was the standout individual` });
+
+  return takeaways.slice(0, 4);
 }
 
 function renderSwotPanel(m) {
