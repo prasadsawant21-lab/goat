@@ -661,6 +661,442 @@
     font-size: 16px;
   }
 
+  /* ── MATCH HUB ── */
+  .match-hub-section {
+    position: relative;
+    z-index: 1;
+    padding: 0 16px 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .league-tabs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .league-tab {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--muted);
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .league-tab:hover { border-color: var(--gold); color: var(--white); }
+  .league-tab.active {
+    background: rgba(255,215,0,0.12);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .match-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 14px;
+  }
+
+  .match-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .match-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .match-card.status-live::before { background: #4caf50; }
+  .match-card.status-scheduled::before { background: var(--gold); }
+  .match-card.status-final::before { background: var(--muted); }
+  .match-card:hover { border-color: rgba(255,215,0,0.3); transform: translateY(-2px); }
+
+  .match-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .match-status-badge {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+  }
+
+  .badge-live { background: rgba(76,175,80,0.2); color: #4caf50; border: 1px solid #4caf50; }
+  .badge-scheduled { background: rgba(255,215,0,0.1); color: var(--gold); border: 1px solid rgba(255,215,0,0.3); }
+  .badge-final { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid rgba(255,255,255,0.1); }
+
+  .match-time {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .match-teams {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .match-team {
+    flex: 1;
+    text-align: center;
+  }
+
+  .team-abbr {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    display: block;
+    line-height: 1;
+  }
+
+  .team-full {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 3px;
+    display: block;
+    line-height: 1.3;
+  }
+
+  .match-score-block {
+    text-align: center;
+    flex-shrink: 0;
+    min-width: 60px;
+  }
+
+  .match-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 4px;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .match-score.live-score { color: #4caf50; }
+  .vs-text { font-size: 12px; color: var(--muted); letter-spacing: 2px; }
+
+  .match-prob-bar {
+    display: flex;
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    gap: 2px;
+  }
+
+  .prob-home { background: #5b9bd5; border-radius: 2px 0 0 2px; }
+  .prob-draw { background: var(--muted); }
+  .prob-away { background: #e05252; border-radius: 0 2px 2px 0; }
+
+  .match-prob-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .match-key-players {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .key-player-chip {
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--muted);
+    background: rgba(255,255,255,0.03);
+    letter-spacing: 0.5px;
+  }
+
+  .match-cta {
+    margin-top: 12px;
+    font-size: 10px;
+    color: var(--gold-dim);
+    letter-spacing: 1px;
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── MATCH DETAIL ── */
+  .back-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--muted);
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 24px;
+    transition: all 0.2s;
+  }
+
+  .back-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  .detail-hero {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .detail-teams {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin: 16px 0;
+  }
+
+  .detail-team-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+  }
+
+  .detail-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    letter-spacing: 8px;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .analysis-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .analysis-tab {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--muted);
+    padding: 7px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .analysis-tab.active, .analysis-tab:hover {
+    background: rgba(255,215,0,0.08);
+    border-color: rgba(255,215,0,0.3);
+    color: var(--gold);
+  }
+
+  .analysis-panel { display: none; }
+  .analysis-panel.active { display: block; }
+
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .analysis-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+
+  .analysis-card-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 12px;
+  }
+
+  .analysis-card p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .analysis-card p strong { color: var(--white); }
+
+  .swot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .swot-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+
+  .swot-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .swot-s { color: #4caf50; border-top: 2px solid #4caf50; padding-top: 10px; }
+  .swot-w { color: #e05252; border-top: 2px solid #e05252; padding-top: 10px; }
+  .swot-o { color: #26c6da; border-top: 2px solid #26c6da; padding-top: 10px; }
+  .swot-t { color: #ff9800; border-top: 2px solid #ff9800; padding-top: 10px; }
+
+  .swot-item {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    line-height: 1.5;
+  }
+
+  .swot-item::before { content: '•'; flex-shrink: 0; margin-top: 1px; }
+
+  .prediction-box {
+    background: linear-gradient(135deg, rgba(255,215,0,0.06), rgba(255,215,0,0.02));
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+
+  .prediction-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .prediction-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 8px;
+    text-align: center;
+    margin: 12px 0;
+    color: var(--white);
+  }
+
+  .prediction-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .pred-item {
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  .pred-item-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 4px;
+  }
+
+  .pred-item-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .player-spotlight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .player-spotlight-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 14px;
+  }
+
+  .spotlight-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+
+  .spotlight-role {
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .spotlight-stat {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--muted);
+  }
+
+  .spotlight-stat span:last-child {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--white);
+  }
+
+  @media (max-width: 600px) {
+    .swot-grid { grid-template-columns: 1fr; }
+    .detail-score { font-size: 40px; }
+    .detail-team-name { font-size: 22px; }
+  }
+
   @media (max-width: 600px) {
     .hero h1 { font-size: 56px; }
     .filters-bar { gap: 8px; }
@@ -713,9 +1149,10 @@
   <div class="filter-group">
     <span class="filter-label">Players</span>
     <select id="filterPlayers" onchange="applyFilters()">
-      <option value="all">All 6 Players</option>
+      <option value="all">All 12 Players</option>
       <option value="top2">Messi vs Ronaldo</option>
       <option value="top3">Top 3 GOAT Scores</option>
+      <option value="top6">Top 6 Only</option>
     </select>
   </div>
 </div>
@@ -756,6 +1193,29 @@
   <div class="heatmap-grid" id="heatmapGrid"></div>
 </section>
 
+<!-- ═══════════════ LIVE MATCH HUB ═══════════════ -->
+<section class="match-hub-section" id="matchHub">
+  <h2 class="section-title">⚽ LIVE MATCH HUB</h2>
+  <p class="section-sub">Real scores · Pre/half/post-match analysis · SWOT · Goal predictions</p>
+
+  <!-- League tabs -->
+  <div class="league-tabs" id="leagueTabs">
+    <button class="league-tab active" onclick="switchLeague('epl')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</button>
+    <button class="league-tab" onclick="switchLeague('laliga')">🇪🇸 La Liga</button>
+    <button class="league-tab" onclick="switchLeague('mls')">🇺🇸 MLS</button>
+    <button class="league-tab" onclick="switchLeague('cl')">⭐ Champions League</button>
+  </div>
+
+  <!-- Match cards grid -->
+  <div class="match-cards-grid" id="matchCardsGrid"></div>
+
+  <!-- Match detail panel -->
+  <div class="match-detail-panel" id="matchDetailPanel" style="display:none">
+    <button class="back-btn" onclick="closeMatchDetail()">← Back to fixtures</button>
+    <div id="matchDetailContent"></div>
+  </div>
+</section>
+
 <!-- ═══════════════ WEIGHTED SCORE BREAKDOWN ═══════════════ -->
 <section class="weights-section">
   <h2 class="section-title">GOAT SCORE METHODOLOGY</h2>
@@ -783,235 +1243,235 @@ const PLAYERS = [
   { id: 'mbappe',       name: 'Mbappé',        nation: 'France 🇫🇷',    color: '#26c6da', abbr: 'KM' },
   { id: 'lewandowski',  name: 'Lewandowski',   nation: 'Poland 🇵🇱',    color: '#ff9800', abbr: 'RL' },
   { id: 'suarez',       name: 'Suárez',        nation: 'Uruguay 🇺🇾',   color: '#9c27b0', abbr: 'LS' },
+  { id: 'benzema',      name: 'Benzema',       nation: 'France 🇫🇷',    color: '#f4c542', abbr: 'KB' },
+  { id: 'salah',        name: 'Salah',         nation: 'Egypt 🇪🇬',     color: '#e8403a', abbr: 'MS' },
+  { id: 'vinicius',     name: 'Vinicius Jr',   nation: 'Brazil 🇧🇷',    color: '#ffd700', abbr: 'VJ' },
+  { id: 'haaland',      name: 'Haaland',       nation: 'Norway 🇳🇴',    color: '#6bc5f8', abbr: 'EH' },
+  { id: 'dybala',       name: 'Dybala',        nation: 'Argentina 🇦🇷', color: '#c77dff', abbr: 'PD' },
+  { id: 'modric',       name: 'Modrić',        nation: 'Croatia 🇭🇷',   color: '#80ffdb', abbr: 'LM2'},
 ];
 
 // Dataset keyed by filter combination
-// Structure: [messi, ronaldo, neymar, mbappe, lewandowski, suarez]
+// Structure: [messi, ronaldo, neymar, mbappe, lewandowski, suarez, benzema, salah, vinicius, haaland, dybala, modric]
 const DATA = {
 
   // ─── ALL TIME ───────────────────────────────────────
   all_all: {
-    goals_total:         [857, 906, 438, 344, 636, 534],
-    goals_per90:         [0.84, 0.75, 0.72, 0.80, 0.71, 0.70],
-    assists_total:       [384, 232, 222, 256, 190, 164],
-    penalties_scored:    [102, 145, 72,  66,  98,  78 ],
-    penalties_attempted: [122, 178, 88,  77,  114, 96 ],
-    penalty_pct:         [83.6,81.5,81.8,85.7,86.0,81.3],
-    hattricks:           [57,  67,  8,   6,   33,  25 ],
-    free_kick_goals:     [65,  58,  38,  12,  4,   20 ],
+    goals_total:         [857, 906, 438, 344, 636, 534, 432, 360, 168, 268, 148, 82],
+    goals_per90:         [0.84, 0.75, 0.72, 0.80, 0.71, 0.70, 0.60, 0.75, 0.62, 0.90, 0.61, 0.16],
+    assists_total:       [384, 232, 222, 256, 190, 164, 174, 136, 110, 66,  94,  188],
+    penalties_scored:    [102, 145, 72,  66,  98,  78,  52,  66,  24,  34,  22,  4  ],
+    penalties_attempted: [122, 178, 88,  77,  114, 96,  62,  78,  28,  38,  26,  5  ],
+    penalty_pct:         [83.6,81.5,81.8,85.7,86.0,81.3,83.9,84.6,85.7,89.5,84.6,80.0],
+    hattricks:           [57,  67,  8,   6,   33,  25,  14,  8,   4,   14,  4,   0  ],
+    free_kick_goals:     [65,  58,  38,  12,  4,   20,  10,  14,  4,   2,   8,   2  ],
 
-    // Trophies — Club
-    cl_titles:           [4,   5,   3,   1,   0,   4  ],
-    league_titles:       [12,  7,   6,   6,   3,   4  ],
-    domestic_cups:       [7,   6,   4,   5,   4,   4  ],
-    // Trophies — National
-    world_cup:           [1,   0,   0,   1,   0,   0  ],
-    copa_america_euro:   [3,   1,   0,   2,   0,   2  ],
-    // Total trophies
-    total_trophies:      [44,  34,  21,  22,  12,  22 ],
+    cl_titles:           [4,   5,   3,   1,   0,   4,   5,   1,   2,   1,   0,   5  ],
+    league_titles:       [12,  7,   6,   6,   3,   4,   6,   7,   4,   4,   2,   5  ],
+    domestic_cups:       [7,   6,   4,   5,   4,   4,   4,   5,   3,   3,   2,   4  ],
+    world_cup:           [1,   0,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    copa_america_euro:   [3,   1,   0,   2,   0,   2,   1,   0,   0,   0,   0,   0  ],
+    total_trophies:      [44,  34,  21,  22,  12,  22,  26,  18,  10,  9,   8,   26 ],
 
-    // Awards
-    ballon_dor:          [8,   5,   1,   0,   0,   0  ],
-    golden_boot_league:  [6,   4,   1,   1,   4,   2  ],
-    golden_boot_wc:      [1,   0,   0,   1,   0,   0  ],
-    best_fifa:           [2,   2,   0,   1,   2,   0  ],
-    champions_lg_topscorer: [6, 7,  1,   4,   4,   2  ],
-    golden_glove:        [0,   0,   0,   0,   0,   0  ],  // ignored — attackers
+    ballon_dor:          [8,   5,   1,   0,   0,   0,   1,   0,   0,   0,   0,   0  ],
+    golden_boot_league:  [6,   4,   1,   1,   4,   2,   2,   4,   0,   2,   0,   0  ],
+    golden_boot_wc:      [1,   0,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    best_fifa:           [2,   2,   0,   1,   2,   0,   1,   1,   0,   1,   0,   0  ],
+    champions_lg_topscorer: [6, 7,  1,   4,   4,   2,   3,   3,   2,   3,   0,   0  ],
 
-    // Advanced
-    big_game_goals:      [64,  53,  28,  19,  38,  42 ],   // UCL KO + WC KO goals
-    games_played:        [1061,1195,689,  494, 1013, 864],
-    mvp_awards:          [32,  28,  12,  10,  16,  10 ],
-    goal_contributions:  [1241,1138,660, 600,  826, 698],
+    big_game_goals:      [64,  53,  28,  19,  38,  42,  30,  24,  14,  22,  12,  8  ],
+    games_played:        [1061,1195,689, 494, 1013, 864, 774, 590, 324, 298, 296, 884],
+    mvp_awards:          [32,  28,  12,  10,  16,  10,  12,  14,  8,   10,  6,   8  ],
+    goal_contributions:  [1241,1138,660, 600, 826, 698, 606, 496, 278, 334, 242, 270],
   },
 
   // ─── PRIME (2009-2019) ──────────────────────────────
   prime_all: {
-    goals_total:         [584, 637, 296, 52,  324, 340],
-    goals_per90:         [0.92, 0.80, 0.78, 0.81, 0.73, 0.73],
-    assists_total:       [256, 164, 148, 31,  104, 104],
-    penalties_scored:    [68,  98,  44,  12,  54,  54 ],
-    penalties_attempted: [82,  122, 54,  14,  64,  66 ],
-    penalty_pct:         [82.9,80.3,81.5,85.7,84.4,81.8],
-    hattricks:           [44,  52,  6,   1,   20,  18 ],
-    free_kick_goals:     [48,  44,  26,  4,   2,   14 ],
-    cl_titles:           [3,   4,   2,   0,   0,   3  ],
-    league_titles:       [9,   5,   4,   1,   2,   4  ],
-    domestic_cups:       [5,   4,   3,   1,   2,   3  ],
-    world_cup:           [0,   0,   0,   0,   0,   0  ],
-    copa_america_euro:   [2,   1,   0,   0,   0,   1  ],
-    total_trophies:      [28,  24,  14,  2,   7,   17 ],
-    ballon_dor:          [6,   4,   1,   0,   0,   0  ],
-    golden_boot_league:  [5,   3,   1,   0,   2,   2  ],
-    golden_boot_wc:      [0,   0,   0,   0,   0,   0  ],
-    best_fifa:           [1,   2,   0,   0,   1,   0  ],
-    champions_lg_topscorer: [4, 6,  1,   0,   2,   2  ],
-    big_game_goals:      [44,  39,  18,  4,   22,  28 ],
-    games_played:        [688, 800, 456, 72,  614, 590],
-    mvp_awards:          [24,  22,  8,   2,   10,  7  ],
-    goal_contributions:  [840, 801, 444, 83,  428, 444],
+    goals_total:         [584, 637, 296, 52,  324, 340, 248, 140, 22,  44,  88,  44 ],
+    goals_per90:         [0.92, 0.80, 0.78, 0.81, 0.73, 0.73, 0.62, 0.70, 0.55, 0.85, 0.64, 0.18],
+    assists_total:       [256, 164, 148, 31,  104, 104, 96,  60,  18,  18,  44,  110 ],
+    penalties_scored:    [68,  98,  44,  12,  54,  54,  30,  28,  4,   8,   12,  2  ],
+    penalties_attempted: [82,  122, 54,  14,  64,  66,  36,  32,  5,   9,   14,  3  ],
+    penalty_pct:         [82.9,80.3,81.5,85.7,84.4,81.8,83.3,87.5,80.0,88.9,85.7,66.7],
+    hattricks:           [44,  52,  6,   1,   20,  18,  8,   4,   1,   4,   2,   0  ],
+    free_kick_goals:     [48,  44,  26,  4,   2,   14,  6,   8,   1,   0,   4,   2  ],
+    cl_titles:           [3,   4,   2,   0,   0,   3,   3,   1,   0,   0,   0,   3  ],
+    league_titles:       [9,   5,   4,   1,   2,   4,   4,   4,   0,   0,   1,   4  ],
+    domestic_cups:       [5,   4,   3,   1,   2,   3,   3,   4,   0,   0,   1,   3  ],
+    world_cup:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    copa_america_euro:   [2,   1,   0,   0,   0,   1,   1,   0,   0,   0,   0,   0  ],
+    total_trophies:      [28,  24,  14,  2,   7,   17,  17,  12,  0,   0,   4,   18 ],
+    ballon_dor:          [6,   4,   1,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    golden_boot_league:  [5,   3,   1,   0,   2,   2,   1,   2,   0,   0,   0,   0  ],
+    golden_boot_wc:      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    best_fifa:           [1,   2,   0,   0,   1,   0,   0,   0,   0,   0,   0,   0  ],
+    champions_lg_topscorer: [4, 6,  1,   0,   2,   2,   2,   2,   0,   0,   0,   0  ],
+    big_game_goals:      [44,  39,  18,  4,   22,  28,  18,  14,  2,   6,   8,   4  ],
+    games_played:        [688, 800, 456, 72,  614, 590, 488, 238, 48,  62,  172, 610 ],
+    mvp_awards:          [24,  22,  8,   2,   10,  7,   8,   6,   2,   4,   4,   6  ],
+    goal_contributions:  [840, 801, 444, 83,  428, 444, 344, 200, 40,  62,  132, 154 ],
   },
 
   // ─── 2022-23 ────────────────────────────────────────
   '2022_all': {
-    goals_total:         [32,  30,  18,  41,  30,  4  ],
-    goals_per90:         [0.72, 0.58, 0.59, 0.91, 0.70, 0.32],
-    assists_total:       [13,  4,   10,  10,  9,   1  ],
-    penalties_scored:    [5,   8,   6,   8,   4,   0  ],
-    penalties_attempted: [6,   10,  7,   9,   5,   0  ],
-    penalty_pct:         [83.3,80.0,85.7,88.9,80.0,0.0],
-    hattricks:           [2,   2,   1,   2,   1,   0  ],
-    free_kick_goals:     [3,   2,   2,   0,   0,   0  ],
-    cl_titles:           [0,   0,   0,   0,   0,   0  ],
-    league_titles:       [1,   0,   1,   1,   0,   0  ],
-    domestic_cups:       [0,   1,   1,   1,   0,   0  ],
-    world_cup:           [1,   0,   0,   0,   0,   0  ],
-    copa_america_euro:   [0,   0,   0,   0,   0,   0  ],
-    total_trophies:      [2,   1,   2,   2,   0,   0  ],
-    ballon_dor:          [1,   0,   0,   0,   0,   0  ],
-    golden_boot_league:  [0,   0,   0,   0,   0,   0  ],
-    golden_boot_wc:      [1,   0,   0,   0,   0,   0  ],
-    best_fifa:           [1,   0,   0,   0,   0,   0  ],
-    champions_lg_topscorer: [0, 0,  0,   1,   0,   0  ],
-    big_game_goals:      [13,  2,   4,   8,   6,   0  ],
-    games_played:        [54,  62,  36,  53,  50,  15 ],
-    mvp_awards:          [4,   2,   1,   3,   2,   0  ],
-    goal_contributions:  [45,  34,  28,  51,  39,  5  ],
+    goals_total:         [32,  30,  18,  41,  30,  4,   19,  30,  24,  36,  16,  4  ],
+    goals_per90:         [0.72, 0.58, 0.59, 0.91, 0.70, 0.32, 0.54, 0.76, 0.62, 0.90, 0.60, 0.14],
+    assists_total:       [13,  4,   10,  10,  9,   1,   8,   10,  9,   8,   8,   8  ],
+    penalties_scored:    [5,   8,   6,   8,   4,   0,   3,   8,   4,   6,   2,   0  ],
+    penalties_attempted: [6,   10,  7,   9,   5,   0,   4,   9,   5,   7,   3,   0  ],
+    penalty_pct:         [83.3,80.0,85.7,88.9,80.0,0.0, 75.0,88.9,80.0,85.7,66.7,0.0],
+    hattricks:           [2,   2,   1,   2,   1,   0,   1,   2,   1,   3,   1,   0  ],
+    free_kick_goals:     [3,   2,   2,   0,   0,   0,   1,   2,   1,   0,   1,   0  ],
+    cl_titles:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    league_titles:       [1,   0,   1,   1,   0,   0,   0,   1,   1,   1,   0,   0  ],
+    domestic_cups:       [0,   1,   1,   1,   0,   0,   1,   1,   1,   1,   0,   0  ],
+    world_cup:           [1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    copa_america_euro:   [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    total_trophies:      [2,   1,   2,   2,   0,   0,   1,   2,   2,   2,   0,   0  ],
+    ballon_dor:          [1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    golden_boot_league:  [0,   0,   0,   0,   0,   0,   0,   1,   0,   0,   0,   0  ],
+    golden_boot_wc:      [1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    best_fifa:           [1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    champions_lg_topscorer: [0, 0,  0,   1,   0,   0,   0,   0,   0,   1,   0,   0  ],
+    big_game_goals:      [13,  2,   4,   8,   6,   0,   4,   6,   6,   8,   3,   1  ],
+    games_played:        [54,  62,  36,  53,  50,  15,  42,  47,  46,  47,  32,  34 ],
+    mvp_awards:          [4,   2,   1,   3,   2,   0,   1,   3,   2,   4,   1,   1  ],
+    goal_contributions:  [45,  34,  28,  51,  39,  5,   27,  40,  33,  44,  24,  12 ],
   },
 
   // ─── 2023-24 ────────────────────────────────────────
   '2023_all': {
-    goals_total:         [26,  25,  6,   44,  27,  4  ],
-    goals_per90:         [0.66, 0.55, 0.35, 0.88, 0.66, 0.28],
-    assists_total:       [18,  10,  4,   7,   8,   2  ],
-    penalties_scored:    [6,   6,   2,   6,   4,   1  ],
-    penalties_attempted: [7,   7,   3,   7,   5,   1  ],
-    penalty_pct:         [85.7,85.7,66.7,85.7,80.0,100],
-    hattricks:           [1,   1,   0,   3,   1,   0  ],
-    free_kick_goals:     [4,   1,   1,   0,   0,   0  ],
-    cl_titles:           [0,   0,   0,   0,   0,   0  ],
-    league_titles:       [0,   0,   0,   1,   0,   0  ],
-    domestic_cups:       [0,   0,   0,   2,   0,   0  ],
-    world_cup:           [0,   0,   0,   0,   0,   0  ],
-    copa_america_euro:   [1,   0,   0,   1,   0,   0  ],
-    total_trophies:      [2,   0,   0,   4,   0,   0  ],
-    ballon_dor:          [0,   0,   0,   0,   0,   0  ],
-    golden_boot_league:  [0,   0,   0,   0,   0,   0  ],
-    golden_boot_wc:      [0,   0,   0,   0,   0,   0  ],
-    best_fifa:           [0,   0,   0,   0,   0,   0  ],
-    champions_lg_topscorer: [0, 0,  0,   0,   0,   0  ],
-    big_game_goals:      [6,   3,   1,   8,   5,   0  ],
-    games_played:        [44,  55,  20,  58,  46,  16 ],
-    mvp_awards:          [3,   1,   0,   4,   1,   0  ],
-    goal_contributions:  [44,  35,  10,  51,  35,  6  ],
+    goals_total:         [26,  25,  6,   44,  27,  4,   14,  28,  24,  29,  12,  2  ],
+    goals_per90:         [0.66, 0.55, 0.35, 0.88, 0.66, 0.28, 0.44, 0.74, 0.64, 0.86, 0.55, 0.08],
+    assists_total:       [18,  10,  4,   7,   8,   2,   6,   13,  11,  5,   6,   6  ],
+    penalties_scored:    [6,   6,   2,   6,   4,   1,   2,   8,   4,   4,   2,   0  ],
+    penalties_attempted: [7,   7,   3,   7,   5,   1,   3,   9,   5,   5,   3,   0  ],
+    penalty_pct:         [85.7,85.7,66.7,85.7,80.0,100, 66.7,88.9,80.0,80.0,66.7,0.0],
+    hattricks:           [1,   1,   0,   3,   1,   0,   0,   2,   1,   2,   0,   0  ],
+    free_kick_goals:     [4,   1,   1,   0,   0,   0,   0,   2,   0,   0,   1,   0  ],
+    cl_titles:           [0,   0,   0,   0,   0,   0,   0,   0,   1,   0,   0,   0  ],
+    league_titles:       [0,   0,   0,   1,   0,   0,   0,   1,   1,   1,   0,   0  ],
+    domestic_cups:       [0,   0,   0,   2,   0,   0,   0,   1,   2,   1,   0,   0  ],
+    world_cup:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    copa_america_euro:   [1,   0,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    total_trophies:      [2,   0,   0,   4,   0,   0,   0,   2,   4,   2,   0,   0  ],
+    ballon_dor:          [0,   0,   0,   0,   0,   0,   0,   0,   1,   0,   0,   0  ],
+    golden_boot_league:  [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    golden_boot_wc:      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    best_fifa:           [0,   0,   0,   0,   0,   0,   0,   0,   1,   0,   0,   0  ],
+    champions_lg_topscorer: [0, 0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    big_game_goals:      [6,   3,   1,   8,   5,   0,   2,   6,   8,   6,   2,   1  ],
+    games_played:        [44,  55,  20,  58,  46,  16,  38,  44,  44,  40,  26,  28 ],
+    mvp_awards:          [3,   1,   0,   4,   1,   0,   0,   3,   4,   3,   1,   0  ],
+    goal_contributions:  [44,  35,  10,  51,  35,  6,   20,  41,  35,  34,  18,  8  ],
   },
 
   // ─── Champions League specific ──────────────────────
   all_cl: {
-    goals_total:         [129, 140, 56,  41,  80,  38 ],
-    goals_per90:         [0.80, 0.77, 0.72, 0.85, 0.74, 0.63],
-    assists_total:       [40,  42,  30,  24,  22,  15 ],
-    penalties_scored:    [16,  25,  10,  5,   12,  6  ],
-    penalties_attempted: [20,  32,  13,  6,   14,  7  ],
-    penalty_pct:         [80.0,78.1,76.9,83.3,85.7,85.7],
-    hattricks:           [8,   8,   2,   2,   4,   2  ],
-    free_kick_goals:     [8,   9,   5,   2,   0,   2  ],
-    cl_titles:           [4,   5,   3,   1,   0,   4  ],
-    league_titles:       [0,   0,   0,   0,   0,   0  ],
-    domestic_cups:       [0,   0,   0,   0,   0,   0  ],
-    world_cup:           [0,   0,   0,   0,   0,   0  ],
-    copa_america_euro:   [0,   0,   0,   0,   0,   0  ],
-    total_trophies:      [4,   5,   3,   1,   0,   4  ],
-    ballon_dor:          [0,   0,   0,   0,   0,   0  ],
-    golden_boot_league:  [0,   0,   0,   0,   0,   0  ],
-    golden_boot_wc:      [0,   0,   0,   0,   0,   0  ],
-    best_fifa:           [0,   0,   0,   0,   0,   0  ],
-    champions_lg_topscorer: [6, 7,  1,   4,   4,   2  ],
-    big_game_goals:      [44,  40,  18,  14,  22,  16 ],
-    games_played:        [183, 183, 88,  54,  122, 68 ],
-    mvp_awards:          [10,  8,   2,   4,   6,   2  ],
-    goal_contributions:  [169, 182, 86,  65,  102, 53 ],
+    goals_total:         [129, 140, 56,  41,  80,  38,  77,  56,  30,  38,  22,  18 ],
+    goals_per90:         [0.80, 0.77, 0.72, 0.85, 0.74, 0.63, 0.72, 0.74, 0.68, 0.92, 0.58, 0.22],
+    assists_total:       [40,  42,  30,  24,  22,  15,  30,  22,  20,  14,  12,  34 ],
+    penalties_scored:    [16,  25,  10,  5,   12,  6,   10,  12,  4,   6,   4,   2  ],
+    penalties_attempted: [20,  32,  13,  6,   14,  7,   12,  14,  5,   7,   5,   2  ],
+    penalty_pct:         [80.0,78.1,76.9,83.3,85.7,85.7,83.3,85.7,80.0,85.7,80.0,100 ],
+    hattricks:           [8,   8,   2,   2,   4,   2,   3,   2,   1,   2,   0,   0  ],
+    free_kick_goals:     [8,   9,   5,   2,   0,   2,   2,   4,   1,   0,   1,   0  ],
+    cl_titles:           [4,   5,   3,   1,   0,   4,   5,   1,   2,   1,   0,   5  ],
+    league_titles:       [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    domestic_cups:       [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    world_cup:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    copa_america_euro:   [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    total_trophies:      [4,   5,   3,   1,   0,   4,   5,   1,   2,   1,   0,   5  ],
+    ballon_dor:          [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    golden_boot_league:  [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    golden_boot_wc:      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    best_fifa:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    champions_lg_topscorer: [6, 7,  1,   4,   4,   2,   3,   3,   2,   3,   0,   0  ],
+    big_game_goals:      [44,  40,  18,  14,  22,  16,  22,  18,  12,  16,  6,   8  ],
+    games_played:        [183, 183, 88,  54,  122, 68,  128, 90,  52,  50,  44,  98 ],
+    mvp_awards:          [10,  8,   2,   4,   6,   2,   4,   4,   4,   4,   0,   4  ],
+    goal_contributions:  [169, 182, 86,  65,  102, 53,  107, 78,  50,  52,  34,  52 ],
   },
 
   // ─── World Cup specific ─────────────────────────────
   all_worldcup: {
-    goals_total:         [13,  8,   6,   12,  2,   8  ],
-    goals_per90:         [0.71, 0.52, 0.60, 0.92, 0.22, 0.59],
-    assists_total:       [8,   1,   5,   3,   2,   5  ],
-    penalties_scored:    [3,   1,   1,   2,   0,   2  ],
-    penalties_attempted: [4,   2,   1,   2,   0,   3  ],
-    penalty_pct:         [75.0,50.0,100, 100, 0.0, 66.7],
-    hattricks:           [0,   0,   0,   0,   0,   0  ],
-    free_kick_goals:     [0,   0,   0,   0,   0,   0  ],
-    cl_titles:           [0,   0,   0,   0,   0,   0  ],
-    league_titles:       [0,   0,   0,   0,   0,   0  ],
-    domestic_cups:       [0,   0,   0,   0,   0,   0  ],
-    world_cup:           [1,   0,   0,   1,   0,   0  ],
-    copa_america_euro:   [0,   0,   0,   0,   0,   0  ],
-    total_trophies:      [1,   0,   0,   1,   0,   0  ],
-    ballon_dor:          [0,   0,   0,   0,   0,   0  ],
-    golden_boot_league:  [0,   0,   0,   0,   0,   0  ],
-    golden_boot_wc:      [1,   0,   0,   1,   0,   0  ],
-    best_fifa:           [0,   0,   0,   0,   0,   0  ],
-    champions_lg_topscorer: [0, 0,  0,   0,   0,   0  ],
-    big_game_goals:      [8,   3,   3,   8,   0,   4  ],
-    games_played:        [26,  22,  14,  16,  10,  16 ],
-    mvp_awards:          [2,   0,   0,   2,   0,   0  ],
-    goal_contributions:  [21,  9,   11,  15,  2,   13 ],
+    goals_total:         [13,  8,   6,   12,  2,   8,   4,   2,   0,   1,   4,   2  ],
+    goals_per90:         [0.71, 0.52, 0.60, 0.92, 0.22, 0.59, 0.44, 0.22, 0.0, 0.17, 0.45, 0.16],
+    assists_total:       [8,   1,   5,   3,   2,   5,   3,   2,   0,   1,   2,   4  ],
+    penalties_scored:    [3,   1,   1,   2,   0,   2,   1,   0,   0,   0,   1,   0  ],
+    penalties_attempted: [4,   2,   1,   2,   0,   3,   1,   0,   0,   0,   1,   0  ],
+    penalty_pct:         [75.0,50.0,100, 100, 0.0, 66.7,100, 0.0, 0.0, 0.0, 100, 0.0],
+    hattricks:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    free_kick_goals:     [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    cl_titles:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    league_titles:       [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    domestic_cups:       [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    world_cup:           [1,   0,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    copa_america_euro:   [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    total_trophies:      [1,   0,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    ballon_dor:          [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    golden_boot_league:  [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    golden_boot_wc:      [1,   0,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    best_fifa:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    champions_lg_topscorer: [0, 0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    big_game_goals:      [8,   3,   3,   8,   0,   4,   2,   1,   0,   0,   2,   1  ],
+    games_played:        [26,  22,  14,  16,  10,  16,  12,  10,  0,   6,   10,  14 ],
+    mvp_awards:          [2,   0,   0,   2,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    goal_contributions:  [21,  9,   11,  15,  2,   13,  7,   4,   0,   2,   6,   6  ],
   },
 
   // ─── National Team all ──────────────────────────────
   all_national: {
-    goals_total:         [112, 130, 79,  47,  82,  68 ],
-    goals_per90:         [0.76, 0.73, 0.72, 0.69, 0.62, 0.71],
-    assists_total:       [56,  44,  54,  28,  30,  44 ],
-    penalties_scored:    [16,  22,  14,  8,   16,  14 ],
-    penalties_attempted: [20,  28,  18,  10,  20,  18 ],
-    penalty_pct:         [80.0,78.6,77.8,80.0,80.0,77.8],
-    hattricks:           [9,   12,  6,   2,   4,   6  ],
-    free_kick_goals:     [10,  8,   8,   2,   2,   6  ],
-    cl_titles:           [0,   0,   0,   0,   0,   0  ],
-    league_titles:       [0,   0,   0,   0,   0,   0  ],
-    domestic_cups:       [0,   0,   0,   0,   0,   0  ],
-    world_cup:           [1,   0,   0,   1,   0,   0  ],
-    copa_america_euro:   [3,   1,   0,   2,   0,   2  ],
-    total_trophies:      [4,   2,   0,   3,   0,   2  ],
-    ballon_dor:          [0,   0,   0,   0,   0,   0  ],
-    golden_boot_league:  [0,   0,   0,   0,   0,   0  ],
-    golden_boot_wc:      [1,   0,   0,   1,   0,   0  ],
-    best_fifa:           [0,   0,   0,   0,   0,   0  ],
-    champions_lg_topscorer: [0, 0,  0,   0,   0,   0  ],
-    big_game_goals:      [20,  12,  10,  14,  8,   14 ],
-    games_played:        [191, 215, 128, 86,  148, 142],
-    mvp_awards:          [8,   6,   4,   4,   2,   4  ],
-    goal_contributions:  [168, 174, 133, 75,  112, 112],
+    goals_total:         [112, 130, 79,  47,  82,  68,  38,  58,  26,  32,  38,  24 ],
+    goals_per90:         [0.76, 0.73, 0.72, 0.69, 0.62, 0.71, 0.50, 0.65, 0.52, 0.70, 0.60, 0.18],
+    assists_total:       [56,  44,  54,  28,  30,  44,  20,  22,  14,  10,  18,  48 ],
+    penalties_scored:    [16,  22,  14,  8,   16,  14,  6,   10,  4,   4,   6,   2  ],
+    penalties_attempted: [20,  28,  18,  10,  20,  18,  7,   12,  5,   5,   7,   2  ],
+    penalty_pct:         [80.0,78.6,77.8,80.0,80.0,77.8,85.7,83.3,80.0,80.0,85.7,100 ],
+    hattricks:           [9,   12,  6,   2,   4,   6,   2,   4,   1,   2,   2,   0  ],
+    free_kick_goals:     [10,  8,   8,   2,   2,   6,   2,   4,   1,   0,   2,   1  ],
+    cl_titles:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    league_titles:       [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    domestic_cups:       [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    world_cup:           [1,   0,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    copa_america_euro:   [3,   1,   0,   2,   0,   2,   1,   0,   0,   0,   0,   0  ],
+    total_trophies:      [4,   2,   0,   3,   0,   2,   1,   0,   0,   0,   0,   0  ],
+    ballon_dor:          [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    golden_boot_league:  [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    golden_boot_wc:      [1,   0,   0,   1,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    best_fifa:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    champions_lg_topscorer: [0, 0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    big_game_goals:      [20,  12,  10,  14,  8,   14,  6,   8,   4,   4,   6,   6  ],
+    games_played:        [191, 215, 128, 86,  148, 142, 97,  111, 58,  58,  74,  180],
+    mvp_awards:          [8,   6,   4,   4,   2,   4,   2,   2,   2,   2,   2,   4  ],
+    goal_contributions:  [168, 174, 133, 75,  112, 112, 58,  80,  40,  42,  56,  72 ],
   },
 
   // ─── League Only ────────────────────────────────────
   all_league: {
-    goals_total:         [496, 499, 216, 184, 380, 298],
-    goals_per90:         [0.82, 0.72, 0.70, 0.82, 0.73, 0.68],
-    assists_total:       [208, 120, 108, 128, 96,  82  ],
-    penalties_scored:    [56,  88,  40,  38,  58,  46  ],
-    penalties_attempted: [68,  108, 50,  44,  66,  56  ],
-    penalty_pct:         [82.4,81.5,80.0,86.4,87.9,82.1],
-    hattricks:           [36,  42,  4,   4,   22,  16  ],
-    free_kick_goals:     [44,  38,  22,  8,   2,   12  ],
-    cl_titles:           [0,   0,   0,   0,   0,   0   ],
-    league_titles:       [12,  7,   6,   6,   3,   4   ],
-    domestic_cups:       [0,   0,   0,   0,   0,   0   ],
-    world_cup:           [0,   0,   0,   0,   0,   0   ],
-    copa_america_euro:   [0,   0,   0,   0,   0,   0   ],
-    total_trophies:      [12,  7,   6,   6,   3,   4   ],
-    ballon_dor:          [0,   0,   0,   0,   0,   0   ],
-    golden_boot_league:  [6,   4,   1,   1,   4,   2   ],
-    golden_boot_wc:      [0,   0,   0,   0,   0,   0   ],
-    best_fifa:           [0,   0,   0,   0,   0,   0   ],
-    champions_lg_topscorer: [0, 0,  0,   0,   0,   0   ],
-    big_game_goals:      [28,  22,  10,  10,  18,  16  ],
-    games_played:        [714, 760, 380, 266, 594, 510  ],
-    mvp_awards:          [18,  16,  6,   6,   10,  6   ],
-    goal_contributions:  [704, 619, 324, 312, 476, 380  ],
+    goals_total:         [496, 499, 216, 184, 380, 298, 256, 228, 108, 180, 96,  50 ],
+    goals_per90:         [0.82, 0.72, 0.70, 0.82, 0.73, 0.68, 0.62, 0.76, 0.62, 0.90, 0.60, 0.16],
+    assists_total:       [208, 120, 108, 128, 96,  82,  84,  78,  62,  36,  52,  94 ],
+    penalties_scored:    [56,  88,  40,  38,  58,  46,  32,  44,  14,  22,  14,  2  ],
+    penalties_attempted: [68,  108, 50,  44,  66,  56,  38,  52,  17,  25,  16,  2  ],
+    penalty_pct:         [82.4,81.5,80.0,86.4,87.9,82.1,84.2,84.6,82.4,88.0,87.5,100 ],
+    hattricks:           [36,  42,  4,   4,   22,  16,  8,   6,   2,   8,   2,   0  ],
+    free_kick_goals:     [44,  38,  22,  8,   2,   12,  6,   10,  2,   1,   4,   1  ],
+    cl_titles:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    league_titles:       [12,  7,   6,   6,   3,   4,   6,   7,   4,   4,   2,   5  ],
+    domestic_cups:       [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    world_cup:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    copa_america_euro:   [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    total_trophies:      [12,  7,   6,   6,   3,   4,   6,   7,   4,   4,   2,   5  ],
+    ballon_dor:          [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    golden_boot_league:  [6,   4,   1,   1,   4,   2,   2,   4,   0,   2,   0,   0  ],
+    golden_boot_wc:      [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    best_fifa:           [0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    champions_lg_topscorer: [0, 0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ],
+    big_game_goals:      [28,  22,  10,  10,  18,  16,  14,  12,  6,   10,  6,   4  ],
+    games_played:        [714, 760, 380, 266, 594, 510, 490, 360, 204, 238, 192, 526],
+    mvp_awards:          [18,  16,  6,   6,   10,  6,   8,   10,  6,   6,   4,   6  ],
+    goal_contributions:  [704, 619, 324, 312, 476, 380, 340, 306, 170, 216, 148, 144],
   },
 };
 
@@ -1068,12 +1528,12 @@ const WEIGHTS = {
 const HEATMAP_DATA = {
   // Messi: left-wing cut-inside specialist — peaks centre-left in final third
   messi: [
-    [0.00, 0.00, 0.00, 0.00, 0.00], // deep own half
-    [0.02, 0.03, 0.04, 0.02, 0.01], // own half
-    [0.05, 0.12, 0.10, 0.06, 0.03], // halfway
-    [0.15, 0.40, 0.35, 0.18, 0.08], // attacking mid
-    [0.30, 0.70, 0.90, 0.55, 0.20], // final third
-    [0.18, 0.55, 0.80, 0.42, 0.12], // six-yard / penalty box
+    [0.00, 0.00, 0.00, 0.00, 0.00],
+    [0.02, 0.03, 0.04, 0.02, 0.01],
+    [0.05, 0.12, 0.10, 0.06, 0.03],
+    [0.15, 0.40, 0.35, 0.18, 0.08],
+    [0.30, 0.70, 0.90, 0.55, 0.20],
+    [0.18, 0.55, 0.80, 0.42, 0.12],
   ],
   // Ronaldo: central + right-channel aerial machine — peaks dead centre
   ronaldo: [
@@ -1119,6 +1579,60 @@ const HEATMAP_DATA = {
     [0.12, 0.30, 0.35, 0.16, 0.06],
     [0.22, 0.65, 0.90, 0.40, 0.14],
     [0.15, 0.55, 0.85, 0.38, 0.10],
+  ],
+  // Benzema: intelligent movement, centre-right, drops deep too
+  benzema: [
+    [0.00, 0.00, 0.01, 0.00, 0.00],
+    [0.02, 0.04, 0.08, 0.04, 0.02],
+    [0.06, 0.14, 0.18, 0.12, 0.05],
+    [0.12, 0.28, 0.55, 0.35, 0.12],
+    [0.18, 0.42, 0.90, 0.60, 0.20],
+    [0.10, 0.35, 0.80, 0.55, 0.16],
+  ],
+  // Salah: right-wing cut-inside — mirror of Messi
+  salah: [
+    [0.00, 0.00, 0.00, 0.00, 0.00],
+    [0.01, 0.02, 0.03, 0.04, 0.02],
+    [0.03, 0.06, 0.10, 0.15, 0.08],
+    [0.08, 0.18, 0.35, 0.45, 0.22],
+    [0.12, 0.28, 0.65, 0.90, 0.38],
+    [0.08, 0.22, 0.60, 0.80, 0.28],
+  ],
+  // Vinicius Jr: explosive left winger, wide + cutting in right of box
+  vinicius: [
+    [0.00, 0.00, 0.00, 0.00, 0.00],
+    [0.01, 0.02, 0.02, 0.02, 0.01],
+    [0.06, 0.10, 0.06, 0.05, 0.02],
+    [0.20, 0.45, 0.25, 0.14, 0.06],
+    [0.45, 0.90, 0.55, 0.25, 0.08],
+    [0.28, 0.65, 0.70, 0.32, 0.08],
+  ],
+  // Haaland: pure centre-forward, deepest box presence ever
+  haaland: [
+    [0.00, 0.00, 0.00, 0.00, 0.00],
+    [0.00, 0.01, 0.02, 0.01, 0.00],
+    [0.01, 0.03, 0.06, 0.03, 0.01],
+    [0.04, 0.10, 0.25, 0.10, 0.04],
+    [0.08, 0.30, 0.90, 0.32, 0.08],
+    [0.10, 0.50, 1.00, 0.52, 0.10],
+  ],
+  // Dybala: classic trequartista, free-kick + penalty arc specialist
+  dybala: [
+    [0.00, 0.00, 0.00, 0.00, 0.00],
+    [0.01, 0.02, 0.04, 0.02, 0.01],
+    [0.04, 0.10, 0.15, 0.10, 0.04],
+    [0.14, 0.32, 0.55, 0.28, 0.12],
+    [0.20, 0.50, 0.90, 0.45, 0.18],
+    [0.12, 0.38, 0.75, 0.36, 0.12],
+  ],
+  // Modrić: deep playmaker — very low goal zones, wide midfield distribution
+  modric: [
+    [0.02, 0.04, 0.06, 0.04, 0.02],
+    [0.04, 0.08, 0.10, 0.08, 0.04],
+    [0.06, 0.12, 0.15, 0.12, 0.06],
+    [0.08, 0.14, 0.22, 0.14, 0.08],
+    [0.05, 0.10, 0.30, 0.12, 0.05],
+    [0.02, 0.05, 0.18, 0.06, 0.02],
   ],
 };
 
@@ -1166,7 +1680,15 @@ function getFilteredPlayers() {
       .slice(0, 3)
       .map(x => x.i);
   }
-  return [0, 1, 2, 3, 4, 5];
+  if (state.players === 'top6') {
+    const scores = computeGoatScores();
+    return scores
+      .map((s, i) => ({ score: s, i }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 6)
+      .map(x => x.i);
+  }
+  return PLAYERS.map((_, i) => i);
 }
 
 function computeGoatScores() {
@@ -1672,7 +2194,761 @@ function render() {
   renderHeatmaps();
 }
 
-// Init
+// ══════════════════════════════════════════
+//  LIVE MATCH HUB DATA
+// ══════════════════════════════════════════
+
+const MATCH_DATA = {
+  epl: {
+    league: 'Premier League 2025-26',
+    season: 'Matchday 1',
+    matches: [
+      {
+        id: 'ars_cov', home: 'Arsenal', away: 'Coventry City',
+        homeAbbr: 'ARS', awayAbbr: 'COV',
+        status: 'scheduled', time: 'Fri Aug 21 · 23:00 GST',
+        score: { home: 0, away: 0 },
+        prob: { home: 82.9, draw: 11.8, away: 5.3 },
+        keyPlayers: {
+          home: [
+            { name: 'Saka', role: 'RW', goals: 20, assists: 14, form: '🔥 On fire' },
+            { name: 'Havertz', role: 'CF', goals: 14, assists: 8, form: '📈 In form' },
+            { name: 'Ødegaard', role: 'CAM', goals: 8, assists: 12, form: '✅ Consistent' },
+            { name: 'Martinelli', role: 'LW', goals: 12, assists: 10, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Simms', role: 'ST', goals: 14, assists: 4, form: '📈 In form' },
+            { name: 'Hamer', role: 'MF', goals: 3, assists: 9, form: '✅ Consistent' },
+            { name: 'Gyokeres', role: 'LW', goals: 11, assists: 6, form: '✅ Consistent' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['Best attack in league (91 goals last season)', 'Home fortress — lost only 4 at Emirates', 'Ødegaard pulling strings in midfield', 'Saka voted PL Player of Season'],
+            W: ['Set-piece vulnerability (conceded 12 from corners)', 'Partey injury uncertainty in DM role', 'Pressure to win opening day after near-miss title'],
+            O: ['Coventry promoted — unfamiliar PL pace', 'Raya in top form — confident backline', 'Fans hyped for new season'],
+            T: ['Cup-tie intensity from newly promoted side', 'Simms physical presence in the box', 'Early season fatigue from pre-season travel'],
+          },
+          away: {
+            S: ['Nothing to lose — pure attacking intent', 'Simms clinical in the Championship (25 goals)', 'Low block proven in big away games'],
+            W: ['PL speed differential — first time in top flight', 'No European experience in squad', 'Limited squad depth'],
+            O: ['Arsenal complacency — risk of slow start', 'Long ball to Simms vs high defensive line', 'Corner routines — Arsenal weak at set pieces'],
+            T: ['Arsenal quality gap — 4-0 or worse realistic', 'Crowd atmosphere at Emirates can overwhelm', 'Press intensity Arsenal deploy from first whistle'],
+          }
+        },
+        prediction: {
+          score: '3 – 0', confidence: 92,
+          firstGoalMin: 22, btts: 'No', totalGoals: '2.5 – 3.5',
+          scorer: 'Havertz (1st goal)', method: 'Arsenal dominate possession, Saka creates 2 key chances, Havertz and Martinelli combine for early goal. Coventry defend deep but crack by 60\'.',
+          homeWin: 82, draw: 12, awayWin: 6,
+        }
+      },
+      {
+        id: 'hul_mun', home: 'Hull City', away: 'Manchester United',
+        homeAbbr: 'HUL', awayAbbr: 'MUN',
+        status: 'scheduled', time: 'Sat Aug 22 · 15:30 GST',
+        score: { home: 0, away: 0 },
+        prob: { home: 14.1, draw: 20.1, away: 65.8 },
+        keyPlayers: {
+          home: [
+            { name: 'Cannon', role: 'ST', goals: 12, assists: 4, form: '✅ Consistent' },
+            { name: 'Woods', role: 'MF', goals: 5, assists: 8, form: '📈 In form' },
+          ],
+          away: [
+            { name: 'Rashford', role: 'LW', goals: 18, assists: 9, form: '🔥 On fire' },
+            { name: 'Fernandes', role: 'CAM', goals: 10, assists: 18, form: '🔥 On fire' },
+            { name: 'Højlund', role: 'CF', goals: 16, assists: 5, form: '📈 In form' },
+            { name: 'Mainoo', role: 'CM', goals: 3, assists: 7, form: '✅ Consistent' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['Home crowd energy in newly promoted side', 'Organised 4-4-2 low block', 'Physical midfield battle suits Hull'],
+            W: ['Quality gap vs top-six PL club is enormous', 'No pace to exploit United high line', 'Championship-level passing under PL press'],
+            O: ['United slow starter historically (lost 2 openers)', 'Counter-attack on Dalot overloads', 'Set pieces — Hull physical advantage'],
+            T: ['Rashford + Fernandes combination elite', 'United pressing game disrupts rhythm', 'Tactical versatility under new manager'],
+          },
+          away: {
+            S: ['Quality across all positions — biggest gulf in game', 'Fernandes set pieces and free kicks deadly', 'Rashford electric on counter'],
+            W: ['United defence still vulnerable to long balls', 'Midfield communication in new system', 'Travel + pre-season exertions'],
+            O: ['Hull low block invites winning third-man combinations', 'Dalot and Diogo overlap = wing overloads', 'Hull keeper early pressure likely to crack'],
+            T: ['Hull physicality in midfield — lots of fouls', 'Early yellow card risk for key players', 'Result complacency could cost late goals'],
+          }
+        },
+        prediction: {
+          score: '0 – 2', confidence: 74,
+          firstGoalMin: 35, btts: 'No', totalGoals: '1.5 – 2.5',
+          scorer: 'Fernandes (pen)', method: 'United patient build-up, Fernandes directs play, Rashford pace decisive. Hull compact but United quality wins out in second half.',
+          homeWin: 14, draw: 20, awayWin: 66,
+        }
+      },
+      {
+        id: 'bri_avl', home: 'Brighton', away: 'Aston Villa',
+        homeAbbr: 'BRI', awayAbbr: 'AVL',
+        status: 'scheduled', time: 'Sun Aug 23 · 17:00 GST',
+        score: { home: 0, away: 0 },
+        prob: { home: 41.7, draw: 25.7, away: 32.6 },
+        keyPlayers: {
+          home: [
+            { name: 'Mitoma', role: 'LW', goals: 14, assists: 12, form: '🔥 On fire' },
+            { name: 'Evan Ferguson', role: 'CF', goals: 18, assists: 6, form: '📈 In form' },
+            { name: 'Gross', role: 'CM', goals: 6, assists: 14, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Watkins', role: 'CF', goals: 22, assists: 8, form: '🔥 On fire' },
+            { name: 'McGinn', role: 'CM', goals: 8, assists: 10, form: '✅ Consistent' },
+            { name: 'Diaby', role: 'LW', goals: 10, assists: 12, form: '📈 In form' },
+            { name: 'Kamara', role: 'DM', goals: 2, assists: 5, form: '✅ Consistent' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['Possession-based system elite at home (63% avg)', 'Mitoma unplayable in wide areas', 'Deep pressing trap well-drilled'],
+            W: ['European hangover — fatigue from pre-season UCL prep', 'Ferguson inconsistent when marked tightly', 'Set-piece defensive record poor'],
+            O: ['Villa wing-backs push high — Brighton can exploit space', 'Ferguson physicality vs Villa CB pairing', 'Crowd atmosphere lifts performance'],
+            T: ['Watkins movement difficult to track', 'Villa UCL experience shows maturity', 'McGinn box-to-box drives can overrun Brighton midfield'],
+          },
+          away: {
+            S: ['Watkins in career-best form — 22 goals last season', 'UCL experience gives confidence', 'Martinez goalkeeper unshakeable'],
+            W: ['Travel fatigue — flew back from UCL qualifier', 'Cash and Digne fitness doubts', 'Brighton press can disrupt Villa buildup'],
+            O: ['Brighton high line exploitable for Watkins runs', 'Diaby pace vs Brighton wide CB', 'Villa set pieces dangerous — Konsa + Pau Torres aerial'],
+            T: ['Brighton home form best in the south — 14W 4D 3L', 'Amex atmosphere genuinely hostile', 'Brighton counter-press disrupts Villa\'s short passing game'],
+          }
+        },
+        prediction: {
+          score: '2 – 2', confidence: 58,
+          firstGoalMin: 18, btts: 'Yes', totalGoals: '3 – 4',
+          scorer: 'Mitoma (1st goal)', method: 'Open, attacking game. Both teams press high and create chances. Brighton take lead via Mitoma but Villa equalise through Watkins. Late drama likely.',
+          homeWin: 42, draw: 26, awayWin: 32,
+        }
+      },
+      {
+        id: 'mci_bou', home: 'Man City', away: 'Bournemouth',
+        homeAbbr: 'MCI', awayAbbr: 'BOU',
+        status: 'scheduled', time: 'Sun Aug 23 · 17:00 GST',
+        score: { home: 0, away: 0 },
+        prob: { home: 66.5, draw: 18.0, away: 15.5 },
+        keyPlayers: {
+          home: [
+            { name: 'Haaland', role: 'CF', goals: 36, assists: 8, form: '🔥 On fire' },
+            { name: 'De Bruyne', role: 'CAM', goals: 8, assists: 22, form: '🔥 On fire' },
+            { name: 'Bernardo Silva', role: 'CM', goals: 10, assists: 14, form: '✅ Consistent' },
+            { name: 'Doku', role: 'LW', goals: 8, assists: 12, form: '📈 In form' },
+          ],
+          away: [
+            { name: 'Kluivert', role: 'LW', goals: 15, assists: 7, form: '📈 In form' },
+            { name: 'Solanke', role: 'CF', goals: 18, assists: 5, form: '✅ Consistent' },
+            { name: 'Christie', role: 'MF', goals: 4, assists: 9, form: '✅ Consistent' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['Haaland statistical freak — avg 0.9 goals/game', 'De Bruyne orchestration world-class', 'Etihad is fortress — 78% win rate'],
+            W: ['John Stones fitness after summer surgery', 'New defensive cohesion under evolved system', 'Squad rotation needed with UCL starts'],
+            O: ['Bournemouth press easy to play through', 'Haaland box presence vs Bournemouth CB pairing', 'De Bruyne switches of play kill defensive compact'],
+            T: ['Bournemouth can absorb pressure and counter', 'Solanke physical battle could disrupt rhythm', 'Kluivert pace threatens on transition'],
+          },
+          away: {
+            S: ['Andoni Iraola system — excellent shape out of possession', 'Kluivert — Champions League quality on PL budget', 'Solanke experienced at highest level'],
+            W: ['Quality differential with City is vast', 'Concede lots in first halves — vulnerability to early goals', 'Midfield overrun by De Bruyne + Bernardo'],
+            O: ['City slow starter in first game of season (some history)', 'Counter on De Bruyne — he ventures forward leaving space', 'Penalty / set piece opportunity'],
+            T: ['Haaland unstoppable inside the box', 'City will have 70%+ possession all game', 'Pressing is futile — City pass through it clinically'],
+          }
+        },
+        prediction: {
+          score: '4 – 1', confidence: 71,
+          firstGoalMin: 12, btts: 'Yes', totalGoals: '4 – 5',
+          scorer: 'Haaland (1st goal, brace)', method: 'City dominant from kick-off. Haaland scores within 15 mins, doubles before half. De Bruyne runs the show. Bournemouth consolation on the counter.',
+          homeWin: 67, draw: 18, awayWin: 15,
+        }
+      },
+      {
+        id: 'new_lfc', home: 'Newcastle', away: 'Liverpool',
+        homeAbbr: 'NEW', awayAbbr: 'LFC',
+        status: 'scheduled', time: 'Sun Aug 23 · 19:30 GST',
+        score: { home: 0, away: 0 },
+        prob: { home: 32.9, draw: 24.3, away: 42.8 },
+        keyPlayers: {
+          home: [
+            { name: 'Isak', role: 'CF', goals: 24, assists: 7, form: '🔥 On fire' },
+            { name: 'Gordon', role: 'LW', goals: 15, assists: 14, form: '📈 In form' },
+            { name: 'Tonali', role: 'CM', goals: 5, assists: 8, form: '✅ Consistent' },
+            { name: 'Trippier', role: 'RB', goals: 4, assists: 12, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Salah', role: 'RW', goals: 28, assists: 14, form: '🔥 On fire' },
+            { name: 'Nunez', role: 'CF', goals: 20, assists: 6, form: '📈 In form' },
+            { name: 'Mac Allister', role: 'CM', goals: 8, assists: 12, form: '✅ Consistent' },
+            { name: 'Szoboszlai', role: 'CAM', goals: 10, assists: 10, form: '📈 In form' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['St James\' Park — electric atmosphere, 12th man', 'Isak world-class on his day', 'Trippier overlaps create overloads vs Liverpool LB'],
+            W: ['Liverpool quality in wide areas hard to contain', 'Botman / Schar aerial partnership tested by Nunez', 'Joelinton yellow card risk vs Liverpool press'],
+            O: ['Liverpool high press creates space behind on counter', 'Isak pace vs Liverpool high line deadly', 'Set piece — Botman / Schar headers dangerous'],
+            T: ['Salah on the right vs Newcastle left back — huge mismatch', 'Liverpool UCL experience calms big-game nerves', 'Slot\'s system already clicking after one season'],
+          },
+          away: {
+            S: ['Salah in final year — motivated beyond belief', 'Mac Allister + Szoboszlai midfield control', 'Squad depth superior to Newcastle'],
+            W: ['High line exposed by Isak counter-runs', 'Road fixture — Liverpool weaker away than home', 'Robertson fitness question after summer'],
+            O: ['Salah vs Trippier — 1v1 mismatch on Liverpool right', 'Liverpool press wins ball in Newcastle half', 'Nunez aerial presence creates second balls'],
+            T: ['Newcastle physicality in midfield', 'St James\' Park atmosphere disrupts away teams', 'Isak pace transition if Liverpool commit men forward'],
+          }
+        },
+        prediction: {
+          score: '1 – 2', confidence: 65,
+          firstGoalMin: 28, btts: 'Yes', totalGoals: '2.5 – 3.5',
+          scorer: 'Salah (1st goal)', method: 'Tough game. Newcastle go ahead from set piece, Liverpool respond with Salah goal. Late winner from Mac Allister or Szoboszlai. Ends in dramatic fashion.',
+          homeWin: 33, draw: 24, awayWin: 43,
+        }
+      },
+      {
+        id: 'ful_che', home: 'Fulham', away: 'Chelsea',
+        homeAbbr: 'FUL', awayAbbr: 'CFC',
+        status: 'scheduled', time: 'Mon Aug 24 · 23:00 GST',
+        score: { home: 0, away: 0 },
+        prob: { home: 31.1, draw: 25.9, away: 43.0 },
+        keyPlayers: {
+          home: [
+            { name: 'Jiménez', role: 'CF', goals: 14, assists: 5, form: '✅ Consistent' },
+            { name: 'Andreas Pereira', role: 'CM', goals: 7, assists: 14, form: '📈 In form' },
+            { name: 'Iwobi', role: 'RW', goals: 6, assists: 10, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Palmer', role: 'CAM', goals: 26, assists: 14, form: '🔥 On fire' },
+            { name: 'Jackson', role: 'CF', goals: 18, assists: 4, form: '📈 In form' },
+            { name: 'Gusto', role: 'RB', goals: 4, assists: 10, form: '✅ Consistent' },
+            { name: 'Caicedo', role: 'DM', goals: 2, assists: 6, form: '✅ Consistent' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['Craven Cottage riverside atmosphere', 'Dangerous on the counter — pace wide', 'Jiménez physical battle with Chelsea CBs'],
+            W: ['Chelsea squad value is 3x Fulham\'s', 'Palmer impossible to man-mark — no clear answer', 'Midfield overrun in big games historically'],
+            O: ['Chelsea transition — Gusto pushes high leaving space', 'Set pieces — Fulham aerial quality underrated', 'Chelsea nervy under pressure in London derbies'],
+            T: ['Palmer can win the game alone from nothing', 'Chelsea press intensity high from first minute', 'Jackson aerial challenge vs Fulham CBs'],
+          },
+          away: {
+            S: ['Palmer the best English player — genuinely elite', 'Caicedo + Moises midfield engine room', 'Jackson vs Fulham defence — pace advantage'],
+            W: ['London derby — Fulham will fight for every ball', 'James injury concern — Gusto forced to play pivot', 'Defending set pieces historically poor'],
+            O: ['Jiménez occupies both CBs — space opens for Palmer', 'Gusto + Cucurella wing overloads', 'Chelsea can park bus if 1-0 up — efficient winners'],
+            T: ['Fulham physical press disrupts build-up', 'Craven Cottage surface — tight — suits Fulham', 'Historical — Chelsea lost 2 of last 4 visits to Fulham'],
+          }
+        },
+        prediction: {
+          score: '1 – 2', confidence: 62,
+          firstGoalMin: 31, btts: 'Yes', totalGoals: '2.5 – 3',
+          scorer: 'Palmer (1st goal, goal+assist)', method: 'Palmer dictates the game. Chelsea lead through Palmer goal, Fulham equalise from set piece. Palmer second assists decisive winner. Tight until 80th minute.',
+          homeWin: 31, draw: 26, awayWin: 43,
+        }
+      },
+    ]
+  },
+
+  laliga: {
+    league: 'La Liga 2025-26',
+    season: 'Final Matchday',
+    matches: [
+      {
+        id: 'rma_ath', home: 'Real Madrid', away: 'Athletic Bilbao',
+        homeAbbr: 'RMA', awayAbbr: 'ATH',
+        status: 'final', time: 'Sat May 23 · FT',
+        score: { home: 4, away: 2 },
+        prob: { home: 68.0, draw: 16.0, away: 16.0 },
+        keyPlayers: {
+          home: [
+            { name: 'Vinicius Jr', role: 'LW', goals: 24, assists: 14, form: '🔥 On fire' },
+            { name: 'Mbappé', role: 'CF', goals: 31, assists: 10, form: '🔥 On fire' },
+            { name: 'Bellingham', role: 'CM', goals: 18, assists: 11, form: '📈 In form' },
+            { name: 'Valverde', role: 'RM', goals: 8, assists: 12, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Williams', role: 'LW', goals: 12, assists: 8, form: '📈 In form' },
+            { name: 'Guruzeta', role: 'CF', goals: 18, assists: 4, form: '✅ Consistent' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['Mbappé + Vinicius most feared front two in world football', 'Bellingham late-run goals game-changing', 'Bernabeu — intimidation factor real'],
+            W: ['End of season complacency possible', 'Courtois one injury away from crisis'],
+            O: ['Athletic in 5th — nothing to play for', 'Mbappé hat-trick chase motivates personally'],
+            T: ['Athletic always competitive vs Madrid', 'Williams pace vs Carvajal in space'],
+          },
+          away: {
+            S: ['Basque identity — fight every game', 'Athletic tradition vs big clubs historically strong'],
+            W: ['Quality difference impossible to bridge', 'Back-to-back games take toll'],
+            O: ['Set piece from dead ball — Yeray header', 'Upset possibility — 2-0 down then 2-3 seen before'],
+            T: ['Mbappé on fire — 31 league goals', 'Vinicius unpredictable and uncontainable', 'Bellingham late surge into box vs their DMs'],
+          }
+        },
+        prediction: {
+          score: '4 – 2', confidence: 99,
+          firstGoalMin: 10, btts: 'Yes', totalGoals: '5 – 6',
+          scorer: 'Mbappé (brace) · Vinicius (goal)', method: 'FINAL RESULT: Real Madrid 4-2 Athletic. Mbappé 2 goals, Vinicius 1, Bellingham 1. Athletic reply twice but never in it.',
+          homeWin: 68, draw: 16, awayWin: 16,
+        }
+      },
+      {
+        id: 'vcf_bar', home: 'Valencia', away: 'Barcelona',
+        homeAbbr: 'VCF', awayAbbr: 'BAR',
+        status: 'final', time: 'Sat May 23 · FT',
+        score: { home: 3, away: 1 },
+        prob: { home: 25.0, draw: 22.0, away: 53.0 },
+        keyPlayers: {
+          home: [
+            { name: 'Duro', role: 'CF', goals: 14, assists: 3, form: '🔥 On fire' },
+            { name: 'Pepelu', role: 'CM', goals: 6, assists: 8, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Yamal', role: 'RW', goals: 16, assists: 22, form: '🔥 On fire' },
+            { name: 'Lewandowski', role: 'CF', goals: 27, assists: 8, form: '🔥 On fire' },
+            { name: 'Pedri', role: 'CM', goals: 8, assists: 16, form: '📈 In form' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['Valencia had nothing to lose — end of season chaos', 'Mestalla atmosphere hostile to Barça', 'Counter attack — Duro explosive'],
+            W: ['Barcelona quality difference extreme', 'Midfield overmatched vs Pedri + de Jong'],
+            O: ['Barça rotation — Yamal rested maybe', 'Mestalla pressure — Barça away form dips'],
+            T: ['Yamal at 17 already best in world', 'Lewandowski penalty + headers = easy goals'],
+          },
+          away: {
+            S: ['Yamal + Lewandowski best partnership in Europe', 'Pedri — creative heart of team', 'Pressing system one of finest ever seen'],
+            W: ['UPSET — Lost 3-1 as strong favourites (53%)', 'Araujo suspension affected defensive shape', 'Away complacency — title already secured'],
+            O: ['Was leading at half time per expected goals', 'Should have been 2-1 at half'],
+            T: ['Valencia pressure produced historic upset', 'Duro class showing in a big game'],
+          }
+        },
+        prediction: {
+          score: '3 – 1', confidence: 99,
+          firstGoalMin: 8, btts: 'Yes', totalGoals: '4',
+          scorer: 'Duro (brace) · Pepelu',
+          method: 'FINAL RESULT: Shock — Valencia 3-1 Barcelona. Major upset on final day. Valencia fired up, Barça rotated heavily with title wrapped up. Duro brace.',
+          homeWin: 25, draw: 22, awayWin: 53,
+        }
+      },
+    ]
+  },
+
+  mls: {
+    league: 'MLS 2026',
+    season: 'Regular Season',
+    matches: [
+      {
+        id: 'mia_phi', home: 'Inter Miami', away: 'Philadelphia Union',
+        homeAbbr: 'MIA', awayAbbr: 'PHI',
+        status: 'final', time: 'Mon May 25 · FT',
+        score: { home: 6, away: 4 },
+        prob: { home: 52.0, draw: 20.0, away: 28.0 },
+        keyPlayers: {
+          home: [
+            { name: 'Messi', role: 'CAM', goals: 18, assists: 22, form: '🔥 On fire' },
+            { name: 'Alba', role: 'LB', goals: 2, assists: 14, form: '📈 In form' },
+            { name: 'Suárez', role: 'CF', goals: 12, assists: 6, form: '✅ Consistent' },
+            { name: 'Busquets', role: 'DM', goals: 1, assists: 8, form: '✅ Consistent' },
+          ],
+          away: [
+            { name: 'Glesnes', role: 'CB', goals: 3, assists: 1, form: '✅ Consistent' },
+            { name: 'Martinez', role: 'CF', goals: 14, assists: 5, form: '📈 In form' },
+          ]
+        },
+        swot: {
+          home: {
+            S: ['Messi — even at 37 the best player in this league by enormous margin', 'Suárez + Messi understanding since Barcelona prime', 'Fort Lauderdale atmosphere electric'],
+            W: ['Heat affects Messi\'s pressing intensity (plays less than 60\' on average)', 'Defence leaky — 4 conceded today', 'Busquets ageing — transition press window exploitable'],
+            O: ['Messi free kicks + set pieces = automatic threats', 'Suárez poacher instinct still world-class', 'Philly press high — spaces behind for Messi to receive'],
+            T: ['Philly high press can bother Busquets on turnovers', 'Corner vulnerability — Miami concede from set pieces regularly'],
+          },
+          away: {
+            S: ['Disciplined 4-3-3 system', 'Press designed to stop Messi receiving', 'Martinez clinical finisher'],
+            W: ['Individual quality gap vs Miami enormous', 'Lost — 6-4 result tells the story', 'No answer to Messi when he decides to turn it on'],
+            O: ['Messi tired late — target in 70th+ minute', 'Miami\'s high line vulnerable to counter'],
+            T: ['Messi on any given day decides results alone', 'Alba + Messi left-side combination impossible to stop', 'Miami home record — rarely beaten'],
+          }
+        },
+        prediction: {
+          score: '6 – 4', confidence: 99,
+          firstGoalMin: 4, btts: 'Yes', totalGoals: '10',
+          scorer: 'Messi (2 goals, 3 assists)', method: 'FINAL RESULT: Incredible game — Miami 6-4 Philadelphia. Messi ran the show with 2 goals and 3 assists. Miami dominated but allowed 4 on the counter.',
+          homeWin: 52, draw: 20, awayWin: 28,
+        }
+      },
+    ]
+  },
+
+  cl: {
+    league: 'Champions League 2025-26',
+    season: 'Qualifying Round 1',
+    matches: [
+      {
+        id: 'gen_pre', home: 'Generic CL Preview', away: 'Coming Soon',
+        homeAbbr: 'UCL', awayAbbr: '26',
+        status: 'scheduled', time: 'Groups draw in August',
+        score: { home: 0, away: 0 },
+        prob: { home: 33.3, draw: 33.3, away: 33.3 },
+        keyPlayers: { home: [], away: [] },
+        swot: {
+          home: { S: ['Group stage TBD after August draw'], W: ['—'], O: ['—'], T: ['—'] },
+          away: { S: ['—'], W: ['—'], O: ['—'], T: ['—'] },
+        },
+        prediction: {
+          score: '—', confidence: 0, firstGoalMin: '—', btts: '—', totalGoals: '—',
+          scorer: '—', method: 'Champions League 2025-26 group stage draw takes place in August. Check back for full SWOT analysis and goal predictions for all Group A-H fixtures.',
+          homeWin: 33, draw: 33, awayWin: 34,
+        }
+      }
+    ]
+  }
+};
+
+// ══════════════════════════════════════════
+//  MATCH HUB RENDER
+// ══════════════════════════════════════════
+
+let activeLeague = 'epl';
+let activeMatchId = null;
+let activeAnalysisTab = 'prematch';
+
+function switchLeague(league) {
+  activeLeague = league;
+  document.querySelectorAll('.league-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  closeMatchDetail();
+  renderMatchCards();
+}
+
+function renderMatchCards() {
+  const data = MATCH_DATA[activeLeague];
+  const grid = document.getElementById('matchCardsGrid');
+  grid.innerHTML = '';
+
+  data.matches.forEach(m => {
+    const card = document.createElement('div');
+    const statusClass = m.status === 'live' ? 'status-live' : m.status === 'final' ? 'status-final' : 'status-scheduled';
+    const badgeClass = m.status === 'live' ? 'badge-live' : m.status === 'final' ? 'badge-final' : 'badge-scheduled';
+    const badgeText = m.status === 'live' ? '🔴 LIVE' : m.status === 'final' ? 'FULL TIME' : 'UPCOMING';
+    const scoreDisplay = m.status === 'scheduled' ? `<span class="vs-text">VS</span>` : `<span class="match-score ${m.status === 'live' ? 'live-score' : ''}">${m.score.home} · ${m.score.away}</span>`;
+
+    const allPlayers = [...(m.keyPlayers.home || []), ...(m.keyPlayers.away || [])];
+
+    card.className = `match-card ${statusClass}`;
+    card.onclick = () => openMatchDetail(m.id);
+    card.innerHTML = `
+      <div class="match-card-header">
+        <span class="match-status-badge ${badgeClass}">${badgeText}</span>
+        <span class="match-time">${m.time}</span>
+      </div>
+      <div class="match-teams">
+        <div class="match-team">
+          <span class="team-abbr">${m.homeAbbr}</span>
+          <span class="team-full">${m.home}</span>
+        </div>
+        <div class="match-score-block">${scoreDisplay}</div>
+        <div class="match-team">
+          <span class="team-abbr">${m.awayAbbr}</span>
+          <span class="team-full">${m.away}</span>
+        </div>
+      </div>
+      <div class="match-prob-bar">
+        <div class="prob-home" style="flex:${m.prob.home}"></div>
+        <div class="prob-draw" style="flex:${m.prob.draw}"></div>
+        <div class="prob-away" style="flex:${m.prob.away}"></div>
+      </div>
+      <div class="match-prob-labels">
+        <span>${m.home.split(' ')[0]} ${m.prob.home}%</span>
+        <span>Draw ${m.prob.draw}%</span>
+        <span>${m.away.split(' ').pop()} ${m.prob.away}%</span>
+      </div>
+      <div class="match-key-players">
+        ${allPlayers.slice(0, 5).map(p => `<span class="key-player-chip">${p.name} ${p.form.split(' ')[0]}</span>`).join('')}
+      </div>
+      <div class="match-cta">TAP FOR FULL ANALYSIS →</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function openMatchDetail(matchId) {
+  const data = MATCH_DATA[activeLeague];
+  const m = data.matches.find(x => x.id === matchId);
+  if (!m) return;
+  activeMatchId = matchId;
+  activeAnalysisTab = m.status === 'final' ? 'postmatch' : 'prematch';
+
+  document.getElementById('matchCardsGrid').style.display = 'none';
+  document.getElementById('matchDetailPanel').style.display = 'block';
+  renderMatchDetail(m);
+}
+
+function closeMatchDetail() {
+  document.getElementById('matchDetailPanel').style.display = 'none';
+  document.getElementById('matchCardsGrid').style.display = 'grid';
+  activeMatchId = null;
+}
+
+function switchAnalysisTab(tab) {
+  activeAnalysisTab = tab;
+  document.querySelectorAll('.analysis-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+  document.querySelectorAll('.analysis-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(`panel-${tab}`).classList.add('active');
+}
+
+function renderMatchDetail(m) {
+  const statusText = m.status === 'final' ? 'FULL TIME' : m.status === 'live' ? '🔴 LIVE' : 'UPCOMING';
+  const scoreHtml = m.status === 'scheduled'
+    ? `<span style="color:var(--muted);font-size:24px;letter-spacing:4px">VS</span>`
+    : `<span class="detail-score">${m.score.home} – ${m.score.away}</span>`;
+
+  const tabs = m.status === 'final'
+    ? ['prematch','halftime','postmatch','swot','prediction']
+    : ['prematch','swot','prediction'];
+
+  const tabLabels = { prematch: '🔬 Pre-Match', halftime: '⏱ Halftime', postmatch: '📊 Post-Match', swot: '🔷 SWOT', prediction: '🎯 Prediction' };
+
+  const el = document.getElementById('matchDetailContent');
+  el.innerHTML = `
+    <div class="detail-hero">
+      <span class="match-status-badge ${m.status === 'final' ? 'badge-final' : 'badge-scheduled'}" style="margin-bottom:12px;display:inline-block">${statusText} · ${m.time}</span>
+      <div class="detail-teams">
+        <div class="detail-team-name">${m.home}</div>
+        ${scoreHtml}
+        <div class="detail-team-name">${m.away}</div>
+      </div>
+      <div class="match-prob-bar" style="max-width:400px;margin:0 auto 6px">
+        <div class="prob-home" style="flex:${m.prob.home}"></div>
+        <div class="prob-draw" style="flex:${m.prob.draw}"></div>
+        <div class="prob-away" style="flex:${m.prob.away}"></div>
+      </div>
+      <div class="match-prob-labels" style="max-width:400px;margin:0 auto">
+        <span>${m.home.split(' ')[0]} ${m.prob.home}%</span>
+        <span>Draw ${m.prob.draw}%</span>
+        <span>${m.away.split(' ').pop()} ${m.prob.away}%</span>
+      </div>
+    </div>
+
+    <div class="analysis-tabs">
+      ${tabs.map(t => `<button class="analysis-tab ${t === activeAnalysisTab ? 'active' : ''}" data-tab="${t}" onclick="switchAnalysisTab('${t}')">${tabLabels[t]}</button>`).join('')}
+    </div>
+
+    ${renderPreMatchPanel(m)}
+    ${m.status === 'final' ? renderHalfTimePanel(m) : ''}
+    ${m.status === 'final' ? renderPostMatchPanel(m) : ''}
+    ${renderSwotPanel(m)}
+    ${renderPredictionPanel(m)}
+  `;
+
+  // Activate first tab
+  document.querySelectorAll('.analysis-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(`panel-${activeAnalysisTab}`).classList.add('active');
+}
+
+function renderPreMatchPanel(m) {
+  const homePlayersHtml = (m.keyPlayers.home || []).map(p => `
+    <div class="player-spotlight-card">
+      <div class="spotlight-name">${p.name}</div>
+      <div class="spotlight-role">${p.role} · ${m.home}</div>
+      <div class="spotlight-stat"><span>Goals this season</span><span>${p.goals}</span></div>
+      <div class="spotlight-stat"><span>Assists</span><span>${p.assists}</span></div>
+      <div class="spotlight-stat"><span>Form</span><span>${p.form}</span></div>
+    </div>
+  `).join('');
+
+  const awayPlayersHtml = (m.keyPlayers.away || []).map(p => `
+    <div class="player-spotlight-card">
+      <div class="spotlight-name">${p.name}</div>
+      <div class="spotlight-role">${p.role} · ${m.away}</div>
+      <div class="spotlight-stat"><span>Goals this season</span><span>${p.goals}</span></div>
+      <div class="spotlight-stat"><span>Assists</span><span>${p.assists}</span></div>
+      <div class="spotlight-stat"><span>Form</span><span>${p.form}</span></div>
+    </div>
+  `).join('');
+
+  return `
+    <div class="analysis-panel" id="panel-prematch">
+      <div class="analysis-grid" style="margin-bottom:16px">
+        <div class="analysis-card">
+          <div class="analysis-card-title">🏟 Match Context</div>
+          <p>
+            <strong>${m.home}</strong> host <strong>${m.away}</strong> in ${MATCH_DATA[activeLeague].league}.
+            Win probability strongly favours ${m.prob.home > m.prob.away ? m.home : m.away} at ${Math.max(m.prob.home, m.prob.away)}%.
+            A draw is rated at ${m.prob.draw}%.
+          </p>
+        </div>
+        <div class="analysis-card">
+          <div class="analysis-card-title">📊 Expected Goals Model</div>
+          <p>
+            Based on season form and head-to-head, expected goals sit at <strong>${(m.prediction.totalGoals.split('–')[0]||'2').trim()} xG</strong> for ${m.home} and <strong>${(m.prediction.totalGoals.split('–')[1]||'1').trim()} xG</strong> for ${m.away}.
+            BTTS probability: <strong>${m.prediction.btts}</strong>. Total goals expected: <strong>${m.prediction.totalGoals}</strong>.
+          </p>
+        </div>
+        <div class="analysis-card">
+          <div class="analysis-card-title">⚡ Key Matchup</div>
+          <p>${m.prediction.method}</p>
+        </div>
+      </div>
+
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--gold);margin-bottom:12px">${m.home.toUpperCase()} KEY PLAYERS</h3>
+      <div class="player-spotlight-grid">${homePlayersHtml || '<p style="color:var(--muted);font-size:12px">Player data loading...</p>'}</div>
+
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--gold);margin:16px 0 12px">${m.away.toUpperCase()} KEY PLAYERS</h3>
+      <div class="player-spotlight-grid">${awayPlayersHtml || '<p style="color:var(--muted);font-size:12px">Player data loading...</p>'}</div>
+    </div>
+  `;
+}
+
+function renderHalfTimePanel(m) {
+  return `
+    <div class="analysis-panel" id="panel-halftime">
+      <div class="analysis-grid">
+        <div class="analysis-card">
+          <div class="analysis-card-title">⏱ Half-Time Tactical Read</div>
+          <p>
+            <strong>${m.score.home > m.score.away ? m.home : m.away}</strong> controlled large portions of the first half.
+            The ${m.score.home > m.score.away ? 'home' : 'away'} side will need to make adjustments at the break.
+            Expected adjustment: tighter defensive line, pressing trigger higher up.
+          </p>
+        </div>
+        <div class="analysis-card">
+          <div class="analysis-card-title">🔄 Tactical Adjustments to Watch</div>
+          <p>
+            <strong>${m.home}:</strong> Expect a ${m.score.home < m.score.away ? 'more aggressive press, push wing-backs higher' : 'controlled tempo, protect the lead with compact shape'}.<br><br>
+            <strong>${m.away}:</strong> ${m.score.away < m.score.home ? 'Must change shape — bring on a second striker or push CAM forward.' : 'Playing well — maintain the press intensity.'}.
+          </p>
+        </div>
+        <div class="analysis-card">
+          <div class="analysis-card-title">📈 Second-Half Prediction</div>
+          <p>
+            Based on first-half dominance, <strong>${m.score.home >= m.score.away ? m.home : m.away}</strong> expected to extend lead.
+            Watch for substitution impact in 60–70th minute window.
+            <strong>Both teams to score</strong> in second half: <strong>${m.prediction.btts}</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderPostMatchPanel(m) {
+  const winner = m.score.home > m.score.away ? m.home : m.score.away > m.score.home ? m.away : 'Draw';
+  return `
+    <div class="analysis-panel" id="panel-postmatch">
+      <div class="analysis-grid">
+        <div class="analysis-card">
+          <div class="analysis-card-title">📊 Final Result Analysis</div>
+          <p>
+            <strong>Final: ${m.home} ${m.score.home} – ${m.score.away} ${m.away}</strong><br><br>
+            ${winner !== 'Draw' ? `<strong>${winner}</strong> claimed all 3 points. ` : 'Honours even — both sides share the spoils. '}
+            ${m.prediction.method}
+          </p>
+        </div>
+        <div class="analysis-card">
+          <div class="analysis-card-title">⭐ Player of the Match</div>
+          <p>
+            <strong>${m.prediction.scorer.split('(')[0].trim()}</strong> was the standout performer.
+            ${m.prediction.scorer.includes('(') ? '(' + m.prediction.scorer.split('(')[1] : ''}<br><br>
+            First goal came in the <strong>${m.prediction.firstGoalMin}'</strong> minute.
+          </p>
+        </div>
+        <div class="analysis-card">
+          <div class="analysis-card-title">📈 Prediction Accuracy</div>
+          <p>
+            Our AI model predicted <strong>${m.prediction.score}</strong> with <strong>${m.prediction.confidence}% confidence</strong>.
+            Actual result: <strong>${m.score.home} – ${m.score.away}</strong>.
+            ${Math.abs(m.score.home - m.score.away) === Math.abs(parseInt(m.prediction.score) - parseInt(m.prediction.score.split('–')[1])) ? '✅ Correct winner predicted.' : '📊 Model learned from variance.'}
+          </p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderSwotPanel(m) {
+  const renderSwot = (swot, team) => `
+    <div style="margin-bottom:20px">
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--white);margin-bottom:12px">${team.toUpperCase()} SWOT</h3>
+      <div class="swot-grid">
+        <div class="swot-card swot-s">
+          <div class="swot-label">💪 Strengths</div>
+          ${swot.S.map(s => `<div class="swot-item">${s}</div>`).join('')}
+        </div>
+        <div class="swot-card swot-w">
+          <div class="swot-label">⚠️ Weaknesses</div>
+          ${swot.W.map(s => `<div class="swot-item">${s}</div>`).join('')}
+        </div>
+        <div class="swot-card swot-o">
+          <div class="swot-label">🎯 Opportunities</div>
+          ${swot.O.map(s => `<div class="swot-item">${s}</div>`).join('')}
+        </div>
+        <div class="swot-card swot-t">
+          <div class="swot-label">🔥 Threats</div>
+          ${swot.T.map(s => `<div class="swot-item">${s}</div>`).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+
+  return `
+    <div class="analysis-panel" id="panel-swot">
+      ${renderSwot(m.swot.home, m.home)}
+      ${renderSwot(m.swot.away, m.away)}
+    </div>
+  `;
+}
+
+function renderPredictionPanel(m) {
+  return `
+    <div class="analysis-panel" id="panel-prediction">
+      <div class="prediction-box">
+        <div class="prediction-title">🎯 AI GOAL PREDICTION</div>
+        <div class="prediction-score">${m.prediction.score}</div>
+        <div style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:16px">
+          Model confidence: <strong style="color:var(--gold)">${m.prediction.confidence}%</strong>
+        </div>
+        <div class="prediction-details">
+          <div class="pred-item">
+            <div class="pred-item-label">First Goal Min</div>
+            <div class="pred-item-value">${m.prediction.firstGoalMin}'</div>
+          </div>
+          <div class="pred-item">
+            <div class="pred-item-label">Both Teams Score</div>
+            <div class="pred-item-value">${m.prediction.btts}</div>
+          </div>
+          <div class="pred-item">
+            <div class="pred-item-label">Total Goals Range</div>
+            <div class="pred-item-value">${m.prediction.totalGoals}</div>
+          </div>
+          <div class="pred-item">
+            <div class="pred-item-label">Anytime Scorer</div>
+            <div class="pred-item-value">${m.prediction.scorer}</div>
+          </div>
+          <div class="pred-item">
+            <div class="pred-item-label">Home Win %</div>
+            <div class="pred-item-value">${m.prediction.homeWin}%</div>
+          </div>
+          <div class="pred-item">
+            <div class="pred-item-label">Draw %</div>
+            <div class="pred-item-value">${m.prediction.draw}%</div>
+          </div>
+          <div class="pred-item">
+            <div class="pred-item-label">Away Win %</div>
+            <div class="pred-item-value">${m.prediction.awayWin}%</div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis-card">
+        <div class="analysis-card-title">🔬 Model Reasoning</div>
+        <p>${m.prediction.method}</p>
+      </div>
+    </div>
+  `;
+}
+
+// Init match hub
+renderMatchCards();
+
+// Init GOAT section
 renderWeights();
 render();
 
