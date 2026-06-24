@@ -456,7 +456,7 @@
 
   .heatmap-grid {
     display: flex;
-    gap: 16px;
+    gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -465,23 +465,70 @@
     background: var(--card);
     border: 1px solid var(--card-border);
     border-radius: var(--radius);
-    padding: 20px;
+    padding: 16px 16px 12px;
     flex: 1;
-    min-width: 240px;
-    max-width: 320px;
+    min-width: 220px;
+    max-width: 300px;
+  }
+
+  .heatmap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
   }
 
   .heatmap-player-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: 1px;
-    margin-bottom: 12px;
-    text-align: center;
+  }
+
+  .heatmap-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
   }
 
   .pitch-svg {
     width: 100%;
     height: auto;
+    display: block;
+  }
+
+  .heatmap-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .legend-gradient {
+    width: 80px;
+    height: 6px;
+    border-radius: 3px;
+  }
+
+  .legend-text {
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .pitch-axis-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: rgba(154,163,168,0.5);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 4px;
+    padding: 0 2px;
   }
 
   /* ── RADAR CHART ── */
@@ -1014,14 +1061,65 @@ const WEIGHTS = {
   },
 };
 
-// Heatmap blobs per player [zone coords as % of pitch, intensity 0-1]
+// Grid heatmap data: 5 cols (left→right) × 6 rows (defend→attack)
+// Each value is intensity 0–1. Row 0 = own half deep, Row 5 = six-yard box.
+// Cols: 0=far-left, 1=left, 2=centre, 3=right, 4=far-right
+// Goals context: these reflect where each player scores FROM (attacking half focus)
 const HEATMAP_DATA = {
-  messi:       [[65,75,0.9],[60,65,0.8],[70,80,0.7],[55,60,0.7],[75,70,0.6],[50,50,0.5],[65,85,0.6],[45,70,0.4]],
-  ronaldo:     [[70,25,0.9],[75,20,0.7],[65,30,0.8],[80,35,0.6],[60,15,0.7],[70,50,0.5],[85,25,0.6],[70,10,0.5]],
-  neymar:      [[60,80,0.9],[55,75,0.8],[65,70,0.7],[50,65,0.6],[70,85,0.6],[40,60,0.5],[55,50,0.4],[65,90,0.5]],
-  mbappe:      [[70,30,0.9],[65,20,0.8],[80,25,0.7],[75,40,0.7],[60,35,0.6],[85,15,0.5],[70,50,0.4],[60,10,0.5]],
-  lewandowski: [[55,50,0.9],[60,45,0.8],[50,55,0.8],[65,40,0.7],[45,50,0.7],[60,60,0.6],[55,35,0.5],[70,50,0.4]],
-  suarez:      [[60,60,0.9],[55,55,0.8],[65,50,0.8],[50,65,0.7],[70,60,0.6],[55,45,0.5],[60,70,0.6],[45,55,0.4]],
+  // Messi: left-wing cut-inside specialist — peaks centre-left in final third
+  messi: [
+    [0.00, 0.00, 0.00, 0.00, 0.00], // deep own half
+    [0.02, 0.03, 0.04, 0.02, 0.01], // own half
+    [0.05, 0.12, 0.10, 0.06, 0.03], // halfway
+    [0.15, 0.40, 0.35, 0.18, 0.08], // attacking mid
+    [0.30, 0.70, 0.90, 0.55, 0.20], // final third
+    [0.18, 0.55, 0.80, 0.42, 0.12], // six-yard / penalty box
+  ],
+  // Ronaldo: central + right-channel aerial machine — peaks dead centre
+  ronaldo: [
+    [0.00, 0.00, 0.00, 0.00, 0.00],
+    [0.01, 0.02, 0.05, 0.03, 0.02],
+    [0.03, 0.08, 0.12, 0.10, 0.05],
+    [0.08, 0.22, 0.38, 0.28, 0.12],
+    [0.15, 0.45, 0.90, 0.70, 0.30],
+    [0.10, 0.38, 0.80, 0.65, 0.22],
+  ],
+  // Neymar: left-wing dribbler, wide left heavy
+  neymar: [
+    [0.00, 0.00, 0.00, 0.00, 0.00],
+    [0.02, 0.04, 0.03, 0.02, 0.01],
+    [0.08, 0.14, 0.08, 0.05, 0.02],
+    [0.22, 0.50, 0.30, 0.12, 0.05],
+    [0.40, 0.90, 0.65, 0.28, 0.10],
+    [0.25, 0.60, 0.70, 0.30, 0.08],
+  ],
+  // Mbappé: rapid central + right channel, high-speed central runs
+  mbappe: [
+    [0.00, 0.00, 0.00, 0.00, 0.00],
+    [0.01, 0.02, 0.04, 0.04, 0.02],
+    [0.04, 0.08, 0.14, 0.12, 0.06],
+    [0.10, 0.20, 0.45, 0.35, 0.18],
+    [0.18, 0.35, 0.90, 0.65, 0.28],
+    [0.12, 0.28, 0.75, 0.55, 0.18],
+  ],
+  // Lewandowski: pure penalty-box poacher — central dominance in box
+  lewandowski: [
+    [0.00, 0.00, 0.00, 0.00, 0.00],
+    [0.01, 0.01, 0.03, 0.01, 0.01],
+    [0.02, 0.05, 0.08, 0.05, 0.02],
+    [0.05, 0.15, 0.30, 0.15, 0.06],
+    [0.12, 0.38, 0.90, 0.42, 0.14],
+    [0.10, 0.45, 1.00, 0.48, 0.12],
+  ],
+  // Suárez: central-left poacher, box presence + left channel
+  suarez: [
+    [0.00, 0.00, 0.00, 0.00, 0.00],
+    [0.01, 0.02, 0.04, 0.02, 0.01],
+    [0.04, 0.10, 0.10, 0.06, 0.02],
+    [0.12, 0.30, 0.35, 0.16, 0.06],
+    [0.22, 0.65, 0.90, 0.40, 0.14],
+    [0.15, 0.55, 0.85, 0.38, 0.10],
+  ],
 };
 
 // Radar dimensions [label, key]
@@ -1326,56 +1424,201 @@ function renderRadar() {
 }
 
 // ══════════════════════════════════════════
-//  HEATMAPS
+//  HEATMAPS — grid zone pitch
 // ══════════════════════════════════════════
+
+function heatColor(intensity, playerColor) {
+  // Dark green → yellow-green → bright yellow scale
+  // intensity 0→1 maps to a green-to-yellow-to-white gradient
+  const stops = [
+    [0.00, [8,  25,  8]],
+    [0.15, [14, 45,  14]],
+    [0.30, [30, 80,  20]],
+    [0.50, [80, 120, 10]],
+    [0.70, [160,180,  0]],
+    [0.85, [220,210,  0]],
+    [1.00, [255,240, 20]],
+  ];
+  let lo = stops[0], hi = stops[stops.length-1];
+  for (let i = 0; i < stops.length - 1; i++) {
+    if (intensity >= stops[i][0] && intensity <= stops[i+1][0]) {
+      lo = stops[i]; hi = stops[i+1]; break;
+    }
+  }
+  const t = lo[0] === hi[0] ? 0 : (intensity - lo[0]) / (hi[0] - lo[0]);
+  const r = Math.round(lo[1][0] + (hi[1][0] - lo[1][0]) * t);
+  const g = Math.round(lo[1][1] + (hi[1][1] - lo[1][1]) * t);
+  const b = Math.round(lo[1][2] + (hi[1][2] - lo[1][2]) * t);
+  return `rgb(${r},${g},${b})`;
+}
 
 function renderHeatmaps() {
   const idxs = getFilteredPlayers();
   const grid = document.getElementById('heatmapGrid');
   grid.innerHTML = '';
 
+  // Pitch SVG dimensions (portrait — attacking end at bottom)
+  const W = 220, H = 320;
+  const PAD = 12;          // outer pitch padding inside SVG
+  const PW = W - PAD*2;    // pitch width
+  const PH = H - PAD*2;    // pitch height
+
+  // Grid: 5 cols × 6 rows
+  const COLS = 5, ROWS = 6;
+  const CW = PW / COLS;
+  const RH = PH / ROWS;
+
+  // Pitch markings (all relative to PAD offset)
+  // Penalty areas: top (opponent) and bottom (own) — we show from attack (bottom) up
+  const penBoxW = CW * 3;   // 3 of 5 cols
+  const penBoxH = RH * 1.2;
+  const penBoxX = PAD + CW; // centred
+  const goalBoxW = CW * 1.4;
+  const goalBoxH = RH * 0.55;
+  const goalBoxX = PAD + (PW - goalBoxW) / 2;
+
   idxs.forEach(i => {
     const p = PLAYERS[i];
-    const blobs = HEATMAP_DATA[p.id];
+    const grid_data = HEATMAP_DATA[p.id]; // rows[0]=deep, rows[5]=box
+    const key = getDataKey();
+    const d = DATA[key];
+    const totalGoals = d.goals_total ? d.goals_total[i] : '—';
+
+    // Find max intensity for normalisation
+    let maxIntensity = 0;
+    grid_data.forEach(row => row.forEach(v => { if (v > maxIntensity) maxIntensity = v; }));
+
+    // Build zone rectangles SVG
+    let zonesSvg = '';
+    // rows in data: 0=own half deep → 5=penalty box (attacking end at bottom of portrait pitch)
+    // We render row 5 at the bottom (high y), row 0 at top
+    for (let row = 0; row < ROWS; row++) {
+      for (let col = 0; col < COLS; col++) {
+        const intensity = grid_data[row][col];
+        const norm = maxIntensity > 0 ? intensity / maxIntensity : 0;
+        // row 0 = top of pitch (own half), row 5 = bottom (attacking box)
+        // flip: attackng end = bottom in portrait
+        const displayRow = (ROWS - 1 - row); // row 5 data → displayRow 0 (top=own half)
+        // Actually: row 0 data = own deep half → show at TOP of portrait (far from attack)
+        // row 5 data = six-yard box → show at BOTTOM
+        const rx = PAD + col * CW;
+        const ry = PAD + row * RH;
+        const fill = heatColor(norm, p.color);
+        const pct = norm > 0.05 ? Math.round(norm * 100) + '%' : '';
+        const textCol = norm > 0.5 ? '#000' : norm > 0.2 ? '#1a1a00' : 'rgba(255,255,255,0.25)';
+        const textSize = norm > 0.05 ? 8 : 0;
+
+        zonesSvg += `<rect x="${rx}" y="${ry}" width="${CW}" height="${RH}" fill="${fill}" opacity="${0.15 + norm * 0.85}"/>`;
+        if (pct) {
+          zonesSvg += `<text x="${rx + CW/2}" y="${ry + RH/2 + 3}" text-anchor="middle" font-family="Inter" font-weight="600" font-size="${textSize}" fill="${textCol}">${pct}</text>`;
+        }
+      }
+    }
+
+    // Zone border grid lines
+    let gridLines = '';
+    for (let c = 1; c < COLS; c++) {
+      const x = PAD + c * CW;
+      gridLines += `<line x1="${x}" y1="${PAD}" x2="${x}" y2="${PAD + PH}" stroke="rgba(0,0,0,0.25)" stroke-width="0.8"/>`;
+    }
+    for (let r = 1; r < ROWS; r++) {
+      const y = PAD + r * RH;
+      gridLines += `<line x1="${PAD}" y1="${y}" x2="${PAD + PW}" y2="${y}" stroke="rgba(0,0,0,0.25)" stroke-width="0.8"/>`;
+    }
+
+    // Pitch markings OVER the grid
+    const pitchMarkings = `
+      <!-- Outer pitch boundary -->
+      <rect x="${PAD}" y="${PAD}" width="${PW}" height="${PH}" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" rx="2"/>
+
+      <!-- Halfway line -->
+      <line x1="${PAD}" y1="${PAD + PH/2}" x2="${PAD+PW}" y2="${PAD + PH/2}" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+
+      <!-- Centre circle -->
+      <circle cx="${PAD + PW/2}" cy="${PAD + PH/2}" r="${Math.min(CW,RH) * 0.9}" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+      <!-- Centre spot -->
+      <circle cx="${PAD + PW/2}" cy="${PAD + PH/2}" r="2" fill="rgba(255,255,255,0.5)"/>
+
+      <!-- TOP penalty area (own half) -->
+      <rect x="${PAD + CW}" y="${PAD}" width="${CW*3}" height="${RH*1.4}" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+      <!-- TOP goal box -->
+      <rect x="${PAD + CW*1.6}" y="${PAD}" width="${CW*1.8}" height="${RH*0.55}" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
+      <!-- TOP goal -->
+      <rect x="${PAD + CW*1.9}" y="${PAD - 7}" width="${CW*1.2}" height="7" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+      <!-- TOP penalty spot -->
+      <circle cx="${PAD + PW/2}" cy="${PAD + RH*1.0}" r="2" fill="rgba(255,255,255,0.5)"/>
+      <!-- TOP penalty arc -->
+      <path d="M ${PAD + CW*1.3} ${PAD + RH*1.4} A ${Math.min(CW,RH)*0.85} ${Math.min(CW,RH)*0.85} 0 0 0 ${PAD + CW*3.7} ${PAD + RH*1.4}" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+
+      <!-- BOTTOM penalty area (attacking end) -->
+      <rect x="${PAD + CW}" y="${PAD + PH - RH*1.4}" width="${CW*3}" height="${RH*1.4}" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
+      <!-- BOTTOM goal box -->
+      <rect x="${PAD + CW*1.6}" y="${PAD + PH - RH*0.55}" width="${CW*1.8}" height="${RH*0.55}" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="0.8"/>
+      <!-- BOTTOM goal -->
+      <rect x="${PAD + CW*1.9}" y="${PAD + PH}" width="${CW*1.2}" height="7" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.5)" stroke-width="0.8"/>
+      <!-- BOTTOM penalty spot -->
+      <circle cx="${PAD + PW/2}" cy="${PAD + PH - RH*1.0}" r="2" fill="rgba(255,255,255,0.6)"/>
+      <!-- BOTTOM penalty arc -->
+      <path d="M ${PAD + CW*1.3} ${PAD + PH - RH*1.4} A ${Math.min(CW,RH)*0.85} ${Math.min(CW,RH)*0.85} 0 0 1 ${PAD + CW*3.7} ${PAD + PH - RH*1.4}" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+
+      <!-- Corner arcs -->
+      <path d="M ${PAD} ${PAD+8} A 8 8 0 0 1 ${PAD+8} ${PAD}" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
+      <path d="M ${PAD+PW-8} ${PAD} A 8 8 0 0 1 ${PAD+PW} ${PAD+8}" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
+      <path d="M ${PAD} ${PAD+PH-8} A 8 8 0 0 0 ${PAD+8} ${PAD+PH}" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
+      <path d="M ${PAD+PW-8} ${PAD+PH} A 8 8 0 0 0 ${PAD+PW} ${PAD+PH-8}" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8"/>
+
+      <!-- ATTACKING label at bottom -->
+      <text x="${PAD + PW/2}" y="${H - 2}" text-anchor="middle" font-family="Inter" font-size="7" fill="rgba(255,255,255,0.4)" letter-spacing="2">▲ ATTACKING</text>
+    `;
+
     const card = document.createElement('div');
     card.className = 'heatmap-card';
-
-    // Build SVG pitch with heat blobs
-    const blobsSvg = blobs.map(([cx, cy, intensity]) => {
-      const r = 30 + intensity * 20;
-      const opacity = 0.15 + intensity * 0.45;
-      return `<ellipse cx="${cx}%" cy="${cy}%" rx="${r}" ry="${r * 0.7}" fill="${p.color}" opacity="${opacity}"/>`;
-    }).join('');
-
     card.innerHTML = `
-      <div class="heatmap-player-name" style="color:${p.color}">${p.name}</div>
-      <svg class="pitch-svg" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-        <!-- Pitch background -->
-        <rect width="300" height="200" rx="4" fill="#0a1f0a"/>
-        <!-- Pitch stripes -->
-        <rect x="0" y="0" width="50" height="200" fill="rgba(255,255,255,0.015)"/>
-        <rect x="100" y="0" width="50" height="200" fill="rgba(255,255,255,0.015)"/>
-        <rect x="200" y="0" width="50" height="200" fill="rgba(255,255,255,0.015)"/>
-        <!-- Heat blobs -->
-        <defs><filter id="blur${i}"><feGaussianBlur stdDeviation="14"/></filter></defs>
-        <g filter="url(#blur${i})">${blobsSvg}</g>
-        <!-- Pitch markings -->
-        <rect x="1" y="1" width="298" height="198" rx="3" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-        <line x1="150" y1="0" x2="150" y2="200" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
-        <circle cx="150" cy="100" r="28" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
-        <!-- Penalty areas -->
-        <rect x="1" y="55" width="44" height="90" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
-        <rect x="255" y="55" width="44" height="90" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
-        <!-- Goal boxes -->
-        <rect x="1" y="78" width="14" height="44" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
-        <rect x="285" y="78" width="14" height="44" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
-        <!-- Penalty spots -->
-        <circle cx="30" cy="100" r="1.5" fill="rgba(255,255,255,0.4)"/>
-        <circle cx="270" cy="100" r="1.5" fill="rgba(255,255,255,0.4)"/>
-        <circle cx="150" cy="100" r="1.5" fill="rgba(255,255,255,0.4)"/>
-        <!-- Player label -->
-        <text x="150" y="192" text-anchor="middle" font-family="Inter" font-size="7" fill="rgba(255,255,255,0.3)">${p.nation}</text>
+      <div class="heatmap-header">
+        <span class="heatmap-player-name" style="color:${p.color}">${p.name}</span>
+        <span class="heatmap-meta">${totalGoals} goals · zones</span>
+      </div>
+      <svg class="pitch-svg" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pitchGrad${i}" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#061206"/>
+            <stop offset="100%" stop-color="#0a1f0a"/>
+          </linearGradient>
+        </defs>
+        <!-- Pitch base -->
+        <rect width="${W}" height="${H}" fill="url(#pitchGrad${i})" rx="6"/>
+        <!-- Pitch stripes (alternating) -->
+        ${Array.from({length: ROWS}, (_,r) =>
+          r % 2 === 0
+          ? `<rect x="${PAD}" y="${PAD + r*RH}" width="${PW}" height="${RH}" fill="rgba(255,255,255,0.018)"/>`
+          : ''
+        ).join('')}
+        <!-- Heat zones -->
+        ${zonesSvg}
+        <!-- Grid lines -->
+        ${gridLines}
+        <!-- Pitch markings on top -->
+        ${pitchMarkings}
       </svg>
+      <div class="pitch-axis-label">
+        <span>← LEFT</span>
+        <span>RIGHT →</span>
+      </div>
+      <div class="heatmap-legend">
+        <span class="legend-text">Low</span>
+        <svg width="80" height="6" style="border-radius:3px;overflow:hidden">
+          <defs>
+            <linearGradient id="lg${i}" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="rgb(8,25,8)"/>
+              <stop offset="40%" stop-color="rgb(30,80,20)"/>
+              <stop offset="70%" stop-color="rgb(160,180,0)"/>
+              <stop offset="100%" stop-color="rgb(255,240,20)"/>
+            </linearGradient>
+          </defs>
+          <rect width="80" height="6" fill="url(#lg${i})"/>
+        </svg>
+        <span class="legend-text">High</span>
+      </div>
     `;
     grid.appendChild(card);
   });
